@@ -1,5 +1,6 @@
 package io.cavia.homenet.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cavia.homenet.client.ApiOAuthManager;
 import io.cavia.homenet.client.ApiWebSocketClient;
 import io.cavia.homenet.client.ApiWebSocketHandler;
@@ -28,6 +29,7 @@ public class SpringConfig {
     public SpringConfig(WebClient.Builder webClientBuilder, EntityManager em) {
         this.webClientBuilder = webClientBuilder;
         this.em = em;
+
     }
 
 
@@ -58,7 +60,6 @@ public class SpringConfig {
     public RestWebClient restWebClient() {
         return new RestWebClient(webClient(), apiOAuthManager());
     }
-
     @Bean
     public ApiOAuthManager apiOAuthManager() {
         return new ApiOAuthManager(webClient(), apiOAuthRepository());

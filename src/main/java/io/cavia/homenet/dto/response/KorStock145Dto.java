@@ -2,32 +2,26 @@ package io.cavia.homenet.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public class KorStock145Dto {
     /**
      * 예탁원정보(배당일정)Dto입니다
+     * diviKind: 배당종류
+     * diviRate: 현금배당률
+     * stkdiviRate: 주식배당률
+     * divi_pay_dt: 배당지급일
      */
     @JsonProperty("output1")
     private List<KorStock145Output> output;
-    @JsonProperty("divi_kind")
-    private String diviKind;
-    @JsonProperty("divi_rate")
-    private String diviRate;
-    @JsonProperty("stk_divi_rate")
-    private String stkDiviRate;
-    @JsonProperty("divi_pay_dt")
-    private String diviPayDt;
 
     public KorStock145Dto() {
     }
 
-    public KorStock145Dto(List<KorStock145Output> output, String diviKind, String diviRate, String stkDiviRate, String diviPayDt) {
+    public KorStock145Dto(List<KorStock145Output> output) {
         this.output = output;
-        this.diviKind = diviKind;
-        this.diviRate = diviRate;
-        this.stkDiviRate = stkDiviRate;
-        this.diviPayDt = diviPayDt;
     }
 
     public List<KorStock145Output> getOutput() {
@@ -38,35 +32,10 @@ public class KorStock145Dto {
         this.output = output;
     }
 
-    public String getDiviKind() {
-        return diviKind;
-    }
-
-    public void setDiviKind(String diviKind) {
-        this.diviKind = diviKind;
-    }
-
-    public String getDiviRate() {
-        return diviRate;
-    }
-
-    public void setDiviRate(String diviRate) {
-        this.diviRate = diviRate;
-    }
-
-    public String getStkDiviRate() {
-        return stkDiviRate;
-    }
-
-    public void setStkDiviRate(String stkDiviRate) {
-        this.stkDiviRate = stkDiviRate;
-    }
-
-    public String getDiviPayDt() {
-        return diviPayDt;
-    }
-
-    public void setDiviPayDt(String diviPayDt) {
-        this.diviPayDt = diviPayDt;
+    @Override
+    public String toString() {
+        return "KorStock145Dto{" +
+                "output=" + output +
+                '}';
     }
 }

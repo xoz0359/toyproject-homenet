@@ -3,6 +3,7 @@ package io.cavia.homenet.domain;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name = "stock")
@@ -24,18 +25,22 @@ public class Stock {
     @Column(name = "id")
     @Id @GeneratedValue
     private Long id;
+
+    // 기본 조회정보
     @Column(name = "pdno")
     private String pdno;
     @Column(name = "prdt_name")
     private String prdtName;
-    @Column(name = "std_idst_cd_name")
-    private String stdIdstCdName;
     @Column(name = "std_idst_clsf_cd_name")
     private String stdIdstClsfCdName;
+
+    // 상장정보
     @Column(name = "tot_issue_stk_qty")
     private Long totIssueStkQty;
     @Column(name = "list_dt")
-    private String listDt;
+    private Date listDt;
+
+    // 배당정보
     @Column(name = "divi_kind")
     private String diviKind;
     @Column(name = "divi_rate")
@@ -43,13 +48,15 @@ public class Stock {
     @Column(name = "stk_divi_rate")
     private BigDecimal stkDiviRate;
     @Column(name = "divi_pay_dt")
-    private String diviPayDt;
+    private Date diviPayDt;
+
+    // 외인, 기관 추정가집계
     @Column(name = "frgn_fake_ntby_qty")
-    private String frgnFakeNtbyQty;
+    private Long frgnFakeNtbyQty;
     @Column(name = "orgn_fake_ntby_qty")
-    private String orgnFakeNtbyQty;
+    private Long orgnFakeNtbyQty;
     @Column(name = "sum_fake_ntby_qty")
-    private String sumFakeNtbyQty;
+    private Long sumFakeNtbyQty;
 
 
     public Stock() {
@@ -79,14 +86,6 @@ public class Stock {
         this.prdtName = prdtName;
     }
 
-    public String getStdIdstCdName() {
-        return stdIdstCdName;
-    }
-
-    public void setStdIdstCdName(String stdIdstCdName) {
-        this.stdIdstCdName = stdIdstCdName;
-    }
-
     public String getStdIdstClsfCdName() {
         return stdIdstClsfCdName;
     }
@@ -103,11 +102,11 @@ public class Stock {
         this.totIssueStkQty = totIssueStkQty;
     }
 
-    public String getListDt() {
+    public Date getListDt() {
         return listDt;
     }
 
-    public void setListDt(String listDt) {
+    public void setListDt(Date listDt) {
         this.listDt = listDt;
     }
 
@@ -135,55 +134,36 @@ public class Stock {
         this.stkDiviRate = stkDiviRate;
     }
 
-    public String getDiviPayDt() {
+    public Date getDiviPayDt() {
         return diviPayDt;
     }
 
-    public void setDiviPayDt(String diviPayDt) {
+    public void setDiviPayDt(Date diviPayDt) {
         this.diviPayDt = diviPayDt;
     }
 
-    public String getFrgnFakeNtbyQty() {
+    public Long getFrgnFakeNtbyQty() {
         return frgnFakeNtbyQty;
     }
 
-    public void setFrgnFakeNtbyQty(String frgnFakeNtbyQty) {
+    public void setFrgnFakeNtbyQty(Long frgnFakeNtbyQty) {
         this.frgnFakeNtbyQty = frgnFakeNtbyQty;
     }
 
-    public String getOrgnFakeNtbyQty() {
+    public Long getOrgnFakeNtbyQty() {
         return orgnFakeNtbyQty;
     }
 
-    public void setOrgnFakeNtbyQty(String orgnFakeNtbyQty) {
+    public void setOrgnFakeNtbyQty(Long orgnFakeNtbyQty) {
         this.orgnFakeNtbyQty = orgnFakeNtbyQty;
     }
 
-    public String getSumFakeNtbyQty() {
+    public Long getSumFakeNtbyQty() {
         return sumFakeNtbyQty;
     }
 
-    public void setSumFakeNtbyQty(String sumFakeNtbyQty) {
+    public void setSumFakeNtbyQty(Long sumFakeNtbyQty) {
         this.sumFakeNtbyQty = sumFakeNtbyQty;
     }
 
-    @Override
-    public String toString() {
-        return "Stock{" +
-            "id=" + id +
-            ", pdno='" + pdno + '\'' +
-            ", prdtName='" + prdtName + '\'' +
-            ", stdIdstCdName='" + stdIdstCdName + '\'' +
-            ", stdIdstClsfCd='" + stdIdstClsfCdName + '\'' +
-            ", totIssueStkQty=" + totIssueStkQty +
-            ", listDt='" + listDt + '\'' +
-            ", diviKind='" + diviKind + '\'' +
-            ", diviRate=" + diviRate +
-            ", stkDiviRate=" + stkDiviRate +
-            ", diviPayDt='" + diviPayDt + '\'' +
-            ", frgnFakeNtbyQty='" + frgnFakeNtbyQty + '\'' +
-            ", orgnFakeNtbyQty='" + orgnFakeNtbyQty + '\'' +
-            ", sumFakeNtbyQty='" + sumFakeNtbyQty + '\'' +
-            '}';
-    }
 }

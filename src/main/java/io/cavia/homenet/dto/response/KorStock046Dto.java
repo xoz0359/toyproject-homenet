@@ -11,16 +11,16 @@ public class KorStock046Dto {
     @JsonProperty("output2")
     private List<KorStock046Output> output;
     @JsonProperty("frgn_fake_ntby_qty")
-    private String frgnFakeNtbyQty;
+    private Long frgnFakeNtbyQty;
     @JsonProperty("orgn_fake_ntby_qty")
-    private String orgnFakeNtbyQty;
+    private Long orgnFakeNtbyQty;
     @JsonProperty("sum_fake_ntby_qty")
-    private String sumFakeNtbyQty;
+    private Long sumFakeNtbyQty;
 
     public KorStock046Dto() {
     }
 
-    public KorStock046Dto(List<KorStock046Output> output, String frgnFakeNtbyQty, String orgnFakeNtbyQty, String sumFakeNtbyQty) {
+    public KorStock046Dto(List<KorStock046Output> output, Long frgnFakeNtbyQty, Long orgnFakeNtbyQty, Long sumFakeNtbyQty) {
         this.output = output;
         this.frgnFakeNtbyQty = frgnFakeNtbyQty;
         this.orgnFakeNtbyQty = orgnFakeNtbyQty;
@@ -35,27 +35,27 @@ public class KorStock046Dto {
         this.output = output;
     }
 
-    public String getFrgnFakeNtbyQty() {
+    public Long getFrgnFakeNtbyQty() {
         return frgnFakeNtbyQty;
     }
 
-    public void setFrgnFakeNtbyQty(String frgnFakeNtbyQty) {
+    public void setFrgnFakeNtbyQty(Long frgnFakeNtbyQty) {
         this.frgnFakeNtbyQty = frgnFakeNtbyQty;
     }
 
-    public String getOrgnFakeNtbyQty() {
+    public Long getOrgnFakeNtbyQty() {
         return orgnFakeNtbyQty;
     }
 
-    public void setOrgnFakeNtbyQty(String orgnFakeNtbyQty) {
+    public void setOrgnFakeNtbyQty(Long orgnFakeNtbyQty) {
         this.orgnFakeNtbyQty = orgnFakeNtbyQty;
     }
 
-    public String getSumFakeNtbyQty() {
+    public Long getSumFakeNtbyQty() {
         return sumFakeNtbyQty;
     }
 
-    public void setSumFakeNtbyQty(String sumFakeNtbyQty) {
+    public void setSumFakeNtbyQty(Long sumFakeNtbyQty) {
         this.sumFakeNtbyQty = sumFakeNtbyQty;
     }
 

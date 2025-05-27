@@ -7,34 +7,37 @@ import java.util.List;
 public class KorStock213Dto {
     /**
      * 주식일별분봉조회Dto입니다
+     * output1(당일)
+     * prdyVrss: 전일 대비
+     * prdyVrssSign: 전일 대비 부호
+     * prdyCtrt: 전일 대비율
+     * stckPrdyClpr: 주식 전일 종가 (시가)
+     * acmlVol: 누적 거래량
+     * acmlTrPbmn: 누적 거래대금
+     * htsKorIsnm: HTS 한글 종목명
+     * stckPrpr: 주식 현재가
+     * output2(과거)
+     * stckBsopDate: 주식 영업 일자
+     * stckCntgHour: 주식 체결 시간
+     * stckPrpr: 현재가
+     * stck_oprc: 주식 시가2
+     * stckHgpr: 주식 최고가
+     * stckLwpr: 주식 최저가
+     * cntg_vol: 체결 거래량
+     * acmlVol: 누적 거래량
+     * acml_tr_pdmn: 누적 거래대금
      */
     @JsonProperty("output1")
     private KorStock213Output1 output1;
     @JsonProperty("output2")
     private List<KorStock213Output2> output2;
-    @JsonProperty("stck_prdy_clpr")
-    private String stckPrdyClpr;
-    @JsonProperty("stck_prpr")
-    private String stckPrpr;
-    @JsonProperty("stck_hgpr")
-    private String stckHgpr;
-    @JsonProperty("stck_lwpr")
-    private String stckLwpr;
-    @JsonProperty("acml_vol")
-    private String acmlVol;
 
     public KorStock213Dto() {
     }
 
-    public KorStock213Dto(KorStock213Output1 output1, List<KorStock213Output2> output2, String stckPrdyClpr, String stckPrpr,
-                          String stckHgpr, String stckLwpr, String acmlVol) {
+    public KorStock213Dto(KorStock213Output1 output1, List<KorStock213Output2> output2) {
         this.output1 = output1;
         this.output2 = output2;
-        this.stckPrdyClpr = stckPrdyClpr;
-        this.stckPrpr = stckPrpr;
-        this.stckHgpr = stckHgpr;
-        this.stckLwpr = stckLwpr;
-        this.acmlVol = acmlVol;
     }
 
     public KorStock213Output1 getOutput1() {
@@ -53,43 +56,11 @@ public class KorStock213Dto {
         this.output2 = output2;
     }
 
-    public String getStckPrdyClpr() {
-        return stckPrdyClpr;
-    }
-
-    public void setStckPrdyClpr(String stckPrdyClpr) {
-        this.stckPrdyClpr = stckPrdyClpr;
-    }
-
-    public String getStckPrpr() {
-        return stckPrpr;
-    }
-
-    public void setStckPrpr(String stckPrpr) {
-        this.stckPrpr = stckPrpr;
-    }
-
-    public String getStckHgpr() {
-        return stckHgpr;
-    }
-
-    public void setStckHgpr(String stckHgpr) {
-        this.stckHgpr = stckHgpr;
-    }
-
-    public String getStckLwpr() {
-        return stckLwpr;
-    }
-
-    public void setStckLwpr(String stckLwpr) {
-        this.stckLwpr = stckLwpr;
-    }
-
-    public String getAcmlVol() {
-        return acmlVol;
-    }
-
-    public void setAcmlVol(String acmlVol) {
-        this.acmlVol = acmlVol;
+   @Override
+    public String toString() {
+        return "KorStock213Dto{" +
+                "output1=" + output1 +
+                ", output2=" + output2 +
+                '}';
     }
 }

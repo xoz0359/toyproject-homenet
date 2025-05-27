@@ -57,4 +57,14 @@ public class KorStock067Dto {
     public void setStdIdstClsfCdName(String stdIdstClsfCdName) {
         this.stdIdstClsfCdName = stdIdstClsfCdName;
     }
+
+    @Override
+    public String toString() {
+        return "KorStock067Dto{" +
+                "output=" + output +
+                ", pdno='" + pdno + '\'' +
+                ", prdtName='" + prdtName + '\'' +
+                ", stdIdstClsfCdName='" + stdIdstClsfCdName + '\'' +
+                '}';
+    }
 }

@@ -2,56 +2,111 @@ package io.cavia.homenet.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.math.BigDecimal;
+
 public class KorStock213Output1 implements StockDtoOutput {
 
-    @JsonProperty("stck_prdy_clqr")
-    private String stckPrdyClqr;
-    @JsonProperty("stck_prpr")
-    private String stckPrpr;
-    @JsonProperty("stck_hgpr")
-    private String stckHgpr;
+    @JsonProperty("prdy_vrss")
+    private Integer prdyVrss;
+
+    @JsonProperty("prdy_vrss_sign")
+    private Integer prdyVrssSign;
+
+    @JsonProperty("prdy_ctrt")
+    private BigDecimal prdyCtrt;
+
+    @JsonProperty("stck_prdy_clpr")
+    private Integer stckPrdyClpr;
+
     @JsonProperty("acml_vol")
-    private String acmlVol;
+    private Long acmlVol;
 
-    public KorStock213Output1() {
+    @JsonProperty("acml_tr_pbmn")
+    private Long acmlTrPbmn;
+
+    @JsonProperty("hts_kor_isnm")
+    private String htsKorIsnm;
+
+    @JsonProperty("stck_prpr")
+    private Integer stckPrpr;
+
+    public KorStock213Output1() {}
+
+    public Integer getPrdyVrss() {
+        return prdyVrss;
     }
 
-    public KorStock213Output1(String stckPrdyClqr, String stckPrpr, String stckHgpr, String acml_vol) {
-        this.stckPrdyClqr = stckPrdyClqr;
-        this.stckPrpr = stckPrpr;
-        this.stckHgpr = stckHgpr;
-        this.acmlVol = acml_vol;
+    public void setPrdyVrss(Integer prdyVrss) {
+        this.prdyVrss = prdyVrss;
     }
 
-    public String getStckPrdyClqr() {
-        return stckPrdyClqr;
+    public Integer getPrdyVrssSign() {
+        return prdyVrssSign;
     }
 
-    public void setStckPrdyClqr(String stckPrdyClqr) {
-        this.stckPrdyClqr = stckPrdyClqr;
+    public void setPrdyVrssSign(Integer prdyVrssSign) {
+        this.prdyVrssSign = prdyVrssSign;
     }
 
-    public String getStckPrpr() {
-        return stckPrpr;
+    public BigDecimal getPrdyCtrt() {
+        return prdyCtrt;
     }
 
-    public void setStckPrpr(String stckPrpr) {
-        this.stckPrpr = stckPrpr;
+    public void setPrdyCtrt(BigDecimal prdyCtrt) {
+        this.prdyCtrt = prdyCtrt;
     }
 
-    public String getStckHgpr() {
-        return stckHgpr;
+    public Integer getStckPrdyClpr() {
+        return stckPrdyClpr;
     }
 
-    public void setStckHgpr(String stckHgpr) {
-        this.stckHgpr = stckHgpr;
+    public void setStckPrdyClpr(Integer stckPrdyClpr) {
+        this.stckPrdyClpr = stckPrdyClpr;
     }
 
-    public String getAcmlVol() {
+    public Long getAcmlVol() {
         return acmlVol;
     }
 
-    public void setAcmlVol(String acmlVol) {
+    public void setAcmlVol(Long acmlVol) {
         this.acmlVol = acmlVol;
+    }
+
+    public Long getAcmlTrPbmn() {
+        return acmlTrPbmn;
+    }
+
+    public void setAcmlTrPbmn(Long acmlTrPbmn) {
+        this.acmlTrPbmn = acmlTrPbmn;
+    }
+
+    public String getHtsKorIsnm() {
+        return htsKorIsnm;
+    }
+
+    public void setHtsKorIsnm(String htsKorIsnm) {
+        this.htsKorIsnm = htsKorIsnm;
+    }
+
+    public Integer getStckPrpr() {
+        return stckPrpr;
+    }
+
+    public void setStckPrpr(Integer stckPrpr) {
+        this.stckPrpr = stckPrpr;
+    }
+
+    @Override
+    public String toString() {
+        return "KorStock213Output1{" +
+                "prdyVrss=" + prdyVrss +
+                ", prdyVrssSign=" + prdyVrssSign +
+                ", prdyCtrt=" + prdyCtrt +
+                ", stckPrdyClpr=" + stckPrdyClpr +
+                ", acmlVol=" + acmlVol +
+                ", acmlTrPbmn=" + acmlTrPbmn +
+                ", htsKorIsnm='" + htsKorIsnm + '\'' +
+                ", stckPrpr=" + stckPrpr +
+                '}';
     }
 }

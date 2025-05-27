@@ -1,22 +1,27 @@
 package io.cavia.homenet.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 public class KorStock145Output implements StockDtoOutput {
 
     @JsonProperty("divi_kind")
     private String diviKind;
     @JsonProperty("divi_rate")
-    private String diviRate;
+    private BigDecimal diviRate;
     @JsonProperty("stk_divi_rate")
-    private String stkDiviRate;
+    private BigDecimal stkDiviRate;
     @JsonProperty("divi_pay_dt")
-    private String diviPayDt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+    private Date diviPayDt;
 
     public KorStock145Output() {
     }
 
-    public KorStock145Output(String diviKind, String diviRate, String stkDiviRate, String diviPayDt) {
+    public KorStock145Output(String diviKind, BigDecimal diviRate, BigDecimal stkDiviRate, Date diviPayDt) {
         this.diviKind = diviKind;
         this.diviRate = diviRate;
         this.stkDiviRate = stkDiviRate;
@@ -31,27 +36,37 @@ public class KorStock145Output implements StockDtoOutput {
         this.diviKind = diviKind;
     }
 
-    public String getDiviRate() {
+    public BigDecimal getDiviRate() {
         return diviRate;
     }
 
-    public void setDiviRate(String diviRate) {
+    public void setDiviRate(BigDecimal diviRate) {
         this.diviRate = diviRate;
     }
 
-    public String getStkDiviRate() {
+    public BigDecimal getStkDiviRate() {
         return stkDiviRate;
     }
 
-    public void setStkDiviRate(String stkDiviRate) {
+    public void setStkDiviRate(BigDecimal stkDiviRate) {
         this.stkDiviRate = stkDiviRate;
     }
 
-    public String getDiviPayDt() {
+    public Date getDiviPayDt() {
         return diviPayDt;
     }
 
-    public void setDiviPayDt(String diviPayDt) {
+    public void setDiviPayDt(Date diviPayDt) {
         this.diviPayDt = diviPayDt;
+    }
+
+    @Override
+    public String toString() {
+        return "KorStock145Output{" +
+                "diviKind='" + diviKind + '\'' +
+                ", diviRate='" + diviRate + '\'' +
+                ", stkDiviRate='" + stkDiviRate + '\'' +
+                ", diviPayDt='" + diviPayDt + '\'' +
+                '}';
     }
 }
