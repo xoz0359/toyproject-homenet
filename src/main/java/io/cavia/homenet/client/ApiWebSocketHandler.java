@@ -67,8 +67,8 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
             return;
         }
         // TODO 받아온 receivedData 문자열을 분류해서 DB에 저장하는 코드 작성
-        if (receivedData.indexOf("H0STCNT0") == -1) {
-            String[] datas = receivedData.split("\\^");
+        String[] datas = receivedData.split("\\^");
+        if (datas[0].indexOf("H0STCNT0") == -1) {
             datas[0] = datas[0].substring(datas[0].lastIndexOf("|"));
             if (datas.length % 59 == 0) {
                 for (int i = 0; i < datas.length; i += 59) {
@@ -79,7 +79,6 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
                 }
             }
         } else {
-            String[] datas = receivedData.split("\\^");
             datas[0] = datas[0].substring(datas[0].lastIndexOf("|"));
             if (datas.length % 46 == 0) {
                 for (int i = 0; i < datas.length; i += 46) {

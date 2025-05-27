@@ -32,7 +32,6 @@ public class SpringConfig {
 
     }
 
-
     @Bean
     public WebClient webClient() {
         return webClientBuilder
@@ -60,6 +59,7 @@ public class SpringConfig {
     public RestWebClient restWebClient() {
         return new RestWebClient(webClient(), apiOAuthManager());
     }
+
     @Bean
     public ApiOAuthManager apiOAuthManager() {
         return new ApiOAuthManager(webClient(), apiOAuthRepository());
@@ -79,4 +79,5 @@ public class SpringConfig {
     public KorOrderRealTimeMapper korOrderRealTimeMapper() {
         return new KorOrderRealTimeMapper();
     }
+
 }
