@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 
 @Repository
-public interface StockRealTimeRepository extends JpaRepository<StockRealTime, String> {
+public interface StockRealTimeRepository extends JpaRepository<StockRealTime, Long> {
 }

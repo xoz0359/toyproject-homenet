@@ -4,6 +4,10 @@ import io.cavia.homenet.domain.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface StockDefaltRepository extends JpaRepository<Stock, String> {
+public interface StockDefaltRepository extends JpaRepository<Stock, Long> {
+
+    List<Stock> findByPdno(String pdno);
 }
