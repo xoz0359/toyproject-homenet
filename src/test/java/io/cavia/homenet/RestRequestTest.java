@@ -36,7 +36,6 @@ public class RestRequestTest {
         System.out.println(restWebClient.searchIndustryInfo065("D", "U", "1001", "20250527"));
         System.out.println(restWebClient.searchMarketFlowInfo074("1001", "KSQ"));
         System.out.println(restWebClient.searchMarketFlowInfo075("U", "1001", "20250527", "KSQ"));
-
     }
 
     @Test

@@ -2,10 +2,12 @@ package io.cavia.homenet.client;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.cavia.homenet.domain.ViRealTime;
 import io.cavia.homenet.mapper.KorOrderRealTimeMapper;
 import io.cavia.homenet.mapper.KorStockRealTimeMapper;
 import io.cavia.homenet.repository.OrderRealTimeRepository;
 import io.cavia.homenet.repository.StockRealTimeRepository;
+import io.cavia.homenet.repository.ViRealTimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -25,6 +27,8 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
     private StockRealTimeRepository stockRealTimeRepository;
     @Autowired
     private KorStockRealTimeMapper korStockRealTimeMapper;
+    @Autowired
+    private ViRealTimeRepository viRealTimeRepository;
 
 
     public ApiWebSocketHandler() {
@@ -68,29 +72,47 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
         }
         // TODO 받아온 receivedData 문자열을 분류해서 DB에 저장하는 코드 작성
         String[] datas = receivedData.split("\\^");
-        if (datas[0].indexOf("H0STCNT0") == -1) {
-            datas[0] = datas[0].substring(datas[0].lastIndexOf("|"));
-            if (datas.length % 59 == 0) {
-                for (int i = 0; i < datas.length; i += 59) {
-                    orderRealTimeRepository.save(korOrderRealTimeMapper.toEntity(
-                        IntStream.rangeClosed(i, i + 58)
-                            .mapToObj(j -> datas[j])
-                            .toArray(String[]::new)));
-                }
-            }
-        } else {
+        if (datas[0].indexOf("H0STCNT0") != -1) {
             datas[0] = datas[0].substring(datas[0].lastIndexOf("|"));
             if (datas.length % 46 == 0) {
                 for (int i = 0; i < datas.length; i += 46) {
                     stockRealTimeRepository.save(korStockRealTimeMapper.toEntity(
-                        IntStream.rangeClosed(i, i + 45)
-                            .mapToObj(j -> datas[j])
-                            .toArray(String[]::new)));
+                            IntStream.rangeClosed(i, i + 45)
+                                    .mapToObj(j -> datas[j])
+                                    .toArray(String[]::new)));
+                }
+            }
+        } else if (datas[0].indexOf("H0STASP0") != -1) {
+            datas[0] = datas[0].substring(datas[0].lastIndexOf("|"));
+            if (datas.length % 59 == 0) {
+                for (int i = 0; i < datas.length; i += 59) {
+                    orderRealTimeRepository.save(korOrderRealTimeMapper.toEntity(
+                            IntStream.rangeClosed(i, i + 58)
+                                    .mapToObj(j -> datas[j])
+                                    .toArray(String[]::new)));
+                }
+            } else if (datas[0].indexOf("H0STMKO0") != -1) {
+                datas[0] = datas[0].substring(datas[0].lastIndexOf("|"));
+                if (datas.length % 11 == 0) {
+                    for (int i = 0; i < datas.length; i += 11) {
+                        viRealTimeRepository.save(
+                                new ViRealTime(
+                                        datas[i],
+                                        datas[i + 1],
+                                        datas[i + 2],
+                                        datas[i + 3],
+                                        datas[i + 4],
+                                        datas[i + 5],
+                                        datas[i + 6],
+                                        datas[i + 7],
+                                        datas[i + 8],
+                                        datas[i + 9],
+                                        datas[i + 10]
+                                ));
+                    }
                 }
             }
         }
-
-
     }
 
     @Override

@@ -21,6 +21,7 @@ public class ApiWebSocketClient {
 
     public static final String TR_ID_EXECUTION_PRICE = "H0STCNT0";
     public static final String TR_ID_QUOTED_PRICE = "H0STASP0";
+    public static final String TR_ID_VI_VOLUME = "H0STMKO0";
     public static final String TR_TYPE_SUBSCRIPTION = "1";
     public static final String TR_TYPE_UNSUBSCRIPTION = "2";
 
@@ -35,7 +36,7 @@ public class ApiWebSocketClient {
      */
     public void connectToWebSocket() {
         try {
-            String STOCK_WEBSOCKET_URI = "ws://ops.koreainvestment.com:31000";
+            String STOCK_WEBSOCKET_URI = "ws://ops.koreainvestment.com:21000";
             CompletableFuture<WebSocketSession> completableFutureSession = webSocketClient.execute(webSocketHandler, STOCK_WEBSOCKET_URI);
 
             completableFutureSession.whenComplete((session, ex) -> {
