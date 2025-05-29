@@ -290,5 +290,78 @@ public class RestWebClient {
         }
     }
 
+    public KorMarketFlow074Dto searchMarketFlowInfo074(String fidInputIscd2, String fidInputIscd) {
+        /**
+         * 예탁원정보(배당일정)
+         * fid_input_iscd_2:	업종구분
+         * fid_input_iscd:	시장구분	FID 입력 날짜1
+         */
+        try {
+            String accessToken = apiOAuthManager.getAccessToken();
+            KorMarketFlow074Dto korMarketFlow074Dto = webClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/uapi/domestic-stock/v1/quotations/inquire-investor-time-by-market")
+                            .queryParam("fid_input_iscd_2", fidInputIscd2)
+                            .queryParam("fid_input_iscd", fidInputIscd)
+                            .build())
+                    .header(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8") // GET 요청시는 이렇게
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                    .header("appkey", apiOAuthManager.getAppKey())
+                    .header("appsecret", apiOAuthManager.getAppSecret())
+                    .header("tr_cont", "")
+                    .header("tr_id", "FHPTJ04030000")
+                    .header("custtype", "P")
+                    .retrieve() // 요청 보내고, 성공하면 응답 바디를 가져올 준비를 하고, 실패하면 예외를 던짐
+                    .bodyToMono(KorMarketFlow074Dto.class)
+                    .block();
+            return korMarketFlow074Dto;
+        } catch (WebClientResponseException e) {
+            System.out.println("API 호출 중 에러 발생!");
+            System.out.println("Status Code: " + e.getStatusCode());
+            String errorBody = e.getResponseBodyAsString();
+            throw new RuntimeException("API 호출 실패: " + errorBody, e);
+        } catch (Exception e) {
+            throw new RuntimeException("메서드 실행중 예외 발생: " + e.getMessage(), e);
+        }
+    }
+
+    public KorMarketFlow075Dto searchMarketFlowInfo075(String fidCondMrktDivCode, String fidInputIscd, String fidInputDate1, String fidInputIscd1) {
+        /**
+         * 예탁원정보(배당일정)
+         * FID_COND_MRKT_DIV_CODE	조건 시장 분류 코드(U)
+         * FID_INPUT_ISCD	입력 종목코드	String	Y	12	업종분류코드
+         * FID_INPUT_DATE_1	입력 날짜1	String	Y	10	ex. 20240517
+         * FID_INPUT_ISCD_1	입력 종목코드	String	Y	12	코스피(KSP), 코스닥(KSQ),
+         */
+        try {
+            String accessToken = apiOAuthManager.getAccessToken();
+            KorMarketFlow075Dto korMarketFlow075Dto = webClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/uapi/domestic-stock/v1/quotations/inquire-investor-daily-by-market")
+                            .queryParam("FID_COND_MRKT_DIV_CODE", fidCondMrktDivCode)
+                            .queryParam("FID_INPUT_ISCD", fidInputIscd)
+                            .queryParam("FID_INPUT_DATE_1", fidInputDate1)
+                            .queryParam("FID_INPUT_ISCD_1", fidInputIscd1)
+                            .build())
+                    .header(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8") // GET 요청시는 이렇게
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                    .header("appkey", apiOAuthManager.getAppKey())
+                    .header("appsecret", apiOAuthManager.getAppSecret())
+                    .header("tr_cont", "")
+                    .header("tr_id", "FHPTJ04040000")
+                    .header("custtype", "P")
+                    .retrieve() // 요청 보내고, 성공하면 응답 바디를 가져올 준비를 하고, 실패하면 예외를 던짐
+                    .bodyToMono(KorMarketFlow075Dto.class)
+                    .block();
+            return korMarketFlow075Dto;
+        } catch (WebClientResponseException e) {
+            System.out.println("API 호출 중 에러 발생!");
+            System.out.println("Status Code: " + e.getStatusCode());
+            String errorBody = e.getResponseBodyAsString();
+            throw new RuntimeException("API 호출 실패: " + errorBody, e);
+        } catch (Exception e) {
+            throw new RuntimeException("메서드 실행중 예외 발생: " + e.getMessage(), e);
+        }
+    }
 
 }
