@@ -1,35 +1,36 @@
 package io.cavia.homenet.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.math.BigDecimal;
+
 public class KorIndustry063Output implements StockDtoOutput {
 
-    private String bstpNmixPrpr;
-    private String bstpNmixPrdyVrss;
+    @JsonProperty("bstp_nmix_prpr")
+    private BigDecimal bstpNmixPrpr;
+    @JsonProperty("bstp_nmix_prdy_vrss")
+    private BigDecimal bstpNmixPrdyVrss;
+    @JsonProperty("prdy_vrss_sign")
     private String PrdyVrssSign;
-    private String bstpNmixPrdyCtrt;
+    @JsonProperty("bstp_nmix_prdy_ctrt")
+    private BigDecimal bstpNmixPrdyCtrt;
 
     public KorIndustry063Output() {
     }
 
-    public KorIndustry063Output(String bstpNmixPrpr, String bstpNmixPrdyVrss, String prdyVrssSign, String bstpNmixPrdyCtrt) {
-        this.bstpNmixPrpr = bstpNmixPrpr;
-        this.bstpNmixPrdyVrss = bstpNmixPrdyVrss;
-        PrdyVrssSign = prdyVrssSign;
-        this.bstpNmixPrdyCtrt = bstpNmixPrdyCtrt;
-    }
-
-    public String getBstpNmixPrpr() {
+    public BigDecimal getBstpNmixPrpr() {
         return bstpNmixPrpr;
     }
 
-    public void setBstpNmixPrpr(String bstpNmixPrpr) {
+    public void setBstpNmixPrpr(BigDecimal bstpNmixPrpr) {
         this.bstpNmixPrpr = bstpNmixPrpr;
     }
 
-    public String getBstpNmixPrdyVrss() {
+    public BigDecimal getBstpNmixPrdyVrss() {
         return bstpNmixPrdyVrss;
     }
 
-    public void setBstpNmixPrdyVrss(String bstpNmixPrdyVrss) {
+    public void setBstpNmixPrdyVrss(BigDecimal bstpNmixPrdyVrss) {
         this.bstpNmixPrdyVrss = bstpNmixPrdyVrss;
     }
 
@@ -41,11 +42,21 @@ public class KorIndustry063Output implements StockDtoOutput {
         PrdyVrssSign = prdyVrssSign;
     }
 
-    public String getBstpNmixPrdyCtrt() {
+    public BigDecimal getBstpNmixPrdyCtrt() {
         return bstpNmixPrdyCtrt;
     }
 
-    public void setBstpNmixPrdyCtrt(String bstpNmixPrdyCtrt) {
+    public void setBstpNmixPrdyCtrt(BigDecimal bstpNmixPrdyCtrt) {
         this.bstpNmixPrdyCtrt = bstpNmixPrdyCtrt;
+    }
+
+    @Override
+    public String toString() {
+        return "KorIndustry063Output{" +
+                "bstpNmixPrpr=" + bstpNmixPrpr +
+                ", bstpNmixPrdyVrss=" + bstpNmixPrdyVrss +
+                ", PrdyVrssSign='" + PrdyVrssSign + '\'' +
+                ", bstpNmixPrdyCtrt=" + bstpNmixPrdyCtrt +
+                '}';
     }
 }

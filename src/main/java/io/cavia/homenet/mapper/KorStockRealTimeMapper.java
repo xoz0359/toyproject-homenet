@@ -1,11 +1,8 @@
 package io.cavia.homenet.mapper;
 
 import io.cavia.homenet.domain.StockRealTime;
-import io.cavia.homenet.domain.StockRealTime;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class KorStockRealTimeMapper {
     /**
@@ -14,8 +11,6 @@ public class KorStockRealTimeMapper {
      * 확인 결과 null로 전달 되는 값과 각각 다른 타입으로 파싱해야 하는 데이터가 있어서
      * 추후 보수를 고려하여 가장 원시적인 형태로 메서드를 작성하였습니다
      * '^'는 정규식에서 라인 시작을 의미하기 때문에 구분자로 사용하려면 이스케이프 해주어야 합니다
-     *
-     * @param dvs
      * @return
      */
     public StockRealTime toEntity(String[] datas) {

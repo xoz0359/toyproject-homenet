@@ -58,11 +58,13 @@ public class WebSocketRequestTest {
         for (String code : Codes){
             webSocketClient.subscribeWebSocket(code, ApiWebSocketClient.TR_ID_EXECUTION_PRICE);
             webSocketClient.subscribeWebSocket(code, ApiWebSocketClient.TR_ID_QUOTED_PRICE);
+            webSocketClient.subscribeWebSocket(code, ApiWebSocketClient.TR_ID_VI_VOLUME);
         }
         Thread.sleep(1000 * 1000);
         for (String code : Codes){
             webSocketClient.unsubscribeWebSocket(code, ApiWebSocketClient.TR_ID_EXECUTION_PRICE);
             webSocketClient.unsubscribeWebSocket(code, ApiWebSocketClient.TR_ID_QUOTED_PRICE);
+            webSocketClient.unsubscribeWebSocket(code, ApiWebSocketClient.TR_ID_VI_VOLUME);
         }
         Thread.sleep(1000);
         webSocketClient.disconnect();

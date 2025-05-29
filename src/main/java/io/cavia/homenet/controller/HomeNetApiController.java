@@ -48,7 +48,8 @@ public class HomeNetApiController {
     @GetMapping("/order-realtime")
     public List<OrderRealTime> getOrderRealTime(@Param("pdno") String code) {
         if( code == null || code.isEmpty()){
-            return orderRealTimeRepository.findAll();
+            List<OrderRealTime> orderRealTimeList = orderRealTimeRepository.findAll();
+            return orderRealTimeList;
          }
         return orderRealTimeRepository.findByMkscShrnIscd(code);
     }
@@ -56,7 +57,9 @@ public class HomeNetApiController {
     @GetMapping("/stock-realtime")
     public List<StockRealTime> getStockRealTime(@Param("pdno") String code) {
         if( code == null || code.isEmpty()){
-            return stockRealTimeRepository.findAll();
+            List<StockRealTime> stockRealTimeList = stockRealTimeRepository.findAll();
+            System.out.println(stockRealTimeList.size());
+            return stockRealTimeList;
         }
         return stockRealTimeRepository.findByMkscShrnIscd(code);
     }
