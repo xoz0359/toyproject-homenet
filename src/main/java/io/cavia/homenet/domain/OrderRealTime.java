@@ -12,143 +12,200 @@ public class OrderRealTime {
     @Column(name = "id")
     private Long id;
 
+    // 유가증권 단축 종목코드
     @Column(name = "mksc_shrn_iscd", length = 9, nullable = false)
     private String mkscShrnIscd;
 
+    // 영업 시간 (예: 093000)
     @Column(name = "bsop_hour", length = 6, nullable = false)
     private String bsopHour;
 
+    // 시간 구분 코드
     @Column(name = "hour_cls_code", length = 1, nullable = false)
     private String hourClsCode;
 
     // 매도호가 1~10
-    @Column(name = "askp1", nullable = false)
+    @Column(name = "askp1")
     private Integer askp1;
-    @Column(name = "askp2", nullable = false)
+
+    @Column(name = "askp2")
     private Integer askp2;
-    @Column(name = "askp3", nullable = false)
+
+    @Column(name = "askp3")
     private Integer askp3;
-    @Column(name = "askp4", nullable = false)
+
+    @Column(name = "askp4")
     private Integer askp4;
-    @Column(name = "askp5", nullable = false)
+
+    @Column(name = "askp5")
     private Integer askp5;
-    @Column(name = "askp6", nullable = false)
+
+    @Column(name = "askp6")
     private Integer askp6;
-    @Column(name = "askp7", nullable = false)
+
+    @Column(name = "askp7")
     private Integer askp7;
-    @Column(name = "askp8", nullable = false)
+
+    @Column(name = "askp8")
     private Integer askp8;
-    @Column(name = "askp9", nullable = false)
+
+    @Column(name = "askp9")
     private Integer askp9;
-    @Column(name = "askp10", nullable = false)
+
+    @Column(name = "askp10")
     private Integer askp10;
 
     // 매수호가 1~10
-    @Column(name = "bidp1", nullable = false)
+    @Column(name = "bidp1")
     private Integer bidp1;
-    @Column(name = "bidp2", nullable = false)
+
+    @Column(name = "bidp2")
     private Integer bidp2;
-    @Column(name = "bidp3", nullable = false)
+
+    @Column(name = "bidp3")
     private Integer bidp3;
-    @Column(name = "bidp4", nullable = false)
+
+    @Column(name = "bidp4")
     private Integer bidp4;
-    @Column(name = "bidp5", nullable = false)
+
+    @Column(name = "bidp5")
     private Integer bidp5;
-    @Column(name = "bidp6", nullable = false)
+
+    @Column(name = "bidp6")
     private Integer bidp6;
-    @Column(name = "bidp7", nullable = false)
+
+    @Column(name = "bidp7")
     private Integer bidp7;
-    @Column(name = "bidp8", nullable = false)
+
+    @Column(name = "bidp8")
     private Integer bidp8;
-    @Column(name = "bidp9", nullable = false)
+
+    @Column(name = "bidp9")
     private Integer bidp9;
-    @Column(name = "bidp10", nullable = false)
+
+    @Column(name = "bidp10")
     private Integer bidp10;
 
-    // 매도호가 잔량 1~10
-    @Column(name = "askp_rsqn1", nullable = false)
+    // 각 호가별 잔량 (매도)
+    @Column(name = "askp_rsqn1")
     private Long askpRsqn1;
-    @Column(name = "askp_rsqn2", nullable = false)
+
+    @Column(name = "askp_rsqn2")
     private Long askpRsqn2;
-    @Column(name = "askp_rsqn3", nullable = false)
+
+    @Column(name = "askp_rsqn3")
     private Long askpRsqn3;
-    @Column(name = "askp_rsqn4", nullable = false)
+
+    @Column(name = "askp_rsqn4")
     private Long askpRsqn4;
-    @Column(name = "askp_rsqn5", nullable = false)
+
+    @Column(name = "askp_rsqn5")
     private Long askpRsqn5;
-    @Column(name = "askp_rsqn6", nullable = false)
+
+    @Column(name = "askp_rsqn6")
     private Long askpRsqn6;
-    @Column(name = "askp_rsqn7", nullable = false)
+
+    @Column(name = "askp_rsqn7")
     private Long askpRsqn7;
-    @Column(name = "askp_rsqn8", nullable = false)
+
+    @Column(name = "askp_rsqn8")
     private Long askpRsqn8;
-    @Column(name = "askp_rsqn9", nullable = false)
+
+    @Column(name = "askp_rsqn9")
     private Long askpRsqn9;
-    @Column(name = "askp_rsqn10", nullable = false)
+
+    @Column(name = "askp_rsqn10")
     private Long askpRsqn10;
 
-    // 매수호가 잔량 1~10
-    @Column(name = "bidp_rsqn1", nullable = false)
+    // 각 호가별 잔량 (매수)
+    @Column(name = "bidp_rsqn1")
     private Long bidpRsqn1;
-    @Column(name = "bidp_rsqn2", nullable = false)
+
+    @Column(name = "bidp_rsqn2")
     private Long bidpRsqn2;
-    @Column(name = "bidp_rsqn3", nullable = false)
+
+    @Column(name = "bidp_rsqn3")
     private Long bidpRsqn3;
-    @Column(name = "bidp_rsqn4", nullable = false)
+
+    @Column(name = "bidp_rsqn4")
     private Long bidpRsqn4;
-    @Column(name = "bidp_rsqn5", nullable = false)
+
+    @Column(name = "bidp_rsqn5")
     private Long bidpRsqn5;
-    @Column(name = "bidp_rsqn6", nullable = false)
+
+    @Column(name = "bidp_rsqn6")
     private Long bidpRsqn6;
-    @Column(name = "bidp_rsqn7", nullable = false)
+
+    @Column(name = "bidp_rsqn7")
     private Long bidpRsqn7;
-    @Column(name = "bidp_rsqn8", nullable = false)
+
+    @Column(name = "bidp_rsqn8")
     private Long bidpRsqn8;
-    @Column(name = "bidp_rsqn9", nullable = false)
+
+    @Column(name = "bidp_rsqn9")
     private Long bidpRsqn9;
-    @Column(name = "bidp_rsqn10", nullable = false)
+
+    @Column(name = "bidp_rsqn10")
     private Long bidpRsqn10;
 
-    // 총 매도/매수호가 잔량
-    @Column(name = "total_askp_rsqn", nullable = false)
+    // 총 매도호가 잔량
+    @Column(name = "total_askp_rsqn")
     private Long totalAskpRsqn;
-    @Column(name = "total_bidp_rsqn", nullable = false)
+
+    // 총 매수호가 잔량
+    @Column(name = "total_bidp_rsqn")
     private Long totalBidpRsqn;
 
-    // 시간외 총 매도/매수호가 잔량
-    @Column(name = "ovtm_total_askp_rsqn", nullable = false)
+    // 시간외 총 매도호가 잔량
+    @Column(name = "ovtm_total_askp_rsqn")
     private Long ovtmTotalAskpRsqn;
-    @Column(name = "ovtm_total_bidp_rsqn", nullable = false)
+
+    // 시간외 총 매수호가 잔량
+    @Column(name = "ovtm_total_bidp_rsqn")
     private Long ovtmTotalBidpRsqn;
 
-    // 예상 체결가/체결량/거래량 등
-    @Column(name = "antc_cnpr", nullable = false)
+    // 예상체결가
+    @Column(name = "antc_cnpr")
     private Integer antcCnpr;
-    @Column(name = "antc_cnqn", nullable = false)
+
+    // 예상체결수량
+    @Column(name = "antc_cnqn")
     private Long antcCnqn;
-    @Column(name = "antc_vol", nullable = false)
+
+    // 예상거래량
+    @Column(name = "antc_vol")
     private Long antcVol;
-    @Column(name = "antc_cntg_vrss", nullable = false)
+
+    // 예상체결가 대비 등락
+    @Column(name = "antc_cntg_vrss")
     private Integer antcCntgVrss;
-    @Column(name = "antc_cntg_vrss_sign", length = 1, nullable = false)
+
+    // 예상체결가 대비 등락 부호
+    @Column(name = "antc_cntg_vrss_sign", length = 1)
     private String antcCntgVrssSign;
-    @Column(name = "antc_cntg_prdy_ctrt", nullable = false)
+
+    // 예상체결가 대비 등락률
+    @Column(name = "antc_cntg_prdy_ctrt", precision = 8, scale = 2)
     private BigDecimal antcCntgPrdyCtrt;
 
-    // 누적 거래량
-    @Column(name = "acml_vol", nullable = false)
+    // 누적거래량
+    @Column(name = "acml_vol")
     private Long acmlVol;
 
-    // 총 매도/매수호가 잔량 증감
-    @Column(name = "total_askp_rsqn_icdc", nullable = false)
+    // 총 매도호가 잔량 증감
+    @Column(name = "total_askp_rsqn_icdc")
     private Integer totalAskpRsqnIcdc;
-    @Column(name = "total_bidp_rsqn_icdc", nullable = false)
+
+    // 총 매수호가 잔량 증감
+    @Column(name = "total_bidp_rsqn_icdc")
     private Integer totalBidpRsqnIcdc;
 
-    // 시간외 총 매도/매수 호가 증감
-    @Column(name = "ovtm_total_askp_icdc", nullable = false)
+    // 시간외 총 매도호가 증감
+    @Column(name = "ovtm_total_askp_icdc")
     private Integer ovtmTotalAskpIcdc;
-    @Column(name = "ovtm_total_bidp_icdc", nullable = false)
+
+    // 시간외 총 매수호가 증감
+    @Column(name = "ovtm_total_bidp_icdc")
     private Integer ovtmTotalBidpIcdc;
 
     public OrderRealTime() {
