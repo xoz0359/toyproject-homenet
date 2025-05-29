@@ -32,6 +32,9 @@ public class RestRequestTest {
         System.out.println(restWebClient.searchStockInfo145(code, "20100101", "20250527"));
         System.out.println(restWebClient.searchStockInfo150(code, "20100101", "20250527"));
         System.out.println(restWebClient.searchStockInfo213(code, "20250527", "100000"));
+        System.out.println(restWebClient.searchIndustryInfo063("U", "1001"));
+        System.out.println(restWebClient.searchIndustryInfo065("D", "U", "1001", "20250527"));
+
     }
 
     @Test

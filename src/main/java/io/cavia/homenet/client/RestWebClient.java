@@ -216,5 +216,79 @@ public class RestWebClient {
         }
     }
 
+    public KorIndustry063Dto searchIndustryInfo063(String fidCondMrktDivCode, String fidInputIscd) {
+        /**
+         * 예탁원정보(배당일정)
+         * FID_COND_MRKT_DIV_CODE: 시장분류조건코드(업종 -U)
+         * FID_INPUT_ISCD: 입력종목코드(0001: 코스피 , 1001: 코스닥)
+         */
+        try {
+            String accessToken = apiOAuthManager.getAccessToken();
+            KorIndustry063Dto korIndustry063Dto = webClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/uapi/domestic-stock/v1/quotations/inquire-index-price")
+                            .queryParam("FID_COND_MRKT_DIV_CODE", fidCondMrktDivCode)
+                            .queryParam("FID_INPUT_ISCD", fidInputIscd)
+                            .build())
+                    .header(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8") // GET 요청시는 이렇게
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                    .header("appkey", apiOAuthManager.getAppKey())
+                    .header("appsecret", apiOAuthManager.getAppSecret())
+                    .header("tr_cont", "")
+                    .header("tr_id", "FHPUP02100000")
+                    .header("custtype", "P")
+                    .retrieve() // 요청 보내고, 성공하면 응답 바디를 가져올 준비를 하고, 실패하면 예외를 던짐
+                    .bodyToMono(KorIndustry063Dto.class)
+                    .block();
+            return korIndustry063Dto;
+        } catch (WebClientResponseException e) {
+            System.out.println("API 호출 중 에러 발생!");
+            System.out.println("Status Code: " + e.getStatusCode());
+            String errorBody = e.getResponseBodyAsString();
+            throw new RuntimeException("API 호출 실패: " + errorBody, e);
+        } catch (Exception e) {
+            throw new RuntimeException("메서드 실행중 예외 발생: " + e.getMessage(), e);
+        }
+    }
+
+    public KorIndustry065Dto searchIndustryInfo065(String fidPeridDivCode, String fidCondMrktDivCode, String fidInputIscd, String fidInputDate1) {
+        /**
+         * 예탁원정보(배당일정)
+         * FID_PERIOD_DIV_CODE:	FID 기간 분류 코드
+         * FID_COND_MRKT_DIV_CODE:	FID 조건 시장 분류 코드
+         * FID_INPUT_ISCD:	FID 입력 종목코드
+         * FID_INPUT_DATE_1:	FID 입력 날짜1
+         */
+        try {
+            String accessToken = apiOAuthManager.getAccessToken();
+            KorIndustry065Dto korIndustry065Dto = webClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/uapi/domestic-stock/v1/quotations/inquire-index-daily-price")
+                            .queryParam("FID_PERIOD_DIV_CODE", fidPeridDivCode)
+                            .queryParam("FID_COND_MRKT_DIV_CODE", fidCondMrktDivCode)
+                            .queryParam("FID_INPUT_ISCD", fidInputIscd)
+                            .queryParam("FID_INPUT_DATE_1", fidInputDate1)
+                            .build())
+                    .header(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8") // GET 요청시는 이렇게
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                    .header("appkey", apiOAuthManager.getAppKey())
+                    .header("appsecret", apiOAuthManager.getAppSecret())
+                    .header("tr_cont", "")
+                    .header("tr_id", "FHPUP02120000")
+                    .header("custtype", "P")
+                    .retrieve() // 요청 보내고, 성공하면 응답 바디를 가져올 준비를 하고, 실패하면 예외를 던짐
+                    .bodyToMono(KorIndustry065Dto.class)
+                    .block();
+            return korIndustry065Dto;
+        } catch (WebClientResponseException e) {
+            System.out.println("API 호출 중 에러 발생!");
+            System.out.println("Status Code: " + e.getStatusCode());
+            String errorBody = e.getResponseBodyAsString();
+            throw new RuntimeException("API 호출 실패: " + errorBody, e);
+        } catch (Exception e) {
+            throw new RuntimeException("메서드 실행중 예외 발생: " + e.getMessage(), e);
+        }
+    }
+
 
 }
