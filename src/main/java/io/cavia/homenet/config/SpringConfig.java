@@ -5,6 +5,7 @@ import io.cavia.homenet.client.ApiOAuthManager;
 import io.cavia.homenet.client.ApiWebSocketClient;
 import io.cavia.homenet.client.ApiWebSocketHandler;
 import io.cavia.homenet.client.RestWebClient;
+import io.cavia.homenet.controller.CaviaWebSocketHandler;
 import io.cavia.homenet.mapper.KorOrderRealTimeMapper;
 import io.cavia.homenet.mapper.KorStockRealTimeMapper;
 import io.cavia.homenet.repository.ApiOAuthRepository;
@@ -80,4 +81,13 @@ public class SpringConfig {
         return new KorOrderRealTimeMapper();
     }
 
+    @Bean
+    public WebSocketConfig websocketConfig() {
+        return new WebSocketConfig(new CaviaWebSocketHandler());
+    }
+
+    @Bean
+    public CaviaWebSocketHandler caviaWebSocketHandler(){
+        return new CaviaWebSocketHandler();
+    }
 }
