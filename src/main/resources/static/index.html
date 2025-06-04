@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    function show(){
+        const socket = new WebSocket("http://121.162.225.102:8081/websocket");
+        socket.onopen = function (event) {
+            socket.send("Hello, Server!");
+        };
+        socket.onmessage = function (event) {
+            alert(event.data);
+        };
+        socket.onerror = function (event) {
+            alert("에러 발생", event);
+        }
+        socket.onclose = function (event) {
+            alert("연결이 끊겼습니다.");
+        };
+    }
+</script>
+<body>
+<a onclick="show();">웹소켓 연결 테스트</a>
+</body>
+</html>
