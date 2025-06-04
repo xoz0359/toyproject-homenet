@@ -5,6 +5,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -34,6 +35,14 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
         // 클라이언트 메시지 처리 (echo, broadcast, 기타 로직 등)
         String payload = message.getPayload();
+        System.out.println("payload: " + payload);
+        try {
+            Scanner scanner = new Scanner(System.in);
+            String ans = scanner.nextLine();
+            session.sendMessage(new TextMessage(ans));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         // 세션 종료하기
         // 세션 종료 요청 메세지 감지시 session.close()를 호출
         // afterConnectionClosed가 콜백되고 세션 종료됨
