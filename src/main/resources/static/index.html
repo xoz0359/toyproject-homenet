@@ -8,17 +8,18 @@
 <body>
 <h1>Homenet 웹소켓 연결 테스트</h1>
 <input type="button" onclick="show();" value="연결 테스트">
-<input type="text" id="Q">
-<input type="text" id="A">
+<input type="text" id="Q" placeholder="메세지 입력">
+<input type="text" id="A" placeholder="응답">
 <input type="button" value="메세지 전송" onclick="sendMsg();">
 
 
 <script>
+    var socket;
     var Q = document.getElementById("Q");
     var A = document.getElementById("A");
 
     function show(){
-        const socket = new WebSocket("http://121.162.225.102:8081/websocket");
+        socket = new WebSocket("http://121.162.225.102:8081/websocket");
         socket.onopen = function (event) {
             socket.send("Hello, Server!");
             alert("연결 성공");
@@ -32,6 +33,10 @@
         socket.onclose = function (event) {
             alert("연결이 끊겼습니다.");
         };
+    }
+
+    function sendMsg(){
+        socket.send(Q.value);
     }
 </script>
 </body>
