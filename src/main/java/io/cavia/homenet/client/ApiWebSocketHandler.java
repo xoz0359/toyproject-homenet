@@ -73,7 +73,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
         // TODO 받아온 receivedData 문자열을 분류해서 DB에 저장하는 코드 작성
         String[] datas = receivedData.split("\\^");
         if (datas[0].indexOf("H0STCNT0") != -1) {
-            datas[0] = datas[0].substring(datas[0].lastIndexOf("|"));
+            datas[0] = datas[0].substring(datas[0].lastIndexOf("|")+1);
             if (datas.length % 46 == 0) {
                 for (int i = 0; i < datas.length; i += 46) {
                     stockRealTimeRepository.save(korStockRealTimeMapper.toEntity(
@@ -92,7 +92,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
                                     .toArray(String[]::new)));
                 }
             } else if (datas[0].indexOf("H0STMKO0") != -1) {
-                datas[0] = datas[0].substring(datas[0].lastIndexOf("|"));
+                datas[0] = datas[0].substring(datas[0].lastIndexOf("|")+1);
                 if (datas.length % 11 == 0) {
                     for (int i = 0; i < datas.length; i += 11) {
                         viRealTimeRepository.save(
