@@ -1,16 +1,22 @@
 package io.cavia.homenet.controller;
 
+import io.cavia.homenet.domain.OrderRealTime;
+import io.cavia.homenet.repository.OrderRealTimeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+@Component
 public class CaviaWebSocketHandler extends TextWebSocketHandler {
     // thread 처리를 위해 CopyOnWriteArraySet을 사용합니다
     // 해당 컬렉션은 데이터의 수정, 추가가 이루어질 때 기존 배열을 통째로 읽어와서
@@ -18,6 +24,10 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
     // 수정 중인 배열을 다른 thread에서 읽거나 수정해도 영향을 받지 않습니다
     // 이는 모든 thread가 불변 상태의 배열 주소를 참조하고 수정이 일어날 때 배열의 주소를 새로 생성하여 작동하기 때문입니다
     // 이로 인해 CopyOnWriteArraySet은 Thread safe를 보장합니다
+
+    @Autowired
+    private OrderRealTimeRepository orderRealTimeRepository;
+
     private static final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
     // HTTP 연결이 시작될 때 콜백 메서드
@@ -38,13 +48,15 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
         // 클라이언트 메시지 처리 (echo, broadcast, 기타 로직 등)
         String payload = message.getPayload();
         System.out.println("payload: " + payload);
+
+        List<OrderRealTime> list = orderRealTimeRepository.findByMkscShrnIscd(payload);
+
         try {
-            Scanner scanner = new Scanner(System.in);
-            String ans = scanner.nextLine();
-            session.sendMessage(new TextMessage(ans));
+            session.sendMessage(new TextMessage(list.toString()));
         }catch (Exception e){
             e.printStackTrace();
         }
+
         // 세션 종료하기
         // 세션 종료 요청 메세지 감지시 session.close()를 호출
         // afterConnectionClosed가 콜백되고 세션 종료됨
@@ -66,6 +78,5 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
 
 
     // 브로드캐스트는 사용 계획이 없어서 일단은 미구현
-
 
 }
