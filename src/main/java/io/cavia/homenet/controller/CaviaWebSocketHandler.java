@@ -5,8 +5,10 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class CaviaWebSocketHandler extends TextWebSocketHandler {
@@ -16,12 +18,12 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
     // 수정 중인 배열을 다른 thread에서 읽거나 수정해도 영향을 받지 않습니다
     // 이는 모든 thread가 불변 상태의 배열 주소를 참조하고 수정이 일어날 때 배열의 주소를 새로 생성하여 작동하기 때문입니다
     // 이로 인해 CopyOnWriteArraySet은 Thread safe를 보장합니다
-    private static final Set<WebSocketSession> sessions = new CopyOnWriteArraySet<>();
+    private static final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
     // HTTP 연결이 시작될 때 콜백 메서드
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        sessions.add(session);
+        sessions.put(session.getId(), session);
         session.sendMessage(new TextMessage("빵굽다"));
     }
 
