@@ -1,8 +1,10 @@
 package io.cavia.homenet.domain;
 
+import com.mysql.cj.protocol.ColumnDefinition;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name = "order_real_time")
@@ -156,6 +158,7 @@ public class OrderRealTime {
     @Column(name = "total_bidp_rsqn")
     private Long totalBidpRsqn;
 
+    /*
     // 시간외 총 매도호가 잔량
     @Column(name = "ovtm_total_askp_rsqn")
     private Long ovtmTotalAskpRsqn;
@@ -187,6 +190,7 @@ public class OrderRealTime {
     // 예상체결가 대비 등락률
     @Column(name = "antc_cntg_prdy_ctrt", precision = 8, scale = 2)
     private BigDecimal antcCntgPrdyCtrt;
+    */
 
     // 누적거래량
     @Column(name = "acml_vol")
@@ -199,7 +203,7 @@ public class OrderRealTime {
     // 총 매수호가 잔량 증감
     @Column(name = "total_bidp_rsqn_icdc")
     private Integer totalBidpRsqnIcdc;
-
+    /*
     // 시간외 총 매도호가 증감
     @Column(name = "ovtm_total_askp_icdc")
     private Integer ovtmTotalAskpIcdc;
@@ -207,21 +211,16 @@ public class OrderRealTime {
     // 시간외 총 매수호가 증감
     @Column(name = "ovtm_total_bidp_icdc")
     private Integer ovtmTotalBidpIcdc;
+    */
+
+    // 생성 시간
+    @Column(name = "created_at", columnDefinition = "DATETIME(3)")
+    private Date createdAt;
 
     public OrderRealTime() {
     }
 
-    public OrderRealTime(String mkscShrnIscd, String bsopHour, String hourClsCode, Integer askp1, Integer askp2, Integer askp3,
-                         Integer askp4, Integer askp5, Integer askp6, Integer askp7, Integer askp8, Integer askp9,
-                         Integer askp10, Integer bidp1, Integer bidp2, Integer bidp3, Integer bidp4, Integer bidp5,
-                         Integer bidp6, Integer bidp7, Integer bidp8, Integer bidp9, Integer bidp10, Long askpRsqn1,
-                         Long askpRsqn2, Long askpRsqn3, Long askpRsqn4, Long askpRsqn5, Long askpRsqn6, Long askpRsqn7,
-                         Long askpRsqn8, Long askpRsqn9, Long askpRsqn10, Long bidpRsqn1, Long bidpRsqn2, Long bidpRsqn3,
-                         Long bidpRsqn4, Long bidpRsqn5, Long bidpRsqn6, Long bidpRsqn7, Long bidpRsqn8, Long bidpRsqn9,
-                         Long bidpRsqn10, Long totalAskpRsqn, Long totalBidpRsqn, Long ovtmTotalAskpRsqn,
-                         Long ovtmTotalBidpRsqn, Integer antcCnpr, Long antcCnqn, Long antcVol, Integer antcCntgVrss,
-                         String antcCntgVrssSign, BigDecimal antcCntgPrdyCtrt, Long acmlVol, Integer totalAskpRsqnIcdc,
-                         Integer totalBidpRsqnIcdc, Integer ovtmTotalAskpIcdc, Integer ovtmTotalBidpIcdc) {
+    public OrderRealTime(String mkscShrnIscd, String bsopHour, String hourClsCode, Integer askp1, Integer askp2, Integer askp3, Integer askp4, Integer askp5, Integer askp6, Integer askp7, Integer askp8, Integer askp9, Integer askp10, Integer bidp1, Integer bidp2, Integer bidp3, Integer bidp4, Integer bidp5, Integer bidp6, Integer bidp7, Integer bidp8, Integer bidp9, Integer bidp10, Long askpRsqn1, Long askpRsqn2, Long askpRsqn3, Long askpRsqn4, Long askpRsqn5, Long askpRsqn6, Long askpRsqn7, Long askpRsqn8, Long askpRsqn9, Long askpRsqn10, Long bidpRsqn1, Long bidpRsqn2, Long bidpRsqn3, Long bidpRsqn4, Long bidpRsqn5, Long bidpRsqn6, Long bidpRsqn7, Long bidpRsqn8, Long bidpRsqn9, Long bidpRsqn10, Long totalAskpRsqn, Long totalBidpRsqn, Long acmlVol, Integer totalAskpRsqnIcdc, Integer totalBidpRsqnIcdc, Date createdAt) {
         this.mkscShrnIscd = mkscShrnIscd;
         this.bsopHour = bsopHour;
         this.hourClsCode = hourClsCode;
@@ -267,19 +266,10 @@ public class OrderRealTime {
         this.bidpRsqn10 = bidpRsqn10;
         this.totalAskpRsqn = totalAskpRsqn;
         this.totalBidpRsqn = totalBidpRsqn;
-        this.ovtmTotalAskpRsqn = ovtmTotalAskpRsqn;
-        this.ovtmTotalBidpRsqn = ovtmTotalBidpRsqn;
-        this.antcCnpr = antcCnpr;
-        this.antcCnqn = antcCnqn;
-        this.antcVol = antcVol;
-        this.antcCntgVrss = antcCntgVrss;
-        this.antcCntgVrssSign = antcCntgVrssSign;
-        this.antcCntgPrdyCtrt = antcCntgPrdyCtrt;
         this.acmlVol = acmlVol;
         this.totalAskpRsqnIcdc = totalAskpRsqnIcdc;
         this.totalBidpRsqnIcdc = totalBidpRsqnIcdc;
-        this.ovtmTotalAskpIcdc = ovtmTotalAskpIcdc;
-        this.ovtmTotalBidpIcdc = ovtmTotalBidpIcdc;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -650,70 +640,6 @@ public class OrderRealTime {
         this.totalBidpRsqn = totalBidpRsqn;
     }
 
-    public Long getOvtmTotalAskpRsqn() {
-        return ovtmTotalAskpRsqn;
-    }
-
-    public void setOvtmTotalAskpRsqn(Long ovtmTotalAskpRsqn) {
-        this.ovtmTotalAskpRsqn = ovtmTotalAskpRsqn;
-    }
-
-    public Long getOvtmTotalBidpRsqn() {
-        return ovtmTotalBidpRsqn;
-    }
-
-    public void setOvtmTotalBidpRsqn(Long ovtmTotalBidpRsqn) {
-        this.ovtmTotalBidpRsqn = ovtmTotalBidpRsqn;
-    }
-
-    public Integer getAntcCnpr() {
-        return antcCnpr;
-    }
-
-    public void setAntcCnpr(Integer antcCnpr) {
-        this.antcCnpr = antcCnpr;
-    }
-
-    public Long getAntcCnqn() {
-        return antcCnqn;
-    }
-
-    public void setAntcCnqn(Long antcCnqn) {
-        this.antcCnqn = antcCnqn;
-    }
-
-    public Long getAntcVol() {
-        return antcVol;
-    }
-
-    public void setAntcVol(Long antcVol) {
-        this.antcVol = antcVol;
-    }
-
-    public Integer getAntcCntgVrss() {
-        return antcCntgVrss;
-    }
-
-    public void setAntcCntgVrss(Integer antcCntgVrss) {
-        this.antcCntgVrss = antcCntgVrss;
-    }
-
-    public String getAntcCntgVrssSign() {
-        return antcCntgVrssSign;
-    }
-
-    public void setAntcCntgVrssSign(String antcCntgVrssSign) {
-        this.antcCntgVrssSign = antcCntgVrssSign;
-    }
-
-    public BigDecimal getAntcCntgPrdyCtrt() {
-        return antcCntgPrdyCtrt;
-    }
-
-    public void setAntcCntgPrdyCtrt(BigDecimal antcCntgPrdyCtrt) {
-        this.antcCntgPrdyCtrt = antcCntgPrdyCtrt;
-    }
-
     public Long getAcmlVol() {
         return acmlVol;
     }
@@ -738,19 +664,11 @@ public class OrderRealTime {
         this.totalBidpRsqnIcdc = totalBidpRsqnIcdc;
     }
 
-    public Integer getOvtmTotalAskpIcdc() {
-        return ovtmTotalAskpIcdc;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setOvtmTotalAskpIcdc(Integer ovtmTotalAskpIcdc) {
-        this.ovtmTotalAskpIcdc = ovtmTotalAskpIcdc;
-    }
-
-    public Integer getOvtmTotalBidpIcdc() {
-        return ovtmTotalBidpIcdc;
-    }
-
-    public void setOvtmTotalBidpIcdc(Integer ovtmTotalBidpIcdc) {
-        this.ovtmTotalBidpIcdc = ovtmTotalBidpIcdc;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

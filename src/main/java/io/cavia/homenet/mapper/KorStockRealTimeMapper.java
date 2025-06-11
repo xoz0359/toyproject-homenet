@@ -3,6 +3,7 @@ package io.cavia.homenet.mapper;
 import io.cavia.homenet.domain.StockRealTime;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class KorStockRealTimeMapper {
     /**
@@ -22,48 +23,14 @@ public class KorStockRealTimeMapper {
                 datas[1],  // stckCntgHour
                 Integer.parseInt(datas[2]),  // stckPrpr
                 datas[3], // prdyVrssSign
-                Integer.parseInt(datas[4]),  // prdyVrss
                 new BigDecimal(datas[5]),  // prdyCtrt
-                new BigDecimal(datas[6]),  // wghnAvrgStckPrc
-                Integer.parseInt(datas[7]),  // stckOprc
-                Integer.parseInt(datas[8]),  // stckHgpr
-                Integer.parseInt(datas[9]),  // stckLwpr
-                Integer.parseInt(datas[10]), // askp1
-                Integer.parseInt(datas[11]), // bidp1
                 Long.parseLong(datas[12]), // cntgVol
                 Long.parseLong(datas[13]), // acmlVol
                 Long.parseLong(datas[14]), // acmlTrPbmn
-                Integer.parseInt(datas[15]), // selnCntgCsnu
-                Integer.parseInt(datas[16]), // shnuCntgCsnu
-                Integer.parseInt(datas[17]), // ntbyCntgCsnu
-                new BigDecimal(datas[18]), // cttr
-                Long.parseLong(datas[19]), // selnCntgSmtn
-                Long.parseLong(datas[20]), // shnuCntgSmtn
-                datas[21], // ccldDvsn
-                new BigDecimal(datas[22]), // shnuRate
-                new BigDecimal(datas[23]), // prdyVolVrssAcmlVolRate
-                datas[24], // oprcHour
-                datas[25], // oprcVrssPrprSign
-                Integer.parseInt(datas[26]), // oprcVrssPrpr
-                datas[27], // hgprHour
-                datas[28], // hgprVrssPrprSign
-                Integer.parseInt(datas[29]), // hgprVrssPrpr
-                datas[30], // lwprHour
-                datas[31], // lwprVrssPrprSign
-                Integer.parseInt(datas[32]), // lwprVrssPrpr
                 datas[33], // bsopDate
                 datas[34], // newMkopClsCode
-                datas[35], // trhtYn
-                Long.parseLong(datas[36]), // askpRsqn1
-                Long.parseLong(datas[37]), // bidpRsqn1
-                Long.parseLong(datas[38]), // totalAskpRsqn
-                Long.parseLong(datas[39]), // totalBidpRsqn
-                new BigDecimal(datas[40]), // volTnrt
-                Long.parseLong(datas[41]), // prdySmnsHourAcmlVol
-                new BigDecimal(datas[42]), // prdySmnsHourAcmlVolRate
-                datas[43], // hourClsCode
-                datas[44], // mrktTrtmClsCode
-                Integer.parseInt(datas[45])  // viStndPrc
+                Integer.parseInt(datas[45]),  // viStndPrc
+                new Date()
         );
     }
 }

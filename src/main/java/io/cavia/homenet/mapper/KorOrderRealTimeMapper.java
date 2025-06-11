@@ -3,6 +3,7 @@ package io.cavia.homenet.mapper;
 import io.cavia.homenet.domain.OrderRealTime;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class KorOrderRealTimeMapper {
     /**
@@ -64,19 +65,10 @@ public class KorOrderRealTimeMapper {
             Long.parseLong(datas[42]),  // bidpRsqn10
             Long.parseLong(datas[43]),  // totalAskpRsqn
             Long.parseLong(datas[44]),  // totalBidpRsqn
-            Long.parseLong(datas[45]),  // ovtmTotalAskpRsqn
-            Long.parseLong(datas[46]),  // ovtmTotalBidpRsqn
-            Integer.parseInt(datas[47]),  // antcCnpr
-            Long.parseLong(datas[48]),  // antcCnqn
-            Long.parseLong(datas[49]),  // antcVol
-            Integer.parseInt(datas[50]),  // antcCntgVrss
-            datas[51],  // antcCntgVrssSign
-            new BigDecimal(datas[52]),  // antcCntgPrdyCtrt
             Long.parseLong(datas[53]),  // acmlVol
             Integer.parseInt(datas[54]),  // totalAskpRsqnIcdc
             Integer.parseInt(datas[55]),  // totalBidpRsqnIcdc
-            Integer.parseInt(datas[56]),  // ovtmTotalAskpIcdc
-            Integer.parseInt(datas[57]) // ovtmTotalBidpIcdc
+            new Date()
         );
     }
 }
