@@ -10,5 +10,6 @@ import java.util.List;
 
 @Repository
 public interface StockRealTimeRepository extends JpaRepository<StockRealTime, Long> {
-    List<StockRealTime> findByMkscShrnIscd(String mkscShrnIscd);
+
+    List<StockRealTime> findByStockId(Long stockId);
 }

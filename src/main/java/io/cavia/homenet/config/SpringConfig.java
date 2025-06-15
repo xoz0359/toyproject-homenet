@@ -9,11 +9,8 @@ import io.cavia.homenet.controller.CaviaWebSocketHandler;
 import io.cavia.homenet.mapper.KorOrderRealTimeMapper;
 import io.cavia.homenet.mapper.KorStockRealTimeMapper;
 import io.cavia.homenet.repository.ApiOAuthRepository;
-import io.cavia.homenet.client.ApiOAuthManager;
-import io.cavia.homenet.client.RestWebClient;
-import io.cavia.homenet.mapper.KorOrderRealTimeMapper;
-import io.cavia.homenet.mapper.KorStockRealTimeMapper;
-import io.cavia.homenet.repository.ApiOAuthRepository;
+import io.cavia.homenet.repository.OrderRealTimeRepository;
+import io.cavia.homenet.repository.StockRealTimeRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -82,12 +79,12 @@ public class SpringConfig {
     }
 
     @Bean
-    public WebSocketConfig websocketConfig() {
-        return new WebSocketConfig(new CaviaWebSocketHandler());
+    public WebSocketConfig websocketConfig(CaviaWebSocketHandler caviaWebSocketHandler) {
+        return new WebSocketConfig(caviaWebSocketHandler);
     }
 
     @Bean
-    public CaviaWebSocketHandler caviaWebSocketHandler(){
-        return new CaviaWebSocketHandler();
+    public CaviaWebSocketHandler caviaWebSocketHandler(StockRealTimeRepository stockRealTimeRepository, OrderRealTimeRepository orderRealTimeRepository, ObjectMapper objectMapper) {
+        return new CaviaWebSocketHandler(stockRealTimeRepository, orderRealTimeRepository, objectMapper);
     }
 }

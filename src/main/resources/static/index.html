@@ -6,26 +6,26 @@
 </head>
 
 <body>
-<h1>Homenet 웹소켓 연결 테스트</h1>
-<input type="button" onclick="show();" value="연결 테스트">
-<input type="text" id="Q" placeholder="메세지 입력">
-<input type="text" id="A" placeholder="응답">
-<input type="button" value="메세지 전송" onclick="sendMsg();">
+<h1>Homenet 가상 종목 거래 데이터 수신 테스트</h1>
+<input type="button" onclick="test();" value="웹소켓 연결">
+<textarea id="stockData" cols="300" rows="50"></textarea>
+<input type="text" id="Q" placeholder="원하는 stocksId 입력">
+<input type="button" onclick="sendMsg();" value="데이터 요청">
+
 
 
 <script>
     var socket;
     var Q = document.getElementById("Q");
-    var A = document.getElementById("A");
+    var stockData = document.getElementById("stockData");
 
-    function show(){
-        socket = new WebSocket("http://121.162.225.102:8081/websocket");
+    function test(){
+        socket = new WebSocket("http://localhost:8081/websocket");
         socket.onopen = function (event) {
-            socket.send("Hello, Server!");
             alert("연결 성공");
         };
         socket.onmessage = function (event) {
-            A.value = event.data;
+            stockData.value = event.data;
         };
         socket.onerror = function (event) {
             alert("에러 발생", event);

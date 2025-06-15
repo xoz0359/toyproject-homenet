@@ -2,7 +2,7 @@ package io.cavia.homenet.domain;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "order_real_time")
@@ -12,6 +12,10 @@ public class OrderRealTime {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "stocks_id", nullable = false)
+    private Long stockId;
+
+    /*
     // 유가증권 단축 종목코드
     @Column(name = "mksc_shrn_iscd", length = 9, nullable = false)
     private String mkscShrnIscd;
@@ -22,7 +26,7 @@ public class OrderRealTime {
 
     // 시간 구분 코드
     @Column(name = "hour_cls_code", length = 1, nullable = false)
-    private String hourClsCode;
+    private String hourClsCode;*/
 
     // 매도호가 1~10
     @Column(name = "askp1")
@@ -148,6 +152,7 @@ public class OrderRealTime {
     @Column(name = "bidp_rsqn10")
     private Long bidpRsqn10;
 
+    /*
     // 총 매도호가 잔량
     @Column(name = "total_askp_rsqn")
     private Long totalAskpRsqn;
@@ -155,6 +160,7 @@ public class OrderRealTime {
     // 총 매수호가 잔량
     @Column(name = "total_bidp_rsqn")
     private Long totalBidpRsqn;
+
 
     // 시간외 총 매도호가 잔량
     @Column(name = "ovtm_total_askp_rsqn")
@@ -188,9 +194,11 @@ public class OrderRealTime {
     @Column(name = "antc_cntg_prdy_ctrt", precision = 8, scale = 2)
     private BigDecimal antcCntgPrdyCtrt;
 
+
     // 누적거래량
     @Column(name = "acml_vol")
     private Long acmlVol;
+    */
 
     // 총 매도호가 잔량 증감
     @Column(name = "total_askp_rsqn_icdc")
@@ -199,7 +207,7 @@ public class OrderRealTime {
     // 총 매수호가 잔량 증감
     @Column(name = "total_bidp_rsqn_icdc")
     private Integer totalBidpRsqnIcdc;
-
+    /*
     // 시간외 총 매도호가 증감
     @Column(name = "ovtm_total_askp_icdc")
     private Integer ovtmTotalAskpIcdc;
@@ -207,24 +215,18 @@ public class OrderRealTime {
     // 시간외 총 매수호가 증감
     @Column(name = "ovtm_total_bidp_icdc")
     private Integer ovtmTotalBidpIcdc;
+    */
+
+    // 생성 시간
+    @Column(name = "created_at", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdAt;
 
     public OrderRealTime() {
     }
 
-    public OrderRealTime(String mkscShrnIscd, String bsopHour, String hourClsCode, Integer askp1, Integer askp2, Integer askp3,
-                         Integer askp4, Integer askp5, Integer askp6, Integer askp7, Integer askp8, Integer askp9,
-                         Integer askp10, Integer bidp1, Integer bidp2, Integer bidp3, Integer bidp4, Integer bidp5,
-                         Integer bidp6, Integer bidp7, Integer bidp8, Integer bidp9, Integer bidp10, Long askpRsqn1,
-                         Long askpRsqn2, Long askpRsqn3, Long askpRsqn4, Long askpRsqn5, Long askpRsqn6, Long askpRsqn7,
-                         Long askpRsqn8, Long askpRsqn9, Long askpRsqn10, Long bidpRsqn1, Long bidpRsqn2, Long bidpRsqn3,
-                         Long bidpRsqn4, Long bidpRsqn5, Long bidpRsqn6, Long bidpRsqn7, Long bidpRsqn8, Long bidpRsqn9,
-                         Long bidpRsqn10, Long totalAskpRsqn, Long totalBidpRsqn, Long ovtmTotalAskpRsqn,
-                         Long ovtmTotalBidpRsqn, Integer antcCnpr, Long antcCnqn, Long antcVol, Integer antcCntgVrss,
-                         String antcCntgVrssSign, BigDecimal antcCntgPrdyCtrt, Long acmlVol, Integer totalAskpRsqnIcdc,
-                         Integer totalBidpRsqnIcdc, Integer ovtmTotalAskpIcdc, Integer ovtmTotalBidpIcdc) {
-        this.mkscShrnIscd = mkscShrnIscd;
-        this.bsopHour = bsopHour;
-        this.hourClsCode = hourClsCode;
+    public OrderRealTime(Long stockId, Integer askp1, Integer askp2, Integer askp3, Integer askp4, Integer askp5, Integer askp6, Integer askp7, Integer askp8, Integer askp9, Integer askp10, Integer bidp1, Integer bidp2, Integer bidp3, Integer bidp4, Integer bidp5, Integer bidp6, Integer bidp7, Integer bidp8, Integer bidp9, Integer bidp10, Long askpRsqn1, Long askpRsqn2, Long askpRsqn3, Long askpRsqn4, Long askpRsqn5, Long askpRsqn6, Long askpRsqn7, Long askpRsqn8, Long askpRsqn9, Long askpRsqn10, Long bidpRsqn1, Long bidpRsqn2, Long bidpRsqn3, Long bidpRsqn4, Long bidpRsqn5, Long bidpRsqn6, Long bidpRsqn7, Long bidpRsqn8, Long bidpRsqn9, Long bidpRsqn10, Integer totalAskpRsqnIcdc, Integer totalBidpRsqnIcdc, LocalDateTime createdAt) {
+        this.stockId = stockId;
         this.askp1 = askp1;
         this.askp2 = askp2;
         this.askp3 = askp3;
@@ -265,53 +267,17 @@ public class OrderRealTime {
         this.bidpRsqn8 = bidpRsqn8;
         this.bidpRsqn9 = bidpRsqn9;
         this.bidpRsqn10 = bidpRsqn10;
-        this.totalAskpRsqn = totalAskpRsqn;
-        this.totalBidpRsqn = totalBidpRsqn;
-        this.ovtmTotalAskpRsqn = ovtmTotalAskpRsqn;
-        this.ovtmTotalBidpRsqn = ovtmTotalBidpRsqn;
-        this.antcCnpr = antcCnpr;
-        this.antcCnqn = antcCnqn;
-        this.antcVol = antcVol;
-        this.antcCntgVrss = antcCntgVrss;
-        this.antcCntgVrssSign = antcCntgVrssSign;
-        this.antcCntgPrdyCtrt = antcCntgPrdyCtrt;
-        this.acmlVol = acmlVol;
         this.totalAskpRsqnIcdc = totalAskpRsqnIcdc;
         this.totalBidpRsqnIcdc = totalBidpRsqnIcdc;
-        this.ovtmTotalAskpIcdc = ovtmTotalAskpIcdc;
-        this.ovtmTotalBidpIcdc = ovtmTotalBidpIcdc;
+        this.createdAt = createdAt;
     }
 
-    public Long getId() {
-        return id;
+    public Long getStockId() {
+        return stockId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getMkscShrnIscd() {
-        return mkscShrnIscd;
-    }
-
-    public void setMkscShrnIscd(String mkscShrnIscd) {
-        this.mkscShrnIscd = mkscShrnIscd;
-    }
-
-    public String getBsopHour() {
-        return bsopHour;
-    }
-
-    public void setBsopHour(String bsopHour) {
-        this.bsopHour = bsopHour;
-    }
-
-    public String getHourClsCode() {
-        return hourClsCode;
-    }
-
-    public void setHourClsCode(String hourClsCode) {
-        this.hourClsCode = hourClsCode;
+    public void setStockId(Long stocksId) {
+        this.stockId = stocksId;
     }
 
     public Integer getAskp1() {
@@ -634,94 +600,6 @@ public class OrderRealTime {
         this.bidpRsqn10 = bidpRsqn10;
     }
 
-    public Long getTotalAskpRsqn() {
-        return totalAskpRsqn;
-    }
-
-    public void setTotalAskpRsqn(Long totalAskpRsqn) {
-        this.totalAskpRsqn = totalAskpRsqn;
-    }
-
-    public Long getTotalBidpRsqn() {
-        return totalBidpRsqn;
-    }
-
-    public void setTotalBidpRsqn(Long totalBidpRsqn) {
-        this.totalBidpRsqn = totalBidpRsqn;
-    }
-
-    public Long getOvtmTotalAskpRsqn() {
-        return ovtmTotalAskpRsqn;
-    }
-
-    public void setOvtmTotalAskpRsqn(Long ovtmTotalAskpRsqn) {
-        this.ovtmTotalAskpRsqn = ovtmTotalAskpRsqn;
-    }
-
-    public Long getOvtmTotalBidpRsqn() {
-        return ovtmTotalBidpRsqn;
-    }
-
-    public void setOvtmTotalBidpRsqn(Long ovtmTotalBidpRsqn) {
-        this.ovtmTotalBidpRsqn = ovtmTotalBidpRsqn;
-    }
-
-    public Integer getAntcCnpr() {
-        return antcCnpr;
-    }
-
-    public void setAntcCnpr(Integer antcCnpr) {
-        this.antcCnpr = antcCnpr;
-    }
-
-    public Long getAntcCnqn() {
-        return antcCnqn;
-    }
-
-    public void setAntcCnqn(Long antcCnqn) {
-        this.antcCnqn = antcCnqn;
-    }
-
-    public Long getAntcVol() {
-        return antcVol;
-    }
-
-    public void setAntcVol(Long antcVol) {
-        this.antcVol = antcVol;
-    }
-
-    public Integer getAntcCntgVrss() {
-        return antcCntgVrss;
-    }
-
-    public void setAntcCntgVrss(Integer antcCntgVrss) {
-        this.antcCntgVrss = antcCntgVrss;
-    }
-
-    public String getAntcCntgVrssSign() {
-        return antcCntgVrssSign;
-    }
-
-    public void setAntcCntgVrssSign(String antcCntgVrssSign) {
-        this.antcCntgVrssSign = antcCntgVrssSign;
-    }
-
-    public BigDecimal getAntcCntgPrdyCtrt() {
-        return antcCntgPrdyCtrt;
-    }
-
-    public void setAntcCntgPrdyCtrt(BigDecimal antcCntgPrdyCtrt) {
-        this.antcCntgPrdyCtrt = antcCntgPrdyCtrt;
-    }
-
-    public Long getAcmlVol() {
-        return acmlVol;
-    }
-
-    public void setAcmlVol(Long acmlVol) {
-        this.acmlVol = acmlVol;
-    }
-
     public Integer getTotalAskpRsqnIcdc() {
         return totalAskpRsqnIcdc;
     }
@@ -738,19 +616,62 @@ public class OrderRealTime {
         this.totalBidpRsqnIcdc = totalBidpRsqnIcdc;
     }
 
-    public Integer getOvtmTotalAskpIcdc() {
-        return ovtmTotalAskpIcdc;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setOvtmTotalAskpIcdc(Integer ovtmTotalAskpIcdc) {
-        this.ovtmTotalAskpIcdc = ovtmTotalAskpIcdc;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Integer getOvtmTotalBidpIcdc() {
-        return ovtmTotalBidpIcdc;
-    }
-
-    public void setOvtmTotalBidpIcdc(Integer ovtmTotalBidpIcdc) {
-        this.ovtmTotalBidpIcdc = ovtmTotalBidpIcdc;
+    @Override
+    public String toString() {
+        return "OrderRealTime{" +
+                "id=" + id +
+                ", stockId=" + stockId +
+                ", askp1=" + askp1 +
+                ", askp2=" + askp2 +
+                ", askp3=" + askp3 +
+                ", askp4=" + askp4 +
+                ", askp5=" + askp5 +
+                ", askp6=" + askp6 +
+                ", askp7=" + askp7 +
+                ", askp8=" + askp8 +
+                ", askp9=" + askp9 +
+                ", askp10=" + askp10 +
+                ", bidp1=" + bidp1 +
+                ", bidp2=" + bidp2 +
+                ", bidp3=" + bidp3 +
+                ", bidp4=" + bidp4 +
+                ", bidp5=" + bidp5 +
+                ", bidp6=" + bidp6 +
+                ", bidp7=" + bidp7 +
+                ", bidp8=" + bidp8 +
+                ", bidp9=" + bidp9 +
+                ", bidp10=" + bidp10 +
+                ", askpRsqn1=" + askpRsqn1 +
+                ", askpRsqn2=" + askpRsqn2 +
+                ", askpRsqn3=" + askpRsqn3 +
+                ", askpRsqn4=" + askpRsqn4 +
+                ", askpRsqn5=" + askpRsqn5 +
+                ", askpRsqn6=" + askpRsqn6 +
+                ", askpRsqn7=" + askpRsqn7 +
+                ", askpRsqn8=" + askpRsqn8 +
+                ", askpRsqn9=" + askpRsqn9 +
+                ", askpRsqn10=" + askpRsqn10 +
+                ", bidpRsqn1=" + bidpRsqn1 +
+                ", bidpRsqn2=" + bidpRsqn2 +
+                ", bidpRsqn3=" + bidpRsqn3 +
+                ", bidpRsqn4=" + bidpRsqn4 +
+                ", bidpRsqn5=" + bidpRsqn5 +
+                ", bidpRsqn6=" + bidpRsqn6 +
+                ", bidpRsqn7=" + bidpRsqn7 +
+                ", bidpRsqn8=" + bidpRsqn8 +
+                ", bidpRsqn9=" + bidpRsqn9 +
+                ", bidpRsqn10=" + bidpRsqn10 +
+                ", totalAskpRsqnIcdc=" + totalAskpRsqnIcdc +
+                ", totalBidpRsqnIcdc=" + totalBidpRsqnIcdc +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

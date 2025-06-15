@@ -45,16 +45,16 @@ public class HomeNetApiController {
       return stockDefaltRepository.findByPdno(code);
     }
 
-    @GetMapping("/order-realtime")
+   /* @GetMapping("/order-realtime")
     public List<OrderRealTime> getOrderRealTime(@Param("pdno") String code) {
         if( code == null || code.isEmpty()){
             List<OrderRealTime> orderRealTimeList = orderRealTimeRepository.findAll();
             return orderRealTimeList;
          }
         return orderRealTimeRepository.findByMkscShrnIscd(code);
-    }
+    }*/
 
-    @GetMapping("/stock-realtime")
+    /*@GetMapping("/stock-realtime")
     public List<StockRealTime> getStockRealTime(@Param("pdno") String code) {
         if( code == null || code.isEmpty()){
             List<StockRealTime> stockRealTimeList = stockRealTimeRepository.findAll();
@@ -62,5 +62,5 @@ public class HomeNetApiController {
             return stockRealTimeList;
         }
         return stockRealTimeRepository.findByMkscShrnIscd(code);
-    }
+    }*/
 }
