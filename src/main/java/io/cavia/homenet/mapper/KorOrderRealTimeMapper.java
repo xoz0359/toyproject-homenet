@@ -3,6 +3,7 @@ package io.cavia.homenet.mapper;
 import io.cavia.homenet.domain.OrderRealTime;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class KorOrderRealTimeMapper {
@@ -12,17 +13,14 @@ public class KorOrderRealTimeMapper {
      * 확인 결과 null로 전달 되는 값과 각각 다른 타입으로 파싱해야 하는 데이터가 있어서
      * 추후 보수를 고려하여 가장 원시적인 형태로 메서드를 작성하였습니다
      *
-     * @param dvs
      * @return
      */
-    public OrderRealTime toEntity(String[] datas) {
+    public OrderRealTime toEntity(String[] datas, Long stockId) {
         if(datas == null) {
             throw new RuntimeException("매핑 중 오류 발생: Null이 입력되었습니다.");
         }
         return new OrderRealTime(
-            datas[0],   // mkscShrnIscd
-            datas[1],   // bsopHour
-            datas[2],   // hourClsCode
+            stockId,
             Integer.parseInt(datas[3]),   // askp1
             Integer.parseInt(datas[4]),   // askp2
             Integer.parseInt(datas[5]),   // askp3
@@ -63,12 +61,9 @@ public class KorOrderRealTimeMapper {
             Long.parseLong(datas[40]),  // bidpRsqn8
             Long.parseLong(datas[41]),  // bidpRsqn9
             Long.parseLong(datas[42]),  // bidpRsqn10
-            Long.parseLong(datas[43]),  // totalAskpRsqn
-            Long.parseLong(datas[44]),  // totalBidpRsqn
-            Long.parseLong(datas[53]),  // acmlVol
             Integer.parseInt(datas[54]),  // totalAskpRsqnIcdc
             Integer.parseInt(datas[55]),  // totalBidpRsqnIcdc
-            new Date()
+            LocalDateTime.now()
         );
     }
 }

@@ -2,8 +2,7 @@ package io.cavia.homenet.domain;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "stock_real_time")
@@ -13,33 +12,37 @@ public class StockRealTime {
     @Column(name = "id")
     private Long id;
 
-    // 유가증권 단축 종목코드, 9자리 String
-    @Column(name = "mksc_shrn_iscd", length = 9, nullable = false)
-    private String mkscShrnIscd; // 유가증권 단축 종목코드
+    @Column(name = "stocks_id", nullable = false)
+    private Long stockId;
 
-    // 주식 체결 시간, 6자리 String (HHMMSS)
+    /*// 유가증권 단축 종목코드, 9자리 String
+    @Column(name = "mksc_shrn_iscd", length = 9, nullable = false)
+    private String mkscShrnIscd; // 유가증권 단축 종목코드*/
+
+  /*  // 주식 체결 시간, 6자리 String (HHMMSS)
     @Column(name = "stck_cntg_hour", length = 6, nullable = false)
-    private String stckCntgHour; // 주식 체결 시간
+    private String stckCntgHour; // 주식 체결 시간*/
 
     // 주식 현재가 (체결가격)
     @Column(name = "stck_prpr", nullable = false)
     private Integer stckPrpr; // 주식 현재가
 
+    /*
     // 전일 대비 부호 (1: 상한, 2: 상승, 3: 보합, 4: 하한, 5: 하락)
     @Column(name = "prdy_vrss_sign", length = 1, nullable = false)
     private String prdyVrssSign; // 전일 대비 부호
 
-    /*
+
     // 전일 대비 가격
     @Column(name = "prdy_vrss", nullable = false)
     private Integer prdyVrss; // 전일 대비
-    */
+
 
     // 전일 대비율 (%)
     @Column(name = "prdy_ctrt", precision = 8, scale = 2, nullable = false)
     private BigDecimal prdyCtrt; // 전일 대비율
 
-    /*
+
     // 가중 평균 주식가격
     @Column(name = "wghn_avrg_stck_prc", precision = 8, scale = 2, nullable = false)
     private BigDecimal wghnAvrgStckPrc; // 가중 평균 주식 가격
@@ -63,7 +66,7 @@ public class StockRealTime {
     // 매수호가1
     @Column(name = "bidp1", nullable = false)
     private Integer bidp1; // 매수호가1
-     */
+
 
     // 체결 거래량
     @Column(name = "cntg_vol", nullable = false)
@@ -77,7 +80,6 @@ public class StockRealTime {
     @Column(name = "acml_tr_pbmn", nullable = false)
     private Long acmlTrPbmn; // 누적 거래 대금
 
-    /*
     // 매도 체결 건수
     @Column(name = "seln_cntg_csnu", nullable = false)
     private Integer selnCntgCsnu; // 매도 체결 건수
@@ -149,7 +151,7 @@ public class StockRealTime {
     // 저가대비
     @Column(name = "lwpr_vrss_prpr", nullable = false)
     private Integer lwprVrssPrpr; // 저가대비
-    */
+
 
     // 영업 일자, 8자리 YYYYMMDD
     @Column(name = "bsop_date", length = 8, nullable = false)
@@ -158,7 +160,7 @@ public class StockRealTime {
     // 신 장운영 구분 코드 (상세 주석은 테이블 참고)
     @Column(name = "new_mkop_cls_code", length = 2, nullable = false)
     private String newMkopClsCode; // 신 장운영 구분 코드
-    /*
+
     // 거래정지 여부 (Y: 정지, N: 정상)
     @Column(name = "trht_yn", length = 1, nullable = false)
     private String trhtYn; // 거래정지 여부
@@ -205,42 +207,28 @@ public class StockRealTime {
     private Integer viStndPrc; // 정적VI발동기준가
 
     // 생성시간
-    @Column(name = "created_at", columnDefinition = "DATETIME(3)")
-    private Date createdAt;
+    @Column(name = "created_at", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdAt;
+
 
 
     public StockRealTime() {
     }
 
-    public StockRealTime(String mkscShrnIscd, String stckCntgHour, Integer stckPrpr, String prdyVrssSign, BigDecimal prdyCtrt, Long cntgVol, Long acmlVol, Long acmlTrPbmn, String bsopDate, String newMkopClsCode, Integer viStndPrc, Date createdAt) {
-        this.mkscShrnIscd = mkscShrnIscd;
-        this.stckCntgHour = stckCntgHour;
+    public StockRealTime(Long stockId, Integer stckPrpr, Integer viStndPrc, LocalDateTime createdAt) {
+        this.stockId = stockId;
         this.stckPrpr = stckPrpr;
-        this.prdyVrssSign = prdyVrssSign;
-        this.prdyCtrt = prdyCtrt;
-        this.cntgVol = cntgVol;
-        this.acmlVol = acmlVol;
-        this.acmlTrPbmn = acmlTrPbmn;
-        this.bsopDate = bsopDate;
-        this.newMkopClsCode = newMkopClsCode;
         this.viStndPrc = viStndPrc;
         this.createdAt = createdAt;
     }
 
-    public String getMkscShrnIscd() {
-        return mkscShrnIscd;
+    public Long getStockId() {
+        return stockId;
     }
 
-    public void setMkscShrnIscd(String mkscShrnIscd) {
-        this.mkscShrnIscd = mkscShrnIscd;
-    }
-
-    public String getStckCntgHour() {
-        return stckCntgHour;
-    }
-
-    public void setStckCntgHour(String stckCntgHour) {
-        this.stckCntgHour = stckCntgHour;
+    public void setStockId(Long stocksId) {
+        this.stockId = stocksId;
     }
 
     public Integer getStckPrpr() {
@@ -251,62 +239,6 @@ public class StockRealTime {
         this.stckPrpr = stckPrpr;
     }
 
-    public String getPrdyVrssSign() {
-        return prdyVrssSign;
-    }
-
-    public void setPrdyVrssSign(String prdyVrssSign) {
-        this.prdyVrssSign = prdyVrssSign;
-    }
-
-    public BigDecimal getPrdyCtrt() {
-        return prdyCtrt;
-    }
-
-    public void setPrdyCtrt(BigDecimal prdyCtrt) {
-        this.prdyCtrt = prdyCtrt;
-    }
-
-    public Long getCntgVol() {
-        return cntgVol;
-    }
-
-    public void setCntgVol(Long cntgVol) {
-        this.cntgVol = cntgVol;
-    }
-
-    public Long getAcmlVol() {
-        return acmlVol;
-    }
-
-    public void setAcmlVol(Long acmlVol) {
-        this.acmlVol = acmlVol;
-    }
-
-    public Long getAcmlTrPbmn() {
-        return acmlTrPbmn;
-    }
-
-    public void setAcmlTrPbmn(Long acmlTrPbmn) {
-        this.acmlTrPbmn = acmlTrPbmn;
-    }
-
-    public String getBsopDate() {
-        return bsopDate;
-    }
-
-    public void setBsopDate(String bsopDate) {
-        this.bsopDate = bsopDate;
-    }
-
-    public String getNewMkopClsCode() {
-        return newMkopClsCode;
-    }
-
-    public void setNewMkopClsCode(String newMkopClsCode) {
-        this.newMkopClsCode = newMkopClsCode;
-    }
-
     public Integer getViStndPrc() {
         return viStndPrc;
     }
@@ -315,12 +247,24 @@ public class StockRealTime {
         this.viStndPrc = viStndPrc;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "StockRealTime{" +
+                "id=" + id +
+                ", stockId=" + stockId +
+                ", stckPrpr=" + stckPrpr +
+                ", viStndPrc=" + viStndPrc +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
+
 

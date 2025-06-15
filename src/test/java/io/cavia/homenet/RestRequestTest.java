@@ -38,13 +38,8 @@ public class RestRequestTest {
         System.out.println(restWebClient.searchMarketFlowInfo075("U", "1001", "20250527", "KSQ"));
     }
 
-    @Test
-    public void saveTest(){
-        Stock stock = new Stock();
-        stockDefaltRepository.save(stockInfosetter(stock, code));
-    }
 
-    public Stock stockInfosetter(Stock stock, String code) {
+    /*public Stock stockInfosetter(Stock stock, String code) {
         List<KorStock046Output> list046 = restWebClient.searchStockInfo046(code).getOutput();
         for (KorStock046Output output : list046) {
             korStockRestRequestMapper.toStock(output, stock);
@@ -53,5 +48,11 @@ public class RestRequestTest {
         korStockRestRequestMapper.toStock(restWebClient.searchStockInfo145(code, "20100101", "20250527").getOutput().get(0), stock);
         korStockRestRequestMapper.toStock(restWebClient.searchStockInfo150(code, "20100101", "20250527").getOutput().get(0), stock);
         return stock;
+    }*/
+
+    @Test
+    public void saveAllTest1(){
+        System.out.println(restWebClient.searchStockInfo047("1001", "3"));
+
     }
 }

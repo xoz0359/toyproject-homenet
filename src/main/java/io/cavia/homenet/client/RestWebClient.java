@@ -216,6 +216,54 @@ public class RestWebClient {
         }
     }
 
+    public KorStock047Dto searchStockInfo047(String iscd, String searchType) {
+        /**
+         * 주식 일별 일봉 조회
+         * FID_COND_MRKT_DIV_CODE: 시장 분류 조건 코드
+         * FID_INPUT_ISCD: 입력 조건 코드
+         * FID_INPUT_HOUR_1: 입력 시간
+         * FID_INPUT_DATE_1: 입력 날짜1
+         * FID_PW_DATA_INCU_YN: 과거 데이터 포함 여부 (N, Y)
+         * FID_FAKE_TICK_INCU_YN: 허봉 포함 여부 (공백)
+         */
+        try {
+            String accessToken = apiOAuthManager.getAccessToken();
+            KorStock047Dto korStock047Dto = webClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/uapi/domestic-stock/v1/quotations/volume-rank")
+                            .queryParam("FID_COND_MRKT_DIV_CODE", "J")
+                            .queryParam("FID_COND_SCR_DIV_CODE", "20171")
+                            .queryParam("FID_INPUT_ISCD", iscd)
+                            .queryParam("FID_DIV_CLS_CODE", "0")
+                            .queryParam("FID_BLNG_CLS_CODE", searchType)
+                            .queryParam("FID_TRGT_CLS_CODE", "111111111")
+                            .queryParam("FID_TRGT_EXLS_CLS_CODE", "0000000000")
+                            .queryParam("FID_INPUT_PRICE_1", "")
+                            .queryParam("FID_INPUT_PRICE_2", "")
+                            .queryParam("FID_VOL_CNT", "")
+                            .queryParam("FID_INPUT_DATE_1", "")
+                            .build())
+                    .header(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8") // GET 요청시는 이렇게
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                    .header("appkey", apiOAuthManager.getAppKey())
+                    .header("appsecret", apiOAuthManager.getAppSecret())
+                    .header("tr_id", "FHPST01710000")
+                    .header("custtype", "P")
+                    .retrieve() // 요청 보내고, 성공하면 응답 바디를 가져올 준비를 하고, 실패하면 예외를 던짐
+                    .bodyToMono(KorStock047Dto.class)
+                    .block();
+
+            return korStock047Dto;
+        } catch (WebClientResponseException e) {
+            System.out.println("API 호출 중 에러 발생!");
+            System.out.println("Status Code: " + e.getStatusCode());
+            String errorBody = e.getResponseBodyAsString();
+            throw new RuntimeException("API 호출 실패: " + errorBody, e);
+        } catch (Exception e) {
+            throw new RuntimeException("메서드 실행중 예외 발생: " + e.getMessage(), e);
+        }
+    }
+
     public KorIndustry063Dto searchIndustryInfo063(String fidCondMrktDivCode, String fidInputIscd) {
         /**
          * 예탁원정보(배당일정)

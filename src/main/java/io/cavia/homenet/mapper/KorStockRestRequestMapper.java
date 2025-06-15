@@ -1,10 +1,14 @@
 package io.cavia.homenet.mapper;
 
 import io.cavia.homenet.domain.Stock;
+import io.cavia.homenet.domain.VStock;
 import io.cavia.homenet.dto.response.*;
 import io.cavia.homenet.repository.StockDefaltRepository;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+
+import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring")
 public interface KorStockRestRequestMapper {
@@ -14,7 +18,7 @@ public interface KorStockRestRequestMapper {
      * @return
      */
 
-    Stock toStock(KorStock046Output output);
+/*    Stock toStock(KorStock046Output output);
     Stock toStock(KorStock046Output output, @MappingTarget Stock stock);
 
     Stock toStock(KorStock067Output output);
@@ -27,5 +31,7 @@ public interface KorStockRestRequestMapper {
     Stock toStock(KorStock150Output output, @MappingTarget Stock stock);
 
     Stock toStock(KorStock213Output1 output);
-    Stock toStock(KorStock213Output1 output, @MappingTarget Stock stock);
+    Stock toStock(KorStock213Output1 output, @MappingTarget Stock stock);*/
+
+    VStock toStock(KorStock047Output output, LocalDateTime createdAt);
 }
