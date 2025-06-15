@@ -23,6 +23,7 @@ public class KorStockRealTimeMapper {
         return new StockRealTime(
                 stockId,
                 Integer.parseInt(datas[2]),  // stckPrpr
+                Long.parseLong(datas[12]), // cntgVol
                 Integer.parseInt(datas[45]),  // viStndPrc
                 LocalDateTime.now()
         );

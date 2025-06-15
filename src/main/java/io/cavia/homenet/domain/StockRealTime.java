@@ -66,12 +66,11 @@ public class StockRealTime {
     // 매수호가1
     @Column(name = "bidp1", nullable = false)
     private Integer bidp1; // 매수호가1
-
-
-    // 체결 거래량
+    */
     @Column(name = "cntg_vol", nullable = false)
     private Long cntgVol; // 체결 거래량
 
+    /*
     // 누적 거래량
     @Column(name = "acml_vol", nullable = false)
     private Long acmlVol; // 누적 거래량
@@ -216,9 +215,10 @@ public class StockRealTime {
     public StockRealTime() {
     }
 
-    public StockRealTime(Long stockId, Integer stckPrpr, Integer viStndPrc, LocalDateTime createdAt) {
+    public StockRealTime(Long stockId, Integer stckPrpr, Long cntgVol, Integer viStndPrc, LocalDateTime createdAt) {
         this.stockId = stockId;
         this.stckPrpr = stckPrpr;
+        this.cntgVol = cntgVol;
         this.viStndPrc = viStndPrc;
         this.createdAt = createdAt;
     }
@@ -237,6 +237,14 @@ public class StockRealTime {
 
     public void setStckPrpr(Integer stckPrpr) {
         this.stckPrpr = stckPrpr;
+    }
+
+    public Long getCntgVol() {
+        return cntgVol;
+    }
+
+    public void setCntgVol(Long cntgVol) {
+        this.cntgVol = cntgVol;
     }
 
     public Integer getViStndPrc() {
