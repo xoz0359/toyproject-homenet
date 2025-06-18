@@ -7,37 +7,8 @@
 
 <body>
 <h1>Homenet 가상 종목 거래 데이터 수신 테스트</h1>
-<input type="button" onclick="test();" value="웹소켓 연결">
-<textarea id="stockData" cols="300" rows="50"></textarea>
-<input type="text" id="Q" placeholder="원하는 stocksId 입력">
-<input type="button" onclick="sendMsg();" value="데이터 요청">
-
-
-
-<script>
-    var socket;
-    var Q = document.getElementById("Q");
-    var stockData = document.getElementById("stockData");
-
-    function test(){
-        socket = new WebSocket("http://localhost:8081/websocket");
-        socket.onopen = function (event) {
-            alert("연결 성공");
-        };
-        socket.onmessage = function (event) {
-            stockData.value = event.data;
-        };
-        socket.onerror = function (event) {
-            alert("에러 발생", event);
-        };
-        socket.onclose = function (event) {
-            alert("연결이 끊겼습니다.");
-        };
-    }
-
-    function sendMsg(){
-        socket.send(Q.value);
-    }
-</script>
+<button onclick = 'location.href = "주가차트테스트";'>주가차트테스트</button>
+<button onclick = 'location.href = "거래량차트테스트";'>거래량차트테스트</button>
+<button onclick = 'location.href = "호가창테스트";'>호가창테스트</button>
 </body>
 </html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #graph {
+        position: relative;
+        width: 1200px;
+        height: 450px;
+        overflow-x: auto;
+    }
+
+    #stockData {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    #layout {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    #Q {
+        display: block;
+    }
+</style>
+<body onload="loadedbody();">
+<h1>Homenet 거래량차트 테스트</h1>
+<div id="graph">
+    <canvas id="layout"></canvas>
+    <canvas id="stockData"></canvas>
+</div>
+<input type="text" id="Q" placeholder="원하는 stocksId 입력">
+<input type="button" onclick="sendMsg();" value="데이터 요청">
+
+
+<script>
+    let socket;
+    var Q = document.getElementById("Q");
+
+    var stockData = document.getElementById("stockData");
+    var stockDataCtx = stockData.getContext("2d");
+
+    var layout = document.getElementById("layout");
+    var layoutCtx = layout.getContext("2d");
+
+    const graph = document.getElementById("graph");
+
+    graph.addEventListener("scroll", function (event) {
+        console.log("onCode: " + onCode);
+        if(onCode === false) {
+            autoScroll = event.target.scrollLeft + event.target.clientWidth >= event.target.scrollWidth - 1;
+        }else{
+            onCode = false;
+        }
+    })
+
+    let autoScroll = true;
+    let onCode = false;
+
+    let mainWidth = 1200;
+    let mainHeight = 400;
+
+    const marginLeft = 10;
+    const marginTop = 10;
+
+    let LayoutWidth = mainWidth - marginLeft * 2;
+    const LayoutHeight = mainHeight - marginTop * 2;
+
+    let stickRefX = marginLeft + LayoutWidth;
+    let stickRefY = marginTop + LayoutHeight;
+
+    const guideLineLengthY = 8;
+    const guideLineLengthX = 5;
+
+    const valueStickWidth = 10;
+
+    let showValueLate = 20000;
+
+    // 기본 봉 개수
+    let graphComp = 10;
+
+    // 5분봉 (최대 분봉) 기준 거래량 표시 비율
+    let MaxPrice = 20000;
+    let MinPrice = 0;
+
+    // 그래프의 각 틱 시간정보
+    let relTime;
+
+    // 5분 봉 내부 데이터
+    let valueData5Min = [0];
+
+    // 3분 봉 내부 데이터
+    let valueData3Min = [0];
+
+    // 1분 봉 내부 데이터
+    let valueData1Min = [0];
+
+    // 30초 봉 내부 데이터
+    let valueData30Sec = [0];
+
+    // 1틱 차트 내부 데이터
+    let valueData1Tick = [0];
+
+    // 화면에 표시될 데이터 선택 변수
+    let selectData = [valueData5Min, valueData3Min, valueData1Min, valueData30Sec, valueData1Tick];
+    let selectDataIndex = 3;
+
+    // 기준 시간 별로 milliseconds를 계산하여 캐시
+    const Min5 = 5 * 60 * 1000;
+    const Min3 = 3 * 60 * 1000;
+    const Min1 = 60 * 1000;
+    const Sec30 = 30 * 1000;
+
+
+    // canvas 크기 설정
+    layout.width = mainWidth;
+    layout.height = mainHeight;
+    stockData.width = mainWidth;
+    stockData.height = mainHeight;
+
+    layout.style.width = mainWidth+"px";
+    layout.style.height = mainHeight+"px";
+    stockData.style.width = mainWidth+"px";
+    stockData.style.height = mainHeight+"px";
+
+    function scrollSummary() {
+        onCode = true;
+        graph.scrollLeft = graph.scrollWidth;
+    }
+
+    function loadedbody() {
+        test();
+
+        // canvas 내부의 외곽선 그리기
+
+        // 1. 경로 시작 (이후 지정된 영역을 한 번에 그리는 느낌)
+        layoutCtx.beginPath();
+
+        // 2. 외곽선 사각형
+        layoutCtx.rect(marginLeft, marginTop, LayoutWidth, LayoutHeight);
+
+        // 3. 지정된 영역 채워 그리기
+        layoutCtx.strokeStyle = 'gray';
+        layoutCtx.lineWidth = 1;
+        layoutCtx.stroke();
+
+        drowGuideLine(guideLineLengthX, guideLineLengthY);
+    }
+
+    function drowGuideLine(wlength, hlength) {
+        const widthLine = mainWidth / wlength;
+        const heightLine = mainHeight / hlength;
+
+        // 가로 가이드 라인
+        for (let i = 1; i < hlength; i++) {
+            layoutCtx.beginPath();
+            layoutCtx.moveTo(marginLeft,
+                i * heightLine);
+            layoutCtx.lineTo(marginLeft + LayoutWidth,
+                i * heightLine);
+
+            layoutCtx.strokeStyle = 'gray';
+            layoutCtx.lineWidth = 1;
+            layoutCtx.stroke();
+        }
+
+        // 세로 가이드라인
+        for (let i = 1; i < wlength; i++) {
+            layoutCtx.beginPath();
+            layoutCtx.moveTo(i * widthLine,
+                marginTop);
+            layoutCtx.lineTo(i * widthLine,
+                marginTop + LayoutHeight);
+
+            layoutCtx.strokeStyle = 'gray';
+            layoutCtx.lineWidth = 1;
+            layoutCtx.stroke();
+        }
+    }
+
+    function drowStick(RefX, RefY, width, value) {
+
+        if (value === undefined) value = 0;
+
+        stockDataCtx.clearRect(RefX, 0, width, mainHeight);
+        drowGuideLine(guideLineLengthX, guideLineLengthY);
+
+        stockDataCtx.beginPath();
+        stockDataCtx.rect(RefX, RefY, width, value);
+        stockDataCtx.fillStyle = 'blue';
+        stockDataCtx.fill();
+
+
+        console.log("stickRefX: " + RefX + ", stickRefY: " + RefY + ", width: " + width + ", value: " + value);
+    }
+
+    function shiftArrayRight(oldArray) {
+        let newArray = new Array(oldArray.length).fill(0);
+        for (let i = 0; i < oldArray.length; i++) {
+            newArray[i + 1] = oldArray[i];
+        }
+        return newArray;
+    }
+
+    function getMax(intArray) {
+        let max = intArray[0];
+        for (let i of intArray) {
+            if (i > max) max = i;
+        }
+        return max;
+    }
+
+    function expandGraph(index) {
+        if (selectData[selectDataIndex].length > graphComp && index === selectDataIndex) {
+            mainWidth += LayoutWidth / graphComp;
+
+            stockData.style.width = mainWidth+"px";
+            layout.style.width = mainWidth+"px";
+
+            stockData.width = mainWidth;
+            layout.width = mainWidth;
+
+            LayoutWidth = mainWidth - marginLeft * 2;
+            graphComp++;
+            if(autoScroll) {
+                scrollSummary();
+            }
+        }
+    }
+
+    function test() {
+        socket = new WebSocket("http://localhost:8081/websocket");
+        socket.onopen = function (event) {
+            console.log("연결 성공");
+        };
+        socket.onmessage = function (event) {
+
+            let data = JSON.parse(event.data);
+
+            if (data.cntgVol != null) {
+                if (relTime == null) {
+                    relTime = new Date(data.createdAt);
+                } else {
+                    let grapeTime = new Date(data.createdAt);
+                    if (grapeTime - relTime >= Min5) {
+                        selectData[0] = shiftArrayRight(selectData[0]);
+                        showValueLate = getMax(selectData[0]);
+                        relTime = grapeTime;
+                        stickRefY = marginTop + LayoutHeight;
+                        expandGraph(0);
+                    }
+                    if (grapeTime - relTime >= Min3) {
+                        selectData[1] = shiftArrayRight(selectData[1]);
+                        showValueLate = getMax(selectData[1]);
+                        relTime = grapeTime;
+                        stickRefY = marginTop + LayoutHeight;
+                        expandGraph(1);
+                    }
+                    if (grapeTime - relTime >= Min1) {
+                        selectData[2] = shiftArrayRight(selectData[2]);
+                        showValueLate = getMax(selectData[2]);
+                        relTime = grapeTime;
+                        stickRefY = marginTop + LayoutHeight;
+                        expandGraph(2);
+                    }
+                    if (grapeTime - relTime >= Sec30) {
+                        selectData[3] = shiftArrayRight(selectData[3]);
+                        showValueLate = getMax(selectData[3]);
+                        relTime = grapeTime;
+                        stickRefY = marginTop + LayoutHeight;
+                        expandGraph(3);
+                    }
+                }
+
+
+                selectData[0][0] += data.cntgVol;
+                selectData[1][0] += data.cntgVol;
+                selectData[2][0] += data.cntgVol;
+                selectData[3][0] += data.cntgVol;
+                selectData[4].push(data.cntgVol);
+
+                stickRefX = LayoutWidth + marginLeft - LayoutWidth / graphComp + valueStickWidth;
+
+                // 거래량 고점 갱신 시 그래프 표시 비율 변경
+                if (selectData[selectDataIndex][0] > showValueLate && selectData[selectDataIndex][1] !== undefined) {
+                    showValueLate = selectData[selectDataIndex][0];
+                    drowStick(stickRefX, LayoutHeight + marginTop - LayoutHeight * 0.8, valueStickWidth, LayoutHeight * 0.8);
+                } else {
+                    // 거래량 그래프 스틱 그리기
+                    stickRefY -= data.cntgVol / showValueLate * LayoutHeight * 0.8;
+                    drowStick(stickRefX, stickRefY, valueStickWidth, selectData[selectDataIndex][0] / showValueLate * LayoutHeight * 0.8);
+                }
+
+
+                for (let i = 1; i < selectData[selectDataIndex].length; i++) {
+                    drowStick(stickRefX - i * LayoutWidth / graphComp,
+                        LayoutHeight + marginTop - selectData[selectDataIndex][i] / showValueLate * LayoutHeight * 0.8,
+                        valueStickWidth,
+                        selectData[selectDataIndex][i] / showValueLate * LayoutHeight * 0.8);
+                }
+            }
+        };
+        socket.onerror = function (event) {
+            alert("에러 발생", event);
+        };
+        socket.onclose = function (event) {
+            console.log("연결이 끊겼습니다.");
+        };
+    }
+
+    function sendMsg() {
+        socket.send(Q.value);
+    }
+    window.addEventListener("beforeunload", function (event) {
+        socket.close();
+    })
+</script>
+</body>
+</html>

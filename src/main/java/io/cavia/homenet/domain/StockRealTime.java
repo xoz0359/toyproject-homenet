@@ -58,7 +58,7 @@ public class StockRealTime {
     // 주식 최저가
     @Column(name = "stck_lwpr", nullable = false)
     private Integer stckLwpr; // 주식 최저가
-
+    */
     // 매도호가1
     @Column(name = "askp1", nullable = false)
     private Integer askp1; // 매도호가1
@@ -67,11 +67,10 @@ public class StockRealTime {
     @Column(name = "bidp1", nullable = false)
     private Integer bidp1; // 매수호가1
 
-
-    // 체결 거래량
     @Column(name = "cntg_vol", nullable = false)
     private Long cntgVol; // 체결 거래량
 
+    /*
     // 누적 거래량
     @Column(name = "acml_vol", nullable = false)
     private Long acmlVol; // 누적 거래량
@@ -216,9 +215,12 @@ public class StockRealTime {
     public StockRealTime() {
     }
 
-    public StockRealTime(Long stockId, Integer stckPrpr, Integer viStndPrc, LocalDateTime createdAt) {
+    public StockRealTime(Long stockId, Integer stckPrpr, Integer askp1, Integer bidp1, Long cntgVol, Integer viStndPrc, LocalDateTime createdAt) {
         this.stockId = stockId;
         this.stckPrpr = stckPrpr;
+        this.askp1 = askp1;
+        this.bidp1 = bidp1;
+        this.cntgVol = cntgVol;
         this.viStndPrc = viStndPrc;
         this.createdAt = createdAt;
     }
@@ -237,6 +239,30 @@ public class StockRealTime {
 
     public void setStckPrpr(Integer stckPrpr) {
         this.stckPrpr = stckPrpr;
+    }
+
+    public Integer getAskp1() {
+        return askp1;
+    }
+
+    public void setAskp1(Integer askp1) {
+        this.askp1 = askp1;
+    }
+
+    public Integer getBidp1() {
+        return bidp1;
+    }
+
+    public void setBidp1(Integer bidp1) {
+        this.bidp1 = bidp1;
+    }
+
+    public Long getCntgVol() {
+        return cntgVol;
+    }
+
+    public void setCntgVol(Long cntgVol) {
+        this.cntgVol = cntgVol;
     }
 
     public Integer getViStndPrc() {

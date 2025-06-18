@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #graph {
+        position: relative;
+        widtd: 1200px;
+        height: 450px;
+        overflow-x: auto;
+    }
+
+    #Q {
+        display: block;
+    }
+</style>
+<body onload="loadedBody();">
+<h1>Homenet 호가창 테스트</h1>
+<div id="graph">
+
+    <table id="orderBookBuy">
+        <thead>
+        <tr>
+            <th>매수 호가</th>
+        </tr>
+        </thead>
+        <tr>
+            <td id="buy1"></td>
+            <td id="buyPrice1"></td>
+        </tr>
+        <tr>
+            <td id="buy2"></td>
+            <td id="buyPrice2"></td>
+        </tr>
+        <tr>
+            <td id="buy3"></td>
+            <td id="buyPrice3"></td>
+        </tr>
+        <tr>
+            <td id="buy4"></td>
+            <td id="buyPrice4"></td>
+        </tr>
+        <tr>
+            <td id="buy5"></td>
+            <td id="buyPrice5"></td>
+        </tr>
+        <tr>
+            <td id="buy6"></td>
+            <td id="buyPrice6"></td>
+        </tr>
+        <tr>
+            <td id="buy7"></td>
+            <td id="buyPrice7"></td>
+        </tr>
+        <tr>
+            <td id="buy8"></td>
+            <td id="buyPrice8"></td>
+        </tr>
+        <tr>
+            <td id="buy9"></td>
+            <td id="buyPrice9"></td>
+        </tr>
+        <tr>
+            <td id="buy10"></td>
+            <td id="buyPrice10"></td>
+        </tr>
+        <tr>
+            <td id="buyAll"></td>
+        </tr>
+    </table>
+
+    <table id="orderBookSel">
+        <thead>
+        <tr>
+            <th>매도 호가</th>
+        </tr>
+        </thead>
+        <tr>
+            <td id="sel1"></td>
+            <td id="selPrice1"></td>
+        </tr>
+        <tr>
+            <td id="sel2"></td>
+            <td id="selPrice2"></td>
+        </tr>
+        <tr>
+            <td id="sel3"></td>
+            <td id="selPrice3"></td>
+        </tr>
+        <tr>
+            <td id="sel4"></td>
+            <td id="selPrice4"></td>
+        </tr>
+        <tr>
+            <td id="sel5"></td>
+            <td id="selPrice5"></td>
+        </tr>
+        <tr>
+            <td id="sel6"></td>
+            <td id="selPrice6"></td>
+        </tr>
+        <tr>
+            <td id="sel7"></td>
+            <td id="selPrice7"></td>
+        </tr>
+        <tr>
+            <td id="sel8"></td>
+            <td id="selPrice8"></td>
+        </tr>
+        <tr>
+            <td id="sel9"></td>
+            <td id="selPrice9"></td>
+        </tr>
+        <tr>
+            <td id="sel10"></td>
+            <td id="selPrice10"></td>
+        </tr>
+        <tr>
+            <td id="selAll"></td>
+        </tr>
+    </table>
+</div>
+<input type="text" id="Q" placeholder="원하는 stocksId 입력">
+<input type="button" onclick="sendMsg();" value="데이터 요청">
+
+<script>
+
+    let socket;
+
+
+    let Q = document.getElementById("Q");
+
+    function loadedBody() {
+        test();
+    }
+
+    function test() {
+        socket = new WebSocket("http://localhost:8081/websocket");
+        socket.onopen = function (event) {
+            console.log("연결 성공");
+        };
+        socket.onmessage = function (event) {
+
+            let data = JSON.parse(event.data);
+
+            if (data.askp10 !== undefined) {
+                    for (let i = 1; i <= 10; i++) {
+                    document.getElementById("buy" + i).innerText = data["askp" + i];
+                    document.getElementById("buyPrice" + i).innerText = data["askpRsqn" + i];
+                    document.getElementById("buyAll").innerText = data.totalAskpRsqnIcdc;
+
+                    document.getElementById("sel" + i).innerText = data["bidp" + i];
+                    document.getElementById("selPrice" + i).innerText = data["bidpRsqn" + i];
+                    document.getElementById("selAll").innerText = data.totalBidpRsqnIcdc;
+                }
+
+            }
+
+        };
+        socket.onerror = function (event) {
+            alert("에러 발생", event);
+        };
+        socket.onclose = function (event) {
+            console.log("연결이 끊겼습니다.");
+        };
+    }
+
+    function sendMsg() {
+        socket.send(Q.value);
+    }
+
+    window.addEventListener("beforeunload", function (event) {
+        socket.close();
+    })
+</script>
+</body>
+</html>
