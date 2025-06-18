@@ -47,7 +47,6 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         sessions.add(session);
-        session.sendMessage(new TextMessage("Hello Websocket!!!"));
     }
 
     @Override
@@ -75,6 +74,7 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
             Thread thread1 = new Thread(() -> {
                 SRTs.forEach(srt -> {
                     try{
+                        if (!session.isOpen()) return;
                         long relTime = srt
                                 .getCreatedAt()
                                 .atZone(ZoneId.systemDefault())
@@ -114,6 +114,7 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
             Thread thread2 = new Thread(() -> {
                 ORTs.forEach(ort -> {
                     try {
+                        if (!session.isOpen()) return;
                         long relTime = ort
                                 .getCreatedAt()
                                 .atZone(ZoneId.systemDefault())
