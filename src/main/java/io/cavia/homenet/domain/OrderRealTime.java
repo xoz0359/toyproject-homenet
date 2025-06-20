@@ -12,7 +12,7 @@ public class OrderRealTime {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "stocks_id", nullable = false)
+    @Column(name = "stock_id", nullable = false)
     private Long stockId;
 
     /*

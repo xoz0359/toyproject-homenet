@@ -12,7 +12,7 @@ public class StockRealTime {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "stocks_id", nullable = false)
+    @Column(name = "stock_id", nullable = false)
     private Long stockId;
 
     /*// 유가증권 단축 종목코드, 9자리 String
