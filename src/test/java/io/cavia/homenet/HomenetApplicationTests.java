@@ -48,7 +48,7 @@ class HomenetApplicationTests {
 		for(int i = 0; i < 20; i++){
 			System.out.println(list047.get(i));
 			stockDefaltRepository.save(korStockRestRequestMapper.toStock(list047.get(i), LocalDateTime.now()));
-			stockDefaltRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(0, 20))
+			stockDefaltRepository.findAllByOrderByIdDesc(PageRequest.of(0, 20))
 					.forEach(j -> stockCodeMap.put(j.getCode(), j.getId()));
 		}
 
