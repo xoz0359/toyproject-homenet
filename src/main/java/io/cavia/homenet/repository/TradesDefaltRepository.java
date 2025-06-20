@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface TradesDefaltRepository extends JpaRepository<Trades, Long> {
 
-    List<Trades> findByStockId(Long stockId);
+    List<Trades> findByStockId(int stockId);
+    void deleteByStockId(int stockId);
 }

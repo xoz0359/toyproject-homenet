@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface QotesDefaltRepository extends JpaRepository<Quotes, Long> {
 
-    List<Quotes> findByStockId(Long stockId);
+    List<Quotes> findByStockId(int stockId);
+    void deleteByStockId(int stockId);
 }

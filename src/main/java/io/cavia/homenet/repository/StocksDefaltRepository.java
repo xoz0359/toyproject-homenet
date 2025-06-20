@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StocksDefaltRepository extends JpaRepository<Stocks, Long> {
+public interface StocksDefaltRepository extends JpaRepository<Stocks, Integer> {
     List<Stocks> findAllByOrderByCreatedAtDesc(Pageable pageable);
 }

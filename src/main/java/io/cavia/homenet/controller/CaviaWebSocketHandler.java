@@ -56,8 +56,8 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
         // 클라이언트 메시지 처리 (echo, broadcast, 기타 로직 등)
         String payload = message.getPayload();
-        List<Trades> SRTs = tradesDefaltRepository.findByStockId(Long.parseLong(payload));
-        List<Quotes> ORTs = qotesDefaltRepository.findByStockId(Long.parseLong(payload));
+        List<Trades> SRTs = tradesDefaltRepository.findByStockId(Integer.parseInt(payload));
+        List<Quotes> ORTs = qotesDefaltRepository.findByStockId(Integer.parseInt(payload));
         try {
             List<Long> stockBaseTime = new ArrayList<Long>();
                 stockBaseTime.add(SRTs
