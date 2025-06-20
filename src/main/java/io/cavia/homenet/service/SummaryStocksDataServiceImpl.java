@@ -18,25 +18,25 @@ public class SummaryStocksDataServiceImpl implements SummaryStocksDataService {
     private final QotesDefaltRepository qotesDefaltRepository;
 
 
-    public SummaryStocksDataServiceImpl(StocksDefaltRepository stockDefaltRepository, TradesDefaltRepository tradesDefaltRepository, QotesDefaltRepository qotesDefaltRepository) {
-        this.stockDefaltRepository = stockDefaltRepository;
+    public SummaryStocksDataServiceImpl(StocksDefaltRepository stocksDefaltRepository, TradesDefaltRepository tradesDefaltRepository, QotesDefaltRepository qotesDefaltRepository) {
+        this.stockDefaltRepository = stocksDefaltRepository;
         this.tradesDefaltRepository = tradesDefaltRepository;
         this.qotesDefaltRepository = qotesDefaltRepository;
     }
 
     @Override
     public List<Stocks> getStocksAll() {
-        return stockDefaltRepository.findAll();
+        return stockDefaltRepository.findAllByOrderByIdAsc();
     }
 
     @Override
     public List<Quotes> getQuotesByStockId(int id) {
-        return qotesDefaltRepository.findByStockId(id);
+        return qotesDefaltRepository.findAllByStockIdOrderByIdAsc(id);
     }
 
     @Override
     public List<Trades> getTradesByStockId(int id) {
-        return tradesDefaltRepository.findByStockId(id);
+        return tradesDefaltRepository.findAllByStockIdOrderByIdAsc(id);
     }
 
     @Override
@@ -46,12 +46,12 @@ public class SummaryStocksDataServiceImpl implements SummaryStocksDataService {
 
     @Override
     public void deleteTrades(int id) {
-        tradesDefaltRepository.deleteByStockId(id);
+        tradesDefaltRepository.deleteAllByStockId(id);
     }
 
     @Override
     public void deleteQuotes(int id) {
-        qotesDefaltRepository.deleteByStockId(id);
+        qotesDefaltRepository.deleteAllByStockId(id);
     }
 
 

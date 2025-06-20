@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface StocksDefaltRepository extends JpaRepository<Stocks, Integer> {
     List<Stocks> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    List<Stocks> findAllByOrderByIdAsc();
 }

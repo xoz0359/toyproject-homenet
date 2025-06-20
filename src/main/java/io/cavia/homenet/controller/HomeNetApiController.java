@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cavia/homenet")
+@RequestMapping("/homenet")
 public class HomeNetApiController {
 
     private final SummaryStocksDataService summaryStocksDataService;
@@ -48,15 +48,15 @@ public class HomeNetApiController {
             }else{
                     return ResponseEntity
                             .status(HttpStatus.OK)
-                            .body(summaryStocksDataService.getStocksAll());
+                            .body(stocks);
             }
     }
 
     @GetMapping("/stock/{id}/trades")
     public ResponseEntity<?> getStockTrades(@PathVariable int id) {
-        List<Trades> Trades = summaryStocksDataService.getTradesByStockId(id);
+        List<Trades> trades = summaryStocksDataService.getTradesByStockId(id);
 
-        if(Trades == null || Trades.isEmpty()) {
+        if(trades == null || trades.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(new HomenetApiErrorResponse(HttpStatus.NOT_FOUND.value(),
@@ -64,15 +64,15 @@ public class HomeNetApiController {
         }else{
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(summaryStocksDataService.getTradesByStockId(id));
+                    .body(trades);
         }
     }
 
     @GetMapping("/stock/{id}/quotes")
     public ResponseEntity<?> getStockQuotes(@PathVariable int id) {
-        List<Quotes> Quotes = summaryStocksDataService.getQuotesByStockId(id);
+        List<Quotes> quotes = summaryStocksDataService.getQuotesByStockId(id);
 
-        if(Quotes == null || Quotes.isEmpty()) {
+        if(quotes == null || quotes.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(new HomenetApiErrorResponse(HttpStatus.NOT_FOUND.value(),
@@ -80,7 +80,7 @@ public class HomeNetApiController {
         }else{
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(summaryStocksDataService.getQuotesByStockId(id));
+                    .body(quotes);
         }
     }
 
