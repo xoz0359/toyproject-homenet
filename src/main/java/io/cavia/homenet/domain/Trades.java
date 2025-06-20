@@ -13,7 +13,7 @@ public class Trades {
     private Long id;
 
     @Column(name = "stock_id", nullable = false)
-    private Long stockId;
+    private Integer stockId;
 
     /*// 유가증권 단축 종목코드, 9자리 String
     @Column(name = "mksc_shrn_iscd", length = 9, nullable = false)
@@ -215,7 +215,7 @@ public class Trades {
     public Trades() {
     }
 
-    public Trades(Long stockId, Integer stckPrpr, Integer askp1, Integer bidp1, Long cntgVol, Integer viStndPrc, LocalDateTime createdAt) {
+    public Trades(Integer stockId, Integer stckPrpr, Integer askp1, Integer bidp1, Long cntgVol, Integer viStndPrc, LocalDateTime createdAt) {
         this.stockId = stockId;
         this.stckPrpr = stckPrpr;
         this.askp1 = askp1;
@@ -225,11 +225,11 @@ public class Trades {
         this.createdAt = createdAt;
     }
 
-    public Long getStockId() {
+    public Integer getStockId() {
         return stockId;
     }
 
-    public void setStockId(Long stocksId) {
+    public void setStockId(Integer stocksId) {
         this.stockId = stocksId;
     }
 

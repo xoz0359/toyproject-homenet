@@ -13,7 +13,7 @@ public class KorOrderRealTimeMapper {
      *
      * @return
      */
-    public Quotes toEntity(String[] datas, Long stockId) {
+    public Quotes toEntity(String[] datas, Integer stockId) {
         if(datas == null) {
             throw new RuntimeException("매핑 중 오류 발생: Null이 입력되었습니다.");
         }

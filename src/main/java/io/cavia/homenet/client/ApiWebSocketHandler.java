@@ -28,7 +28,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
     private KorStockRealTimeMapper korStockRealTimeMapper;
 
 
-    private HashMap<String, Long> stockCodeMap = new HashMap<>();
+    private HashMap<String, Integer> stockCodeMap = new HashMap<String, Integer>();
 
 
     public ApiWebSocketHandler() {
@@ -75,7 +75,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
 
         if (datas[0].indexOf("H0STCNT0") != -1) {
             datas[0] = datas[0].substring(datas[0].lastIndexOf("|") + 1);
-            Long stockId = stockCodeMap.get(datas[0]);
+            Integer stockId = stockCodeMap.get(datas[0]);
 
             if (datas.length % 46 == 0) {
                 for (int i = 0; i < datas.length; i += 46) {
@@ -89,7 +89,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
             }
         } else if (datas[0].indexOf("H0STASP0") != -1) {
             datas[0] = datas[0].substring(datas[0].lastIndexOf("|") + 1);
-            Long stockId = stockCodeMap.get(datas[0]);
+            Integer stockId = stockCodeMap.get(datas[0]);
 
             if (datas.length % 62 == 0) {
                 for (int i = 0; i < datas.length; i += 62) {
@@ -117,7 +117,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
         System.out.println("웹소켓 연결이 종료되었습니다. 세션 ID: " + session.getId() + ", 상태: " + status);
     }
 
-    public void setStockCodeMap(HashMap<String, Long> stockCodeMap) {
+    public void setStockCodeMap(HashMap<String, Integer> stockCodeMap) {
         this.stockCodeMap = stockCodeMap;
     }
 }

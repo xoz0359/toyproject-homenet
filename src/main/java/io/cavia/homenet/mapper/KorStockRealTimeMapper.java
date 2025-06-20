@@ -13,7 +13,7 @@ public class KorStockRealTimeMapper {
      * '^'는 정규식에서 라인 시작을 의미하기 때문에 구분자로 사용하려면 이스케이프 해주어야 합니다
      * @return
      */
-    public Trades toEntity(String[] datas, Long stockId) {
+    public Trades toEntity(String[] datas, Integer stockId) {
         if(datas == null) {
             throw new RuntimeException("매핑 중 오류 발생: Null이 입력되었습니다.");
         }

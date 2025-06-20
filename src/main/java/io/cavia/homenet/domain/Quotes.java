@@ -13,7 +13,7 @@ public class Quotes {
     private Long id;
 
     @Column(name = "stock_id", nullable = false)
-    private Long stockId;
+    private Integer stockId;
 
     /*
     // 유가증권 단축 종목코드
@@ -225,7 +225,7 @@ public class Quotes {
     public Quotes() {
     }
 
-    public Quotes(Long stockId, Integer askp1, Integer askp2, Integer askp3, Integer askp4, Integer askp5, Integer askp6, Integer askp7, Integer askp8, Integer askp9, Integer askp10, Integer bidp1, Integer bidp2, Integer bidp3, Integer bidp4, Integer bidp5, Integer bidp6, Integer bidp7, Integer bidp8, Integer bidp9, Integer bidp10, Long askpRsqn1, Long askpRsqn2, Long askpRsqn3, Long askpRsqn4, Long askpRsqn5, Long askpRsqn6, Long askpRsqn7, Long askpRsqn8, Long askpRsqn9, Long askpRsqn10, Long bidpRsqn1, Long bidpRsqn2, Long bidpRsqn3, Long bidpRsqn4, Long bidpRsqn5, Long bidpRsqn6, Long bidpRsqn7, Long bidpRsqn8, Long bidpRsqn9, Long bidpRsqn10, Integer totalAskpRsqnIcdc, Integer totalBidpRsqnIcdc, LocalDateTime createdAt) {
+    public Quotes(Integer stockId, Integer askp1, Integer askp2, Integer askp3, Integer askp4, Integer askp5, Integer askp6, Integer askp7, Integer askp8, Integer askp9, Integer askp10, Integer bidp1, Integer bidp2, Integer bidp3, Integer bidp4, Integer bidp5, Integer bidp6, Integer bidp7, Integer bidp8, Integer bidp9, Integer bidp10, Long askpRsqn1, Long askpRsqn2, Long askpRsqn3, Long askpRsqn4, Long askpRsqn5, Long askpRsqn6, Long askpRsqn7, Long askpRsqn8, Long askpRsqn9, Long askpRsqn10, Long bidpRsqn1, Long bidpRsqn2, Long bidpRsqn3, Long bidpRsqn4, Long bidpRsqn5, Long bidpRsqn6, Long bidpRsqn7, Long bidpRsqn8, Long bidpRsqn9, Long bidpRsqn10, Integer totalAskpRsqnIcdc, Integer totalBidpRsqnIcdc, LocalDateTime createdAt) {
         this.stockId = stockId;
         this.askp1 = askp1;
         this.askp2 = askp2;
@@ -272,11 +272,11 @@ public class Quotes {
         this.createdAt = createdAt;
     }
 
-    public Long getStockId() {
+    public Integer getStockId() {
         return stockId;
     }
 
-    public void setStockId(Long stocksId) {
+    public void setStockId(Integer stocksId) {
         this.stockId = stocksId;
     }
 

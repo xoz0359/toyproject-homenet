@@ -1,6 +1,8 @@
 package io.cavia.homenet.controller;
 import io.cavia.homenet.repository.OrderRealTimeRepository;
 import io.cavia.homenet.repository.StockRealTimeRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,9 +27,15 @@ public class HomeNetApiController {
      *  order-realtime: 종목의 호가창 동적 데이터 반환
      */
 
-    //@GetMapping("/stocks/{id}/quotes")
+    @GetMapping("/stocks/{id}/quotes")
+    public String getStockQuotes(@PathVariable Long id) {
+
+    }
 
 
-    //@GetMapping("/stocks/{id}/trades")
+    @GetMapping("/stocks/{id}/trades")
+    public String getStockTrades() {
+
+    }
 
 }

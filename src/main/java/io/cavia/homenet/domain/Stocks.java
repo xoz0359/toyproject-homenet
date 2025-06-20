@@ -11,7 +11,7 @@ public class Stocks {
     @Id
     @Column(name = "id")
     @GeneratedValue
-    private Long id;
+    private int id;
 
     @Column(name = "name")
     private String name;
@@ -32,7 +32,7 @@ public class Stocks {
         this.createdAt = createdAt;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

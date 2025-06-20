@@ -37,7 +37,7 @@ class HomenetApplicationTests {
 	@Autowired
 	private ApiWebSocketClient apiWebSocketClient;
 
-	private HashMap<String, Long> stockCodeMap = new HashMap<>();
+	private HashMap<String, Integer> stockCodeMap = new HashMap<String, Integer>();
 
 
 
@@ -73,7 +73,7 @@ class HomenetApplicationTests {
 		}
 	}
 
-	public HashMap<String, Long> getStockCodeMap() {
+	public HashMap<String, Integer> getStockCodeMap() {
 		return stockCodeMap;
 	}
 }
