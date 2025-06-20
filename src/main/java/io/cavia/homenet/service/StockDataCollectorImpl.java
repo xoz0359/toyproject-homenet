@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class StockDataCollectorImpl implements StockDataCollector {
@@ -24,8 +25,6 @@ public class StockDataCollectorImpl implements StockDataCollector {
     private final RestWebClient restWebClient;
     private final StocksDefaltRepository stockDefaltRepository;
     private final KorStockRestRequestMapper korStockRestRequestMapper;
-
-    private HashMap<String, Integer> stockCodeMap;
 
     private final int ONE_MINUTES_IN_MILLIS = 1000*60;
     private final String KOSDAQ = "1001";
@@ -47,9 +46,22 @@ public class StockDataCollectorImpl implements StockDataCollector {
     @Override
     @Scheduled(cron = "0 10 9 * * ?")
     public void collect() {
-        stockCodeMap = new HashMap<String, Integer>();
+
+        if(restWebClient
+                .searchMarketIsOpen040()
+                .getOutput()
+                .get(0)
+                .getOpen()
+                .equals("N")
+                ) return;
+
+        // 거래대금 상위 20개 종목을 담을 맵
+        Map<String, Integer> stockCodeMap = new HashMap<>();
+
+        // 실시간 거래대금 상위 20개 종목 조회 요청
         List<KorStock047Output> list047 = restWebClient.searchStockInfo047(KOSDAQ, PRICE_AND_TRADE_VOLUME).getOutput();
 
+        // 선별 종목들을 DB에 저장하고 stockCodeMap에 저장
         for (int i = 0; i < 20; i++) {
             System.out.println(list047.get(i));
             stockDefaltRepository.save(korStockRestRequestMapper.toStock(list047.get(i), LocalDateTime.now()));
@@ -57,6 +69,7 @@ public class StockDataCollectorImpl implements StockDataCollector {
                     .forEach(j -> stockCodeMap.put(j.getCode(), j.getId()));
         }
 
+        // 저장한 Map을 ApiWebSocketHandler에 주입
         apiWebSocketHandler.setStockCodeMap(stockCodeMap);
 
         try {
@@ -74,11 +87,8 @@ public class StockDataCollectorImpl implements StockDataCollector {
             Thread.sleep(1000);
             webSocketClient.disconnect();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("API 웹소켓 연결 중 예외 발생: " + e.getMessage(), e);
         }
     }
 
-    public HashMap<String, Integer> getStockCodeMap() {
-        return stockCodeMap;
-    }
 }

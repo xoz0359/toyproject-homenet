@@ -13,6 +13,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 public class ApiWebSocketHandler extends TextWebSocketHandler {
@@ -28,7 +29,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
     private TradersMapper tradersMapper;
 
 
-    private HashMap<String, Integer> stockCodeMap = new HashMap<String, Integer>();
+    private Map<String, Integer> stockCodeMap = new HashMap<>();
 
 
     public ApiWebSocketHandler() {
@@ -117,7 +118,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
         System.out.println("웹소켓 연결이 종료되었습니다. 세션 ID: " + session.getId() + ", 상태: " + status);
     }
 
-    public void setStockCodeMap(HashMap<String, Integer> stockCodeMap) {
+    public void setStockCodeMap(Map<String, Integer> stockCodeMap) {
         this.stockCodeMap = stockCodeMap;
     }
 }
