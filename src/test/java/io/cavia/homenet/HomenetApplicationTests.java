@@ -44,7 +44,6 @@ class HomenetApplicationTests {
 
 
 
-	@Transactional
 	@Test
 	void test() {
 		List<KorStock047Output> list047 = restWebClient.searchStockInfo047("1001", "3").getOutput();
