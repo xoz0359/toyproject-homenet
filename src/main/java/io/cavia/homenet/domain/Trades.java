@@ -5,15 +5,15 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "stock_real_time")
-public class StockRealTime {
+@Table(name = "Trades")
+public class Trades {
 
     @Id @GeneratedValue
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "stocks_id", nullable = false)
-    private Long stockId;
+    @Column(name = "stock_id", nullable = false)
+    private Integer stockId;
 
     /*// 유가증권 단축 종목코드, 9자리 String
     @Column(name = "mksc_shrn_iscd", length = 9, nullable = false)
@@ -212,10 +212,10 @@ public class StockRealTime {
 
 
 
-    public StockRealTime() {
+    public Trades() {
     }
 
-    public StockRealTime(Long stockId, Integer stckPrpr, Integer askp1, Integer bidp1, Long cntgVol, Integer viStndPrc, LocalDateTime createdAt) {
+    public Trades(Integer stockId, Integer stckPrpr, Integer askp1, Integer bidp1, Long cntgVol, Integer viStndPrc, LocalDateTime createdAt) {
         this.stockId = stockId;
         this.stckPrpr = stckPrpr;
         this.askp1 = askp1;
@@ -225,11 +225,11 @@ public class StockRealTime {
         this.createdAt = createdAt;
     }
 
-    public Long getStockId() {
+    public Integer getStockId() {
         return stockId;
     }
 
-    public void setStockId(Long stocksId) {
+    public void setStockId(Integer stocksId) {
         this.stockId = stocksId;
     }
 

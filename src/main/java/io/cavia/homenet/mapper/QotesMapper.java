@@ -1,12 +1,10 @@
 package io.cavia.homenet.mapper;
 
-import io.cavia.homenet.domain.OrderRealTime;
+import io.cavia.homenet.domain.Quotes;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-public class KorOrderRealTimeMapper {
+public class QotesMapper {
     /**
      * 국내주식 실시간호가 요청으로 발생하는 dvs를 Entity로 변환하는 메서드 입니다
      * dvs는 '^'를 구분자로 가지고 57개의 데이터가 매핑되어 있습니다
@@ -15,11 +13,11 @@ public class KorOrderRealTimeMapper {
      *
      * @return
      */
-    public OrderRealTime toEntity(String[] datas, Long stockId) {
+    public Quotes toEntity(String[] datas, Integer stockId) {
         if(datas == null) {
             throw new RuntimeException("매핑 중 오류 발생: Null이 입력되었습니다.");
         }
-        return new OrderRealTime(
+        return new Quotes(
             stockId,
             Integer.parseInt(datas[3]),   // askp1
             Integer.parseInt(datas[4]),   // askp2

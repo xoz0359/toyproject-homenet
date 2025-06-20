@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeNetHttpController {
+public class HomeNetChartTestController {
 
     @GetMapping("주가차트테스트")
     public String priceChartTest() {

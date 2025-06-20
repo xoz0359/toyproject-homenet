@@ -2,7 +2,7 @@ package io.cavia.homenet.service;
 
 import io.cavia.homenet.client.ApiWebSocketClient;
 import io.cavia.homenet.client.ApiWebSocketHandler;
-import io.cavia.homenet.domain.StockRealTime;
+import io.cavia.homenet.domain.Trades;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -27,11 +27,11 @@ public class RealTimeDataCache {
     // 실시간으로 쓰기 작업과 조회 작업이 동시에 발생하기 때문에 Thread safe 결성
 
 
-    private Map StockRealTime = new ConcurrentHashMap<String, ConcurrentLinkedDeque<StockRealTime>>();
-    private Map Stock5Tick = new ConcurrentHashMap<String, ConcurrentLinkedDeque<StockRealTime>>();
-    private Map Stock5Min = new ConcurrentHashMap<String, ConcurrentLinkedDeque<StockRealTime>>();
-    private Map Stock30Min = new ConcurrentHashMap<String, ConcurrentLinkedDeque<StockRealTime>>();
-    private Map Stock1hour = new ConcurrentHashMap<String, ConcurrentLinkedDeque<StockRealTime>>();
+    private Map StockRealTime = new ConcurrentHashMap<String, ConcurrentLinkedDeque<Trades>>();
+    private Map Stock5Tick = new ConcurrentHashMap<String, ConcurrentLinkedDeque<Trades>>();
+    private Map Stock5Min = new ConcurrentHashMap<String, ConcurrentLinkedDeque<Trades>>();
+    private Map Stock30Min = new ConcurrentHashMap<String, ConcurrentLinkedDeque<Trades>>();
+    private Map Stock1hour = new ConcurrentHashMap<String, ConcurrentLinkedDeque<Trades>>();
 
 
 

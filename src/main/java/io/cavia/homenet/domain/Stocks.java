@@ -6,12 +6,12 @@ import org.springframework.data.annotation.CreatedDate;
 import java.time.LocalDateTime;
 
 @Entity
-public class VStock {
+public class Stocks {
 
     @Id
     @Column(name = "id")
     @GeneratedValue
-    private Long id;
+    private int id;
 
     @Column(name = "name")
     private String name;
@@ -24,15 +24,15 @@ public class VStock {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
-    public VStock() {}
+    public Stocks() {}
 
-    public VStock(String name, String code, LocalDateTime createdAt) {
+    public Stocks(String name, String code, LocalDateTime createdAt) {
         this.name = name;
         this.code = code;
         this.createdAt = createdAt;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

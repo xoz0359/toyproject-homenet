@@ -2,18 +2,15 @@ package io.cavia.homenet.client;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.cavia.homenet.domain.ViRealTime;
-import io.cavia.homenet.mapper.KorOrderRealTimeMapper;
-import io.cavia.homenet.mapper.KorStockRealTimeMapper;
-import io.cavia.homenet.repository.OrderRealTimeRepository;
-import io.cavia.homenet.repository.StockRealTimeRepository;
-import io.cavia.homenet.repository.ViRealTimeRepository;
+import io.cavia.homenet.mapper.QotesMapper;
+import io.cavia.homenet.mapper.TradersMapper;
+import io.cavia.homenet.repository.QotesDefaltRepository;
+import io.cavia.homenet.repository.TradesDefaltRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import reactor.core.Exceptions;
 
 import java.util.HashMap;
 import java.util.stream.IntStream;
@@ -22,17 +19,16 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     @Autowired
-    private OrderRealTimeRepository orderRealTimeRepository;
+    private QotesDefaltRepository qotesDefaltRepository;
     @Autowired
-    private KorOrderRealTimeMapper korOrderRealTimeMapper;
+    private QotesMapper qotesMapper;
     @Autowired
-    private StockRealTimeRepository stockRealTimeRepository;
+    private TradesDefaltRepository tradesDefaltRepository;
     @Autowired
-    private KorStockRealTimeMapper korStockRealTimeMapper;
-    @Autowired
-    private ViRealTimeRepository viRealTimeRepository;
+    private TradersMapper tradersMapper;
 
-    private HashMap<String, Long> stockCodeMap = new HashMap<>();
+
+    private HashMap<String, Integer> stockCodeMap = new HashMap<String, Integer>();
 
 
     public ApiWebSocketHandler() {
@@ -79,12 +75,12 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
 
         if (datas[0].indexOf("H0STCNT0") != -1) {
             datas[0] = datas[0].substring(datas[0].lastIndexOf("|") + 1);
-            Long stockId = stockCodeMap.get(datas[0]);
+            Integer stockId = stockCodeMap.get(datas[0]);
 
             if (datas.length % 46 == 0) {
                 for (int i = 0; i < datas.length; i += 46) {
 
-                    stockRealTimeRepository.save(korStockRealTimeMapper.toEntity(
+                    tradesDefaltRepository.save(tradersMapper.toEntity(
                             IntStream.rangeClosed(i, i + 45)
                                     .mapToObj(j -> datas[j])
                                     .toArray(String[]::new), stockId)
@@ -93,39 +89,17 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
             }
         } else if (datas[0].indexOf("H0STASP0") != -1) {
             datas[0] = datas[0].substring(datas[0].lastIndexOf("|") + 1);
-            Long stockId = stockCodeMap.get(datas[0]);
+            Integer stockId = stockCodeMap.get(datas[0]);
 
             if (datas.length % 62 == 0) {
                 for (int i = 0; i < datas.length; i += 62) {
-                    orderRealTimeRepository.save(korOrderRealTimeMapper.toEntity(
+                    qotesDefaltRepository.save(qotesMapper.toEntity(
                             IntStream.rangeClosed(i, i + 61)
                                     .mapToObj(j -> datas[j])
                                     .toArray(String[]::new), stockId));
                 }
             }else{
                 throw new RuntimeException("실시간 호가 데이터 수집 중 오류: datas 크기가 안 맞음! " + datas.length);
-            }
-        } else if (datas[0].indexOf("H0STMKO0") != -1) {
-            datas[0] = datas[0].substring(datas[0].lastIndexOf("|") + 1);
-            Long stockId = stockCodeMap.get(datas[0]);
-
-            if (datas.length % 11 == 0) {
-                for (int i = 0; i < datas.length; i += 11) {
-                    viRealTimeRepository.save(
-                            new ViRealTime(
-                                    datas[i],
-                                    datas[i + 1],
-                                    datas[i + 2],
-                                    datas[i + 3],
-                                    datas[i + 4],
-                                    datas[i + 5],
-                                    datas[i + 6],
-                                    datas[i + 7],
-                                    datas[i + 8],
-                                    datas[i + 9],
-                                    datas[i + 10]
-                            ));
-                }
             }
         }
     }
@@ -143,7 +117,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
         System.out.println("웹소켓 연결이 종료되었습니다. 세션 ID: " + session.getId() + ", 상태: " + status);
     }
 
-    public void setStockCodeMap(HashMap<String, Long> stockCodeMap) {
+    public void setStockCodeMap(HashMap<String, Integer> stockCodeMap) {
         this.stockCodeMap = stockCodeMap;
     }
 }

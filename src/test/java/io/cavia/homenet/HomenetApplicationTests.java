@@ -3,18 +3,15 @@ package io.cavia.homenet;
 import io.cavia.homenet.client.ApiWebSocketClient;
 import io.cavia.homenet.client.ApiWebSocketHandler;
 import io.cavia.homenet.client.RestWebClient;
-import io.cavia.homenet.domain.Stock;
 import io.cavia.homenet.dto.response.KorStock047Output;
-import io.cavia.homenet.mapper.KorOrderRealTimeMapper;
-import io.cavia.homenet.mapper.KorStockRealTimeMapper;
+import io.cavia.homenet.mapper.QotesMapper;
+import io.cavia.homenet.mapper.TradersMapper;
 import io.cavia.homenet.mapper.KorStockRestRequestMapper;
-import io.cavia.homenet.repository.StockDefaltRepository;
-import io.cavia.homenet.repository.VStockDefaltRepository;
+import io.cavia.homenet.repository.StocksDefaltRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -28,23 +25,22 @@ class HomenetApplicationTests {
 	@Autowired
 	private ApiWebSocketHandler apiWebSocketHandler;
 	@Autowired
-	private KorStockRealTimeMapper korStockRealTimeMapper;
+	private TradersMapper tradersMapper;
 	@Autowired
-	private KorOrderRealTimeMapper korOrderRealTimeMapper;
+	private QotesMapper qotesMapper;
 	@Autowired
 	private RestWebClient restWebClient;
 	@Autowired
-	private VStockDefaltRepository stockDefaltRepository;
+	private StocksDefaltRepository stockDefaltRepository;
 	@Autowired
 	private KorStockRestRequestMapper korStockRestRequestMapper;
 	@Autowired
 	private ApiWebSocketClient apiWebSocketClient;
 
-	private HashMap<String, Long> stockCodeMap = new HashMap<>();
+	private HashMap<String, Integer> stockCodeMap = new HashMap<String, Integer>();
 
 
 
-	@Transactional
 	@Test
 	void test() {
 		List<KorStock047Output> list047 = restWebClient.searchStockInfo047("1001", "3").getOutput();
@@ -77,7 +73,7 @@ class HomenetApplicationTests {
 		}
 	}
 
-	public HashMap<String, Long> getStockCodeMap() {
+	public HashMap<String, Integer> getStockCodeMap() {
 		return stockCodeMap;
 	}
 }

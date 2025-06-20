@@ -1,10 +1,9 @@
 package io.cavia.homenet;
 
-import io.cavia.homenet.client.ApiOAuthManager;
 import io.cavia.homenet.client.ApiWebSocketClient;
 import io.cavia.homenet.client.ApiWebSocketHandler;
-import io.cavia.homenet.mapper.KorOrderRealTimeMapper;
-import io.cavia.homenet.mapper.KorStockRealTimeMapper;
+import io.cavia.homenet.mapper.QotesMapper;
+import io.cavia.homenet.mapper.TradersMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,9 +14,9 @@ public class WebSocketRequestTest {
     @Autowired
     private ApiWebSocketHandler apiWebSocketHandler;
     @Autowired
-    private KorStockRealTimeMapper korStockRealTimeMapper;
+    private TradersMapper tradersMapper;
     @Autowired
-    private KorOrderRealTimeMapper korOrderRealTimeMapper;
+    private QotesMapper qotesMapper;
     @Autowired
     private ApiWebSocketClient webSocketClient;
 
