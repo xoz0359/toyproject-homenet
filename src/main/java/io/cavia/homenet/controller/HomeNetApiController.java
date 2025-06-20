@@ -3,10 +3,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cavia.homenet.domain.Quotes;
 import io.cavia.homenet.domain.Stocks;
 import io.cavia.homenet.domain.Trades;
+import io.cavia.homenet.dto.error.HomenetApiErrorResponse;
 import io.cavia.homenet.repository.QotesDefaltRepository;
 import io.cavia.homenet.repository.TradesDefaltRepository;
 import io.cavia.homenet.service.SummaryStocksDataService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +21,6 @@ import java.util.List;
 @RequestMapping("/cavia/homenet")
 public class HomeNetApiController {
 
-
     private final SummaryStocksDataService summaryStocksDataService;
     private final ObjectMapper objectMapper;
 
@@ -26,9 +28,6 @@ public class HomeNetApiController {
         this.summaryStocksDataService = summaryStocksDataService;
         this.objectMapper = objectMapper;
     }
-
-
-
 
     /**
      * Post
@@ -41,35 +40,68 @@ public class HomeNetApiController {
      */
 
     @GetMapping("/stocks")
-    public ResponseEntity<String> getStocks() {
-        try {
+    public ResponseEntity<?> getStocks() {
             List<Stocks> stocks = summaryStocksDataService.getStocksAll();
-            String stocksJson = objectMapper.writeValueAsString(stocks);
-            return ResponseEntity
-                    .status(200)
-                    .body(stocksJson);
-        }catch (Exception e) {
-            return ResponseEntity
-                    .status(500)
-                    .body("현재 저장되어 있는 종목이 존재하지 않습니다.");
-        }
+
+            if(stocks == null || stocks.isEmpty()) {
+                return ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .body(new HomenetApiErrorResponse(HttpStatus.NOT_FOUND.value(),
+                                "Error: 현재 DB에 저장된 종목 데이터가 없습니다."));
+            }else{
+                    return ResponseEntity
+                            .status(HttpStatus.OK)
+                            .body(summaryStocksDataService.getStocksAll());
+            }
     }
 
     @GetMapping("/stock/{id}/trades")
-    public ResponseEntity<List<Trades>> getStockTrades(@PathVariable int id) {
-        return summaryStocksDataService.getTradesByStockId(id);
+    public ResponseEntity<?> getStockTrades(@PathVariable int id) {
+        List<Trades> Trades = summaryStocksDataService.getTradesByStockId(id);
+
+        if(Trades == null || Trades.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new HomenetApiErrorResponse(HttpStatus.NOT_FOUND.value(),
+                            "Error: 유효하지 않은 ID 값입니다."));
+        }else{
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(summaryStocksDataService.getTradesByStockId(id));
+        }
     }
 
     @GetMapping("/stock/{id}/quotes")
-    public ResponseEntity<List<Quotes>> getStockQuotes(@PathVariable int id) {
-        return summaryStocksDataService.getQuotesByStockId(id);
+    public ResponseEntity<?> getStockQuotes(@PathVariable int id) {
+        List<Quotes> Quotes = summaryStocksDataService.getQuotesByStockId(id);
+
+        if(Quotes == null || Quotes.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new HomenetApiErrorResponse(HttpStatus.NOT_FOUND.value(),
+                            "Error: 유효하지 않은 ID 값입니다."));
+        }else{
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(summaryStocksDataService.getQuotesByStockId(id));
+        }
     }
 
     @GetMapping("/stocks/delete/{id}")
-    public ResponseEntity<String> deleteStocks(@PathVariable int id) {
-        summaryStocksDataService.deleteStocks(id);
-        summaryStocksDataService.deleteTrades(id);
-        summaryStocksDataService.deleteQuotes(id);
+    public ResponseEntity<?> deleteStocks(@PathVariable int id) {
+        try {
+            summaryStocksDataService.deleteStocks(id);
+            summaryStocksDataService.deleteTrades(id);
+            summaryStocksDataService.deleteQuotes(id);
+        }catch(Exception e){
+              return ResponseEntity
+                      .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                      .body(new HomenetApiErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                      "Error: DB에서 삭제 중 오류가 발생했습니다."));
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Success: DB에서 종목 데이터 삭제 완료");
     }
 
 }
