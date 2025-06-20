@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public abstract class SummaryStocksDataServiceImpl implements SummaryStocksDataService {
+public class SummaryStocksDataServiceImpl implements SummaryStocksDataService {
 
     private final StocksDefaltRepository stockDefaltRepository;
     private final TradesDefaltRepository tradesDefaltRepository;
