@@ -1,10 +1,8 @@
 package io.cavia.homenet.mapper;
 
-import io.cavia.homenet.domain.OrderRealTime;
+import io.cavia.homenet.domain.Quotes;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class KorOrderRealTimeMapper {
     /**
@@ -15,11 +13,11 @@ public class KorOrderRealTimeMapper {
      *
      * @return
      */
-    public OrderRealTime toEntity(String[] datas, Long stockId) {
+    public Quotes toEntity(String[] datas, Long stockId) {
         if(datas == null) {
             throw new RuntimeException("매핑 중 오류 발생: Null이 입력되었습니다.");
         }
-        return new OrderRealTime(
+        return new Quotes(
             stockId,
             Integer.parseInt(datas[3]),   // askp1
             Integer.parseInt(datas[4]),   // askp2

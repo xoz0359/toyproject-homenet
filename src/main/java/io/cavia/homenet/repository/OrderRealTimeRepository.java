@@ -1,13 +1,13 @@
 package io.cavia.homenet.repository;
 
-import io.cavia.homenet.domain.OrderRealTime;
+import io.cavia.homenet.domain.Quotes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface OrderRealTimeRepository extends JpaRepository<OrderRealTime, Long> {
+public interface OrderRealTimeRepository extends JpaRepository<Quotes, Long> {
 
-    List<OrderRealTime> findByStockId(Long stockId);
+    List<Quotes> findByStockId(Long stockId);
 }

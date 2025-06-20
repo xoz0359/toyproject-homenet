@@ -2,18 +2,15 @@ package io.cavia.homenet.client;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.cavia.homenet.domain.ViRealTime;
 import io.cavia.homenet.mapper.KorOrderRealTimeMapper;
 import io.cavia.homenet.mapper.KorStockRealTimeMapper;
 import io.cavia.homenet.repository.OrderRealTimeRepository;
 import io.cavia.homenet.repository.StockRealTimeRepository;
-import io.cavia.homenet.repository.ViRealTimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import reactor.core.Exceptions;
 
 import java.util.HashMap;
 import java.util.stream.IntStream;
@@ -29,8 +26,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
     private StockRealTimeRepository stockRealTimeRepository;
     @Autowired
     private KorStockRealTimeMapper korStockRealTimeMapper;
-    @Autowired
-    private ViRealTimeRepository viRealTimeRepository;
+
 
     private HashMap<String, Long> stockCodeMap = new HashMap<>();
 
@@ -104,28 +100,6 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
                 }
             }else{
                 throw new RuntimeException("실시간 호가 데이터 수집 중 오류: datas 크기가 안 맞음! " + datas.length);
-            }
-        } else if (datas[0].indexOf("H0STMKO0") != -1) {
-            datas[0] = datas[0].substring(datas[0].lastIndexOf("|") + 1);
-            Long stockId = stockCodeMap.get(datas[0]);
-
-            if (datas.length % 11 == 0) {
-                for (int i = 0; i < datas.length; i += 11) {
-                    viRealTimeRepository.save(
-                            new ViRealTime(
-                                    datas[i],
-                                    datas[i + 1],
-                                    datas[i + 2],
-                                    datas[i + 3],
-                                    datas[i + 4],
-                                    datas[i + 5],
-                                    datas[i + 6],
-                                    datas[i + 7],
-                                    datas[i + 8],
-                                    datas[i + 9],
-                                    datas[i + 10]
-                            ));
-                }
             }
         }
     }

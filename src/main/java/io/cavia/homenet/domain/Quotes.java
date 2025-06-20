@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "order_real_time")
-public class OrderRealTime {
+@Table(name = "Quotes")
+public class Quotes {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -222,10 +222,10 @@ public class OrderRealTime {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
-    public OrderRealTime() {
+    public Quotes() {
     }
 
-    public OrderRealTime(Long stockId, Integer askp1, Integer askp2, Integer askp3, Integer askp4, Integer askp5, Integer askp6, Integer askp7, Integer askp8, Integer askp9, Integer askp10, Integer bidp1, Integer bidp2, Integer bidp3, Integer bidp4, Integer bidp5, Integer bidp6, Integer bidp7, Integer bidp8, Integer bidp9, Integer bidp10, Long askpRsqn1, Long askpRsqn2, Long askpRsqn3, Long askpRsqn4, Long askpRsqn5, Long askpRsqn6, Long askpRsqn7, Long askpRsqn8, Long askpRsqn9, Long askpRsqn10, Long bidpRsqn1, Long bidpRsqn2, Long bidpRsqn3, Long bidpRsqn4, Long bidpRsqn5, Long bidpRsqn6, Long bidpRsqn7, Long bidpRsqn8, Long bidpRsqn9, Long bidpRsqn10, Integer totalAskpRsqnIcdc, Integer totalBidpRsqnIcdc, LocalDateTime createdAt) {
+    public Quotes(Long stockId, Integer askp1, Integer askp2, Integer askp3, Integer askp4, Integer askp5, Integer askp6, Integer askp7, Integer askp8, Integer askp9, Integer askp10, Integer bidp1, Integer bidp2, Integer bidp3, Integer bidp4, Integer bidp5, Integer bidp6, Integer bidp7, Integer bidp8, Integer bidp9, Integer bidp10, Long askpRsqn1, Long askpRsqn2, Long askpRsqn3, Long askpRsqn4, Long askpRsqn5, Long askpRsqn6, Long askpRsqn7, Long askpRsqn8, Long askpRsqn9, Long askpRsqn10, Long bidpRsqn1, Long bidpRsqn2, Long bidpRsqn3, Long bidpRsqn4, Long bidpRsqn5, Long bidpRsqn6, Long bidpRsqn7, Long bidpRsqn8, Long bidpRsqn9, Long bidpRsqn10, Integer totalAskpRsqnIcdc, Integer totalBidpRsqnIcdc, LocalDateTime createdAt) {
         this.stockId = stockId;
         this.askp1 = askp1;
         this.askp2 = askp2;

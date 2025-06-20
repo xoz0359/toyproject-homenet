@@ -1,25 +1,16 @@
 package io.cavia.homenet;
 
 import io.cavia.homenet.client.RestWebClient;
-import io.cavia.homenet.domain.Stock;
-import io.cavia.homenet.dto.response.KorStock046Dto;
-import io.cavia.homenet.dto.response.KorStock046Output;
 import io.cavia.homenet.mapper.KorStockRestRequestMapper;
-import io.cavia.homenet.repository.StockDefaltRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @SpringBootTest
 public class RestRequestTest {
 
     @Autowired
     private RestWebClient restWebClient;
-    @Autowired
-    private StockDefaltRepository stockDefaltRepository;
     @Autowired
     private KorStockRestRequestMapper korStockRestRequestMapper;
 

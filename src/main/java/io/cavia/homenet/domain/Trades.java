@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "stock_real_time")
-public class StockRealTime {
+@Table(name = "Trades")
+public class Trades {
 
     @Id @GeneratedValue
     @Column(name = "id")
@@ -212,10 +212,10 @@ public class StockRealTime {
 
 
 
-    public StockRealTime() {
+    public Trades() {
     }
 
-    public StockRealTime(Long stockId, Integer stckPrpr, Integer askp1, Integer bidp1, Long cntgVol, Integer viStndPrc, LocalDateTime createdAt) {
+    public Trades(Long stockId, Integer stckPrpr, Integer askp1, Integer bidp1, Long cntgVol, Integer viStndPrc, LocalDateTime createdAt) {
         this.stockId = stockId;
         this.stckPrpr = stckPrpr;
         this.askp1 = askp1;

@@ -1,8 +1,8 @@
 package io.cavia.homenet.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.cavia.homenet.domain.OrderRealTime;
-import io.cavia.homenet.domain.StockRealTime;
+import io.cavia.homenet.domain.Quotes;
+import io.cavia.homenet.domain.Trades;
 import io.cavia.homenet.repository.OrderRealTimeRepository;
 import io.cavia.homenet.repository.StockRealTimeRepository;
 import org.springframework.stereotype.Component;
@@ -11,12 +11,9 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -59,8 +56,8 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
         // 클라이언트 메시지 처리 (echo, broadcast, 기타 로직 등)
         String payload = message.getPayload();
-        List<StockRealTime> SRTs = stockRealTimeRepository.findByStockId(Long.parseLong(payload));
-        List<OrderRealTime> ORTs = orderRealTimeRepository.findByStockId(Long.parseLong(payload));
+        List<Trades> SRTs = stockRealTimeRepository.findByStockId(Long.parseLong(payload));
+        List<Quotes> ORTs = orderRealTimeRepository.findByStockId(Long.parseLong(payload));
         try {
             List<Long> stockBaseTime = new ArrayList<Long>();
                 stockBaseTime.add(SRTs
