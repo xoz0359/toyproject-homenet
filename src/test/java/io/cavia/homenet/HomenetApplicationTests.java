@@ -4,8 +4,8 @@ import io.cavia.homenet.client.ApiWebSocketClient;
 import io.cavia.homenet.client.ApiWebSocketHandler;
 import io.cavia.homenet.client.RestWebClient;
 import io.cavia.homenet.dto.response.KorStock047Output;
-import io.cavia.homenet.mapper.KorOrderRealTimeMapper;
-import io.cavia.homenet.mapper.KorStockRealTimeMapper;
+import io.cavia.homenet.mapper.QotesMapper;
+import io.cavia.homenet.mapper.TradersMapper;
 import io.cavia.homenet.mapper.KorStockRestRequestMapper;
 import io.cavia.homenet.repository.StocksDefaltRepository;
 import org.junit.jupiter.api.Test;
@@ -25,9 +25,9 @@ class HomenetApplicationTests {
 	@Autowired
 	private ApiWebSocketHandler apiWebSocketHandler;
 	@Autowired
-	private KorStockRealTimeMapper korStockRealTimeMapper;
+	private TradersMapper tradersMapper;
 	@Autowired
-	private KorOrderRealTimeMapper korOrderRealTimeMapper;
+	private QotesMapper qotesMapper;
 	@Autowired
 	private RestWebClient restWebClient;
 	@Autowired

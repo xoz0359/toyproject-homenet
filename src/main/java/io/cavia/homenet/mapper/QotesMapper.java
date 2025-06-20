@@ -4,7 +4,7 @@ import io.cavia.homenet.domain.Quotes;
 
 import java.time.LocalDateTime;
 
-public class KorOrderRealTimeMapper {
+public class QotesMapper {
     /**
      * 국내주식 실시간호가 요청으로 발생하는 dvs를 Entity로 변환하는 메서드 입니다
      * dvs는 '^'를 구분자로 가지고 57개의 데이터가 매핑되어 있습니다

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StockRealTimeRepository extends JpaRepository<Trades, Long> {
+public interface TradesDefaltRepository extends JpaRepository<Trades, Long> {
 
     List<Trades> findByStockId(Long stockId);
 }

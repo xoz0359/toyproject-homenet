@@ -2,10 +2,10 @@ package io.cavia.homenet.client;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.cavia.homenet.mapper.KorOrderRealTimeMapper;
-import io.cavia.homenet.mapper.KorStockRealTimeMapper;
-import io.cavia.homenet.repository.OrderRealTimeRepository;
-import io.cavia.homenet.repository.StockRealTimeRepository;
+import io.cavia.homenet.mapper.QotesMapper;
+import io.cavia.homenet.mapper.TradersMapper;
+import io.cavia.homenet.repository.QotesDefaltRepository;
+import io.cavia.homenet.repository.TradesDefaltRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -19,13 +19,13 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     @Autowired
-    private OrderRealTimeRepository orderRealTimeRepository;
+    private QotesDefaltRepository qotesDefaltRepository;
     @Autowired
-    private KorOrderRealTimeMapper korOrderRealTimeMapper;
+    private QotesMapper qotesMapper;
     @Autowired
-    private StockRealTimeRepository stockRealTimeRepository;
+    private TradesDefaltRepository tradesDefaltRepository;
     @Autowired
-    private KorStockRealTimeMapper korStockRealTimeMapper;
+    private TradersMapper tradersMapper;
 
 
     private HashMap<String, Integer> stockCodeMap = new HashMap<String, Integer>();
@@ -80,7 +80,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
             if (datas.length % 46 == 0) {
                 for (int i = 0; i < datas.length; i += 46) {
 
-                    stockRealTimeRepository.save(korStockRealTimeMapper.toEntity(
+                    tradesDefaltRepository.save(tradersMapper.toEntity(
                             IntStream.rangeClosed(i, i + 45)
                                     .mapToObj(j -> datas[j])
                                     .toArray(String[]::new), stockId)
@@ -93,7 +93,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
 
             if (datas.length % 62 == 0) {
                 for (int i = 0; i < datas.length; i += 62) {
-                    orderRealTimeRepository.save(korOrderRealTimeMapper.toEntity(
+                    qotesDefaltRepository.save(qotesMapper.toEntity(
                             IntStream.rangeClosed(i, i + 61)
                                     .mapToObj(j -> datas[j])
                                     .toArray(String[]::new), stockId));

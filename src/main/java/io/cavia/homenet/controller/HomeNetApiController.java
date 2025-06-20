@@ -1,6 +1,5 @@
 package io.cavia.homenet.controller;
-import io.cavia.homenet.repository.OrderRealTimeRepository;
-import io.cavia.homenet.repository.StockRealTimeRepository;
+import io.cavia.homenet.repository.TradesDefaltRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/cavia/homenet")
 public class HomeNetApiController {
 
-    private final OrderRealTimeRepository orderRealTimeRepository;
-    private final StockRealTimeRepository stockRealTimeRepository;
+    private TradesDefaltRepository tradesDefaltRepository;
 
-    public HomeNetApiController(OrderRealTimeRepository orderRealTimeRepository, StockRealTimeRepository stockRealTimeRepository) {
-        this.orderRealTimeRepository = orderRealTimeRepository;
-        this.stockRealTimeRepository = stockRealTimeRepository;
-    }
+
 
     /**
      * Post
@@ -29,13 +24,13 @@ public class HomeNetApiController {
 
     @GetMapping("/stocks/{id}/quotes")
     public String getStockQuotes(@PathVariable Long id) {
-
+        return "getStockQuotes";
     }
 
 
     @GetMapping("/stocks/{id}/trades")
     public String getStockTrades() {
-
+        return "getStockTrades";
     }
 
 }
