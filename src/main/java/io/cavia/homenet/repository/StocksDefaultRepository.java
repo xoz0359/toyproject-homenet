@@ -15,10 +15,11 @@ import java.util.List;
 public interface StocksDefaultRepository extends JpaRepository<Stocks, Integer> {
     List<Stocks> findAllByOrderByIdDesc(Pageable pageable);
     List<Stocks> findAllByOrderByIdAsc();
-    @Query("SELECT COALESCE(MAX(q.id), 0) FROM Quotes q")
+    @Query("SELECT COALESCE(MAX(q.id), 0) FROM Stocks q")
     long findMaxId();
+
     @Modifying
     @Transactional
-    @Query(value = "ALTER TABLE Quotes AUTO_INCREMENT = ?1", nativeQuery = true)
+    @Query(value = "ALTER TABLE Stocks AUTO_INCREMENT = ?1", nativeQuery = true)
     void resetAutoIncrement(long nextId);
 }

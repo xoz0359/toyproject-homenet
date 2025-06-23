@@ -14,4 +14,5 @@ public interface SummaryStocksDataService {
     List<Trades> getTradesByStockId(int stockId);
     List<Quotes> getQuotesByStockId(int stockId);
     void deleteStocks(int stockId);
+    void synchronizedIdWithRowCount();
 }

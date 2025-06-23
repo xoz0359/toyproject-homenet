@@ -18,10 +18,10 @@ public interface TradesDefaultRepository extends JpaRepository<Trades, Long> {
 
     List<Trades> findAllByStockIdOrderByIdAsc(Integer stockId);
 
-    @Query("SELECT COALESCE(MAX(q.id), 0) FROM Quotes q")
+    @Query("SELECT COALESCE(MAX(q.id), 0) FROM Trades q")
     long findMaxId();
     @Modifying
     @Transactional
-    @Query(value = "ALTER TABLE Quotes AUTO_INCREMENT = ?1", nativeQuery = true)
+    @Query(value = "ALTER TABLE Trades AUTO_INCREMENT = ?1", nativeQuery = true)
     void resetAutoIncrement(long nextId);
 }

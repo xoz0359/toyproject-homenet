@@ -12,7 +12,7 @@ public class StockDataCollectorImpl implements StockDataCollector {
     }
 
     @Override
-    @Scheduled(cron = "0 41 11 * * ?")
+    @Scheduled(cron = "0 10 9 * * ?")
     public void collect() {
         summaryStocksDataService.collectStockDatas();
     }

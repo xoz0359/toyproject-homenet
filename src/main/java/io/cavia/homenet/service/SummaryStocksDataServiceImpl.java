@@ -63,6 +63,7 @@ public class SummaryStocksDataServiceImpl implements SummaryStocksDataService {
 
     @Override
     public void collectStockDatas() {
+
         if(restWebClient
                 .searchMarketIsOpen040()
                 .getOutput()
@@ -70,6 +71,8 @@ public class SummaryStocksDataServiceImpl implements SummaryStocksDataService {
                 .getOpen()
                 .equals("N")
         ) return;
+
+        synchronizedIdWithRowCount();
 
         // 거래대금 상위 20개 종목을 담을 맵
         Map<String, Integer> stockCodeMap = new HashMap<>();
@@ -127,5 +130,12 @@ public class SummaryStocksDataServiceImpl implements SummaryStocksDataService {
         stockDefaultRepository.deleteById(stockId);
         tradesDefaultRepository.deleteAllByStockId(stockId);
         quotesDefaultRepository.deleteAllByStockId(stockId);
+    }
+
+    @Override
+    public void synchronizedIdWithRowCount(){
+        stockDefaultRepository.resetAutoIncrement(stockDefaultRepository.findMaxId());
+        quotesDefaultRepository.resetAutoIncrement(quotesDefaultRepository.findMaxId());
+        tradesDefaultRepository.resetAutoIncrement(tradesDefaultRepository.findMaxId());
     }
 }

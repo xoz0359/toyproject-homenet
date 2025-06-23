@@ -85,7 +85,11 @@ class HomenetApplicationTests {
 
 	@Test
 	public void singcronizedIdWithRowCount(){
+		long num1 = stockDefaltRepository.findMaxId();
+		System.out.println("MaxID : " + num1);
 		stockDefaltRepository.resetAutoIncrement(stockDefaltRepository.findMaxId());
+		System.out.println("변환 후 MaxID : " + stockDefaltRepository.findMaxId());
+
 		quotesRepository.resetAutoIncrement(quotesRepository.findMaxId());
 		tradesDefaultRepository.resetAutoIncrement(tradesDefaultRepository.findMaxId());
 	}
