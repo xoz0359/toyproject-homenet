@@ -1,5 +1,6 @@
 package io.cavia.homenet.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ public class Quotes {
     private Long id;
 
     @Column(name = "stock_id", nullable = false)
+    @JsonProperty("stock_id")
     private Integer stockId;
 
     /*
@@ -92,64 +94,84 @@ public class Quotes {
 
     // 각 호가별 잔량 (매도)
     @Column(name = "askp_rsqn1")
+    @JsonProperty("askp_rsqn1")
     private Long askpRsqn1;
 
     @Column(name = "askp_rsqn2")
+    @JsonProperty("askp_rsqn2")
     private Long askpRsqn2;
 
     @Column(name = "askp_rsqn3")
+    @JsonProperty("askp_rsqn3")
     private Long askpRsqn3;
 
     @Column(name = "askp_rsqn4")
+    @JsonProperty("askp_rsqn4")
     private Long askpRsqn4;
 
     @Column(name = "askp_rsqn5")
+    @JsonProperty("askp_rsqn5")
     private Long askpRsqn5;
 
     @Column(name = "askp_rsqn6")
+    @JsonProperty("askp_rsqn6")
     private Long askpRsqn6;
 
     @Column(name = "askp_rsqn7")
+    @JsonProperty("askp_rsqn7")
     private Long askpRsqn7;
 
     @Column(name = "askp_rsqn8")
+    @JsonProperty("askp_rsqn8")
     private Long askpRsqn8;
 
     @Column(name = "askp_rsqn9")
+    @JsonProperty("askp_rsqn9")
     private Long askpRsqn9;
 
     @Column(name = "askp_rsqn10")
+    @JsonProperty("askp_rsqn10")
     private Long askpRsqn10;
 
     // 각 호가별 잔량 (매수)
     @Column(name = "bidp_rsqn1")
+    @JsonProperty("bidp_rsqn1")
     private Long bidpRsqn1;
 
     @Column(name = "bidp_rsqn2")
+    @JsonProperty("bidp_rsqn2")
     private Long bidpRsqn2;
 
     @Column(name = "bidp_rsqn3")
+    @JsonProperty("bidp_rsqn3")
     private Long bidpRsqn3;
 
     @Column(name = "bidp_rsqn4")
+    @JsonProperty("bidp_rsqn4")
     private Long bidpRsqn4;
 
     @Column(name = "bidp_rsqn5")
+    @JsonProperty("bidp_rsqn5")
     private Long bidpRsqn5;
 
     @Column(name = "bidp_rsqn6")
+    @JsonProperty("bidp_rsqn6")
     private Long bidpRsqn6;
 
     @Column(name = "bidp_rsqn7")
+    @JsonProperty("bidp_rsqn7")
     private Long bidpRsqn7;
 
     @Column(name = "bidp_rsqn8")
+    @JsonProperty("bidp_rsqn8")
     private Long bidpRsqn8;
 
     @Column(name = "bidp_rsqn9")
+    @JsonProperty("bidp_rsqn9")
     private Long bidpRsqn9;
 
     @Column(name = "bidp_rsqn10")
+    @JsonProperty("bidp_rsqn10")
     private Long bidpRsqn10;
 
     /*
@@ -202,10 +224,12 @@ public class Quotes {
 
     // 총 매도호가 잔량 증감
     @Column(name = "total_askp_rsqn_icdc")
+    @JsonProperty("total_askp_rsqn_icdc")
     private Integer totalAskpRsqnIcdc;
 
     // 총 매수호가 잔량 증감
     @Column(name = "total_bidp_rsqn_icdc")
+    @JsonProperty("total_bidp_rsqn_icdc")
     private Integer totalBidpRsqnIcdc;
     /*
     // 시간외 총 매도호가 증감
@@ -219,6 +243,7 @@ public class Quotes {
 
     // 생성 시간
     @Column(name = "created_at", updatable = false)
+    @JsonProperty("created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 

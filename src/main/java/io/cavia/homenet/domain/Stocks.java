@@ -1,5 +1,6 @@
 package io.cavia.homenet.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -22,6 +23,7 @@ public class Stocks {
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonProperty("created_at")
     private LocalDateTime createdAt;
 
     public Stocks() {}

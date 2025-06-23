@@ -1,5 +1,6 @@
 package io.cavia.homenet.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ public class Trades {
     private Long id;
 
     @Column(name = "stock_id", nullable = false)
+    @JsonProperty("stock_id")
     private Integer stockId;
 
     /*// 유가증권 단축 종목코드, 9자리 String
@@ -25,6 +27,7 @@ public class Trades {
 
     // 주식 현재가 (체결가격)
     @Column(name = "stck_prpr", nullable = false)
+    @JsonProperty("stck_prpr")
     private Integer stckPrpr; // 주식 현재가
 
     /*
@@ -68,6 +71,7 @@ public class Trades {
     private Integer bidp1; // 매수호가1
 
     @Column(name = "cntg_vol", nullable = false)
+    @JsonProperty("cntg_vol")
     private Long cntgVol; // 체결 거래량
 
     /*
@@ -203,10 +207,12 @@ public class Trades {
 
     // 정적VI발동기준가
     @Column(name = "vi_stnd_prc", nullable = false)
+    @JsonProperty("vi_stnd_prc")
     private Integer viStndPrc; // 정적VI발동기준가
 
     // 생성시간
     @Column(name = "created_at", updatable = false)
+    @JsonProperty("created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
