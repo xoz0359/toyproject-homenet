@@ -316,24 +316,24 @@
 
             let data = JSON.parse(event.data);
 
-            if (data.stckPrpr != null) {
+            if (data.stck_prpr != null) {
                 if (relTime == null) {
-                    relTime = new Date(data.createdAt);
+                    relTime = new Date(data.created_at);
                     for (let i = 0; i < selectDataZeroPoint.length; i++) {
-                        selectDataZeroPoint[i][0] = data.stckPrpr;
-                        selectDataMaxPoint[i][0] = data.stckPrpr;
-                        selectDataMinPoint[i][0] = data.stckPrpr;
+                        selectDataZeroPoint[i][0] = data.stck_prpr;
+                        selectDataMaxPoint[i][0] = data.stck_prpr;
+                        selectDataMinPoint[i][0] = data.stck_prpr;
                     }
                 } else {
                     let grapeTime = new Date(data.createdAt);
                     if (grapeTime - relTime >= Min5) {
                         selectData[0] = shiftArrayRight(selectData[0]);
                         selectDataMaxPoint[0] = shiftArrayRight(selectDataMaxPoint[0]);
-                        selectDataMaxPoint[0][0] = data.stckPrpr;
+                        selectDataMaxPoint[0][0] = data.stck_prpr;
                         selectDataMinPoint[0] = shiftArrayRight(selectDataMinPoint[0]);
-                        selectDataMinPoint[0][0] = data.stckPrpr;
+                        selectDataMinPoint[0][0] = data.stck_prpr;
                         selectDataZeroPoint[0] = shiftArrayRight(selectDataZeroPoint[0]);
-                        selectDataZeroPoint[0][0] = data.stckPrpr;
+                        selectDataZeroPoint[0][0] = data.stck_prpr;
                         relTime = grapeTime;
                         stickRefY = marginTop + LayoutHeight / 2;
                         expandGraph(0);
@@ -341,11 +341,11 @@
                     if (grapeTime - relTime >= Min3) {
                         selectData[1] = shiftArrayRight(selectData[1]);
                         selectDataMaxPoint[1] = shiftArrayRight(selectDataMaxPoint[1]);
-                        selectDataMaxPoint[1][0] = data.stckPrpr;
+                        selectDataMaxPoint[1][0] = data.stck_prpr;
                         selectDataMinPoint[1] = shiftArrayRight(selectDataMinPoint[1]);
-                        selectDataMinPoint[1][0] = data.stckPrpr;
+                        selectDataMinPoint[1][0] = data.stck_prpr;
                         selectDataZeroPoint[1] = shiftArrayRight(selectDataZeroPoint[1]);
-                        selectDataZeroPoint[1][0] = data.stckPrpr;
+                        selectDataZeroPoint[1][0] = data.stck_prpr;
                         relTime = grapeTime;
                         stickRefY = marginTop + LayoutHeight / 2;
                         expandGraph(1);
@@ -353,11 +353,11 @@
                     if (grapeTime - relTime >= Min1) {
                         selectData[2] = shiftArrayRight(selectData[2]);
                         selectDataMaxPoint[2] = shiftArrayRight(selectDataMaxPoint[2]);
-                        selectDataMaxPoint[2][0] = data.stckPrpr;
+                        selectDataMaxPoint[2][0] = data.stck_prpr;
                         selectDataMinPoint[2] = shiftArrayRight(selectDataMinPoint[2]);
-                        selectDataMinPoint[2][0] = data.stckPrpr;
+                        selectDataMinPoint[2][0] = data.stck_prpr;
                         selectDataZeroPoint[2] = shiftArrayRight(selectDataZeroPoint[2]);
-                        selectDataZeroPoint[2][0] = data.stckPrpr;
+                        selectDataZeroPoint[2][0] = data.stck_prpr;
                         relTime = grapeTime;
                         stickRefY = marginTop + LayoutHeight / 2;
                         expandGraph(2);
@@ -365,11 +365,11 @@
                     if (grapeTime - relTime >= Sec30) {
                         selectData[3] = shiftArrayRight(selectData[3]);
                         selectDataMaxPoint[3] = shiftArrayRight(selectDataMaxPoint[3]);
-                        selectDataMaxPoint[3][0] = data.stckPrpr;
+                        selectDataMaxPoint[3][0] = data.stck_prpr;
                         selectDataMinPoint[3] = shiftArrayRight(selectDataMinPoint[3]);
-                        selectDataMinPoint[3][0] = data.stckPrpr;
+                        selectDataMinPoint[3][0] = data.stck_prpr;
                         selectDataZeroPoint[3] = shiftArrayRight(selectDataZeroPoint[3]);
-                        selectDataZeroPoint[3][0] = data.stckPrpr;
+                        selectDataZeroPoint[3][0] = data.stck_prpr;
                         relTime = grapeTime;
                         stickRefY = marginTop + LayoutHeight / 2;
                         expandGraph(3);
@@ -378,32 +378,32 @@
 
                 // 봉마다 고점, 저점 저장
                 for (let i = 0; i < selectDataMaxPoint.length; i++) {
-                    if (selectDataMaxPoint[i][0] < data.stckPrpr) {
-                        selectDataMaxPoint[i][0] = data.stckPrpr;
+                    if (selectDataMaxPoint[i][0] < data.stck_prpr) {
+                        selectDataMaxPoint[i][0] = data.stck_prpr;
                     }
-                    if (selectDataMinPoint[i][0] > data.stckPrpr) {
-                        selectDataMinPoint[i][0] = data.stckPrpr;
+                    if (selectDataMinPoint[i][0] > data.stck_prpr) {
+                        selectDataMinPoint[i][0] = data.stck_prpr;
                     }
                 }
 
                 // 종가 저장
-                selectData[0][0] = data.stckPrpr;
-                selectData[1][0] = data.stckPrpr;
-                selectData[2][0] = data.stckPrpr;
-                selectData[3][0] = data.stckPrpr;
-                selectData[4].push(data.stckPrpr);
+                selectData[0][0] = data.stck_prpr;
+                selectData[1][0] = data.stck_prpr;
+                selectData[2][0] = data.stck_prpr;
+                selectData[3][0] = data.stck_prpr;
+                selectData[4].push(data.stck_prpr);
 
 
                 // 거래량 그래프 캔들 그리기
                 stickRefX = LayoutWidth + marginLeft - LayoutWidth / graphComp + valueStickWidth;
 
-                let priceGap = selectDataZeroPoint[selectDataIndex][0] - data.stckPrpr;
+                let priceGap = selectDataZeroPoint[selectDataIndex][0] - data.stck_prpr;
                 let highPointGap = selectDataMaxPoint[selectDataIndex][0] - selectDataZeroPoint[selectDataIndex][0];
                 let lowPointGap = selectDataZeroPoint[selectDataIndex][0] - selectDataMinPoint[selectDataIndex][0];
-                let tickSize = getTickSize(data.stckPrpr);
+                let tickSize = getTickSize(data.stck_prpr);
                 let viewRate = LayoutHeight /
-                    ((getMax(selectDataMaxPoint[selectDataIndex], graphComp) - data.stckPrpr) / tickSize +
-                        (data.stckPrpr - getMin(selectDataMinPoint[selectDataIndex], graphComp)) / tickSize
+                    ((getMax(selectDataMaxPoint[selectDataIndex], graphComp) - data.stck_prpr) / tickSize +
+                        (data.stck_prpr - getMin(selectDataMinPoint[selectDataIndex], graphComp)) / tickSize
                         + 20);
 
                 console.log(viewRate);

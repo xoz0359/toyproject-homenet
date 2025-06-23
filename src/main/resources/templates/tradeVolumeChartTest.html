@@ -242,11 +242,11 @@
 
             let data = JSON.parse(event.data);
 
-            if (data.cntgVol != null) {
+            if (data.cntg_vol != null) {
                 if (relTime == null) {
-                    relTime = new Date(data.createdAt);
+                    relTime = new Date(data.created_at);
                 } else {
-                    let grapeTime = new Date(data.createdAt);
+                    let grapeTime = new Date(data.created_at);
                     if (grapeTime - relTime >= Min5) {
                         selectData[0] = shiftArrayRight(selectData[0]);
                         showValueLate = getMax(selectData[0]);
@@ -278,11 +278,11 @@
                 }
 
 
-                selectData[0][0] += data.cntgVol;
-                selectData[1][0] += data.cntgVol;
-                selectData[2][0] += data.cntgVol;
-                selectData[3][0] += data.cntgVol;
-                selectData[4].push(data.cntgVol);
+                selectData[0][0] += data.cntg_vol;
+                selectData[1][0] += data.cntg_vol;
+                selectData[2][0] += data.cntg_vol;
+                selectData[3][0] += data.cntg_vol;
+                selectData[4].push(data.cntg_vol);
 
                 stickRefX = LayoutWidth + marginLeft - LayoutWidth / graphComp + valueStickWidth;
 
@@ -292,7 +292,7 @@
                     drowStick(stickRefX, LayoutHeight + marginTop - LayoutHeight * 0.8, valueStickWidth, LayoutHeight * 0.8);
                 } else {
                     // 거래량 그래프 스틱 그리기
-                    stickRefY -= data.cntgVol / showValueLate * LayoutHeight * 0.8;
+                    stickRefY -= data.cntg_vol / showValueLate * LayoutHeight * 0.8;
                     drowStick(stickRefX, stickRefY, valueStickWidth, selectData[selectDataIndex][0] / showValueLate * LayoutHeight * 0.8);
                 }
 
