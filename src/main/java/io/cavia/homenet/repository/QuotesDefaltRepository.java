@@ -1,20 +1,20 @@
 package io.cavia.homenet.repository;
 
-import io.cavia.homenet.domain.Stocks;
-import org.springframework.data.domain.Pageable;
+import io.cavia.homenet.domain.Quotes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 
 @Repository
-public interface StocksDefaltRepository extends JpaRepository<Stocks, Integer> {
-    List<Stocks> findAllByOrderByCreatedAtDesc(Pageable pageable);
-    List<Stocks> findAllByOrderByIdAsc();
+public interface QuotesDefaltRepository extends JpaRepository<Quotes, Long> {
+
+    List<Quotes> findByStockId(int stockId);
+    void deleteAllByStockId(Integer stockId);
+    List<Quotes> findAllByStockIdOrderByIdAsc(Integer stockId);
     @Query("SELECT COALESCE(MAX(q.id), 0) FROM Quotes q")
     long findMaxId();
     @Modifying

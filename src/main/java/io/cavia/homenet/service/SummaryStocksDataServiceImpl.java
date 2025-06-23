@@ -3,7 +3,7 @@ package io.cavia.homenet.service;
 import io.cavia.homenet.domain.Quotes;
 import io.cavia.homenet.domain.Stocks;
 import io.cavia.homenet.domain.Trades;
-import io.cavia.homenet.repository.QotesDefaltRepository;
+import io.cavia.homenet.repository.QuotesDefaltRepository;
 import io.cavia.homenet.repository.StocksDefaltRepository;
 import io.cavia.homenet.repository.TradesDefaltRepository;
 import org.springframework.stereotype.Service;
@@ -15,13 +15,13 @@ public class SummaryStocksDataServiceImpl implements SummaryStocksDataService {
 
     private final StocksDefaltRepository stockDefaltRepository;
     private final TradesDefaltRepository tradesDefaltRepository;
-    private final QotesDefaltRepository qotesDefaltRepository;
+    private final QuotesDefaltRepository quotesDefaltRepository;
 
 
-    public SummaryStocksDataServiceImpl(StocksDefaltRepository stocksDefaltRepository, TradesDefaltRepository tradesDefaltRepository, QotesDefaltRepository qotesDefaltRepository) {
+    public SummaryStocksDataServiceImpl(StocksDefaltRepository stocksDefaltRepository, TradesDefaltRepository tradesDefaltRepository, QuotesDefaltRepository quotesDefaltRepository) {
         this.stockDefaltRepository = stocksDefaltRepository;
         this.tradesDefaltRepository = tradesDefaltRepository;
-        this.qotesDefaltRepository = qotesDefaltRepository;
+        this.quotesDefaltRepository = quotesDefaltRepository;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SummaryStocksDataServiceImpl implements SummaryStocksDataService {
 
     @Override
     public List<Quotes> getQuotesByStockId(int id) {
-        return qotesDefaltRepository.findAllByStockIdOrderByIdAsc(id);
+        return quotesDefaltRepository.findAllByStockIdOrderByIdAsc(id);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SummaryStocksDataServiceImpl implements SummaryStocksDataService {
 
     @Override
     public void deleteQuotes(int id) {
-        qotesDefaltRepository.deleteAllByStockId(id);
+        quotesDefaltRepository.deleteAllByStockId(id);
     }
 
 

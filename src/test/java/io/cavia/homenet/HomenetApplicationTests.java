@@ -7,7 +7,9 @@ import io.cavia.homenet.dto.response.KorStock047Output;
 import io.cavia.homenet.mapper.QotesMapper;
 import io.cavia.homenet.mapper.TradersMapper;
 import io.cavia.homenet.mapper.KorStockRestRequestMapper;
+import io.cavia.homenet.repository.QuotesDefaltRepository;
 import io.cavia.homenet.repository.StocksDefaltRepository;
+import io.cavia.homenet.repository.TradesDefaltRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,6 +38,10 @@ class HomenetApplicationTests {
 	private KorStockRestRequestMapper korStockRestRequestMapper;
 	@Autowired
 	private ApiWebSocketClient apiWebSocketClient;
+	@Autowired
+	private QuotesDefaltRepository quotesRepository;
+	@Autowired
+	private TradesDefaltRepository tradesDefaltRepository;
 
 	private HashMap<String, Integer> stockCodeMap = new HashMap<String, Integer>();
 
@@ -75,5 +81,12 @@ class HomenetApplicationTests {
 
 	public HashMap<String, Integer> getStockCodeMap() {
 		return stockCodeMap;
+	}
+
+	@Test
+	public void singcronizedIdWithRowCount(){
+		stockDefaltRepository.resetAutoIncrement(stockDefaltRepository.findMaxId());
+		quotesRepository.resetAutoIncrement(quotesRepository.findMaxId());
+		tradesDefaltRepository.resetAutoIncrement(tradesDefaltRepository.findMaxId());
 	}
 }

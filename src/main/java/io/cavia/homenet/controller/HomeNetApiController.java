@@ -4,12 +4,9 @@ import io.cavia.homenet.domain.Quotes;
 import io.cavia.homenet.domain.Stocks;
 import io.cavia.homenet.domain.Trades;
 import io.cavia.homenet.dto.error.HomenetApiErrorResponse;
-import io.cavia.homenet.repository.QotesDefaltRepository;
-import io.cavia.homenet.repository.TradesDefaltRepository;
 import io.cavia.homenet.service.SummaryStocksDataService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

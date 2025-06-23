@@ -9,7 +9,7 @@ import io.cavia.homenet.controller.CaviaWebSocketHandler;
 import io.cavia.homenet.mapper.QotesMapper;
 import io.cavia.homenet.mapper.TradersMapper;
 import io.cavia.homenet.repository.ApiOAuthRepository;
-import io.cavia.homenet.repository.QotesDefaltRepository;
+import io.cavia.homenet.repository.QuotesDefaltRepository;
 import io.cavia.homenet.repository.TradesDefaltRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.context.annotation.Bean;
@@ -84,7 +84,7 @@ public class SpringConfig {
     }
 
     @Bean
-    public CaviaWebSocketHandler caviaWebSocketHandler(TradesDefaltRepository tradesDefaltRepository, QotesDefaltRepository qotesDefaltRepository, ObjectMapper objectMapper) {
-        return new CaviaWebSocketHandler(tradesDefaltRepository, qotesDefaltRepository, objectMapper);
+    public CaviaWebSocketHandler caviaWebSocketHandler(TradesDefaltRepository tradesDefaltRepository, QuotesDefaltRepository quotesDefaltRepository, ObjectMapper objectMapper) {
+        return new CaviaWebSocketHandler(tradesDefaltRepository, quotesDefaltRepository, objectMapper);
     }
 }

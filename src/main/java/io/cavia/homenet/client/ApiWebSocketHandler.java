@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cavia.homenet.mapper.QotesMapper;
 import io.cavia.homenet.mapper.TradersMapper;
-import io.cavia.homenet.repository.QotesDefaltRepository;
+import io.cavia.homenet.repository.QuotesDefaltRepository;
 import io.cavia.homenet.repository.TradesDefaltRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
@@ -19,7 +19,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     @Autowired
-    private QotesDefaltRepository qotesDefaltRepository;
+    private QuotesDefaltRepository quotesDefaltRepository;
     @Autowired
     private QotesMapper qotesMapper;
     @Autowired
@@ -93,7 +93,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
 
             if (datas.length % 62 == 0) {
                 for (int i = 0; i < datas.length; i += 62) {
-                    qotesDefaltRepository.save(qotesMapper.toEntity(
+                    quotesDefaltRepository.save(qotesMapper.toEntity(
                             IntStream.rangeClosed(i, i + 61)
                                     .mapToObj(j -> datas[j])
                                     .toArray(String[]::new), stockId));
