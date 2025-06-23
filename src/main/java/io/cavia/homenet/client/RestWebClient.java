@@ -5,6 +5,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class RestWebClient {
 
     private final WebClient webClient;
@@ -402,6 +406,45 @@ public class RestWebClient {
                     .bodyToMono(KorMarketFlow075Dto.class)
                     .block();
             return korMarketFlow075Dto;
+        } catch (WebClientResponseException e) {
+            System.out.println("API 호출 중 에러 발생!");
+            System.out.println("Status Code: " + e.getStatusCode());
+            String errorBody = e.getResponseBodyAsString();
+            throw new RuntimeException("API 호출 실패: " + errorBody, e);
+        } catch (Exception e) {
+            throw new RuntimeException("메서드 실행중 예외 발생: " + e.getMessage(), e);
+        }
+    }
+
+    public KorMarketIsOpen040Dto searchMarketIsOpen040() {
+        /**
+         * 예탁원정보(배당일정)
+         * FID_COND_MRKT_DIV_CODE: 시장분류조건코드(업종 -U)
+         * FID_INPUT_ISCD: 입력종목코드(0001: 코스피 , 1001: 코스닥)
+         */
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String today = dateFormat.format(new Date());
+
+        try {
+            String accessToken = apiOAuthManager.getAccessToken();
+            KorMarketIsOpen040Dto korMarketIsOpen040Dto = webClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/uapi/domestic-stock/v1/quotations/chk-holiday")
+                            .queryParam("BASS_DT", today)
+                            .queryParam("CTX_AREA_NK", "")
+                            .queryParam("CTX_AREA_FK", "")
+                            .build())
+                    .header(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8") // GET 요청시는 이렇게
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                    .header("appkey", apiOAuthManager.getAppKey())
+                    .header("appsecret", apiOAuthManager.getAppSecret())
+                    .header("tr_cont", "")
+                    .header("tr_id", "CTCA0903R")
+                    .header("custtype", "P")
+                    .retrieve() // 요청 보내고, 성공하면 응답 바디를 가져올 준비를 하고, 실패하면 예외를 던짐
+                    .bodyToMono(KorMarketIsOpen040Dto.class)
+                    .block();
+            return korMarketIsOpen040Dto;
         } catch (WebClientResponseException e) {
             System.out.println("API 호출 중 에러 발생!");
             System.out.println("Status Code: " + e.getStatusCode());
