@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cavia.homenet.mapper.QotesMapper;
 import io.cavia.homenet.mapper.TradersMapper;
-import io.cavia.homenet.repository.QuotesDefaltRepository;
-import io.cavia.homenet.repository.TradesDefaltRepository;
+import io.cavia.homenet.repository.QuotesDefaultRepository;
+import io.cavia.homenet.repository.TradesDefaultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -20,11 +20,11 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     @Autowired
-    private QuotesDefaltRepository quotesDefaltRepository;
+    private QuotesDefaultRepository quotesDefaultRepository;
     @Autowired
     private QotesMapper qotesMapper;
     @Autowired
-    private TradesDefaltRepository tradesDefaltRepository;
+    private TradesDefaultRepository tradesDefaultRepository;
     @Autowired
     private TradersMapper tradersMapper;
 
@@ -81,7 +81,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
             if (datas.length % 46 == 0) {
                 for (int i = 0; i < datas.length; i += 46) {
 
-                    tradesDefaltRepository.save(tradersMapper.toEntity(
+                    tradesDefaultRepository.save(tradersMapper.toEntity(
                             IntStream.rangeClosed(i, i + 45)
                                     .mapToObj(j -> datas[j])
                                     .toArray(String[]::new), stockId)
@@ -94,7 +94,7 @@ public class ApiWebSocketHandler extends TextWebSocketHandler {
 
             if (datas.length % 62 == 0) {
                 for (int i = 0; i < datas.length; i += 62) {
-                    quotesDefaltRepository.save(qotesMapper.toEntity(
+                    quotesDefaultRepository.save(qotesMapper.toEntity(
                             IntStream.rangeClosed(i, i + 61)
                                     .mapToObj(j -> datas[j])
                                     .toArray(String[]::new), stockId));

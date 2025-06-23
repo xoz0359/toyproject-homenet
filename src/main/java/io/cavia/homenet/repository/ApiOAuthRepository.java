@@ -3,10 +3,13 @@ package io.cavia.homenet.repository;
 import io.cavia.homenet.domain.ApiCredential;
 import io.cavia.homenet.domain.CredentialType;
 import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Repository
 public class ApiOAuthRepository {
 
     private final EntityManager em;
@@ -28,5 +31,11 @@ public class ApiOAuthRepository {
             .setParameter("credentialOwner", credentialOwner)
             .getResultStream()
             .collect(Collectors.toMap(o -> o.getCredentialType(), o -> o));
+    }
+
+    @Transactional
+    public void deleteAllByCredentialOwner() {
+        em.createQuery("DELETE FROM ApiCredential ac")
+            .executeUpdate();
     }
 }

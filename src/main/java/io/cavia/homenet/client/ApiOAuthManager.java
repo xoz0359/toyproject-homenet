@@ -46,6 +46,8 @@ public class ApiOAuthManager {
      */
     @Transactional
     public String getAccessToken() {
+        apiOAuthRepository.deleteAllByCredentialOwner();
+
         // 토큰을 갱신해야 하는 기준 시점: 현재 시간으로부터 1시간 후 이전이면 갱신
         // 즉, 만료까지 1시간 미만으로 남았거나 이미 만료된 경우를 의미합니다.
         LocalDateTime refreshThreshold = LocalDateTime.now().plusHours(1);

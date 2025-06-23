@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface SummaryStocksDataService {
 
+    void collectStockDatas();
+    void deleteApiToken();
     List<Stocks> getStocksAll();
-    List<Quotes> getQuotesByStockId(int id);
-    List<Trades> getTradesByStockId(int id);
-    void deleteStocks(int id);
-    void deleteTrades(int id);
-    void deleteQuotes(int id);
+    List<Trades> getTradesByStockId(int stockId);
+    List<Quotes> getQuotesByStockId(int stockId);
+    void deleteStocks(int stockId);
 }

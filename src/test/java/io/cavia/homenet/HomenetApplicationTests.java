@@ -7,9 +7,9 @@ import io.cavia.homenet.dto.response.KorStock047Output;
 import io.cavia.homenet.mapper.QotesMapper;
 import io.cavia.homenet.mapper.TradersMapper;
 import io.cavia.homenet.mapper.KorStockRestRequestMapper;
-import io.cavia.homenet.repository.QuotesDefaltRepository;
-import io.cavia.homenet.repository.StocksDefaltRepository;
-import io.cavia.homenet.repository.TradesDefaltRepository;
+import io.cavia.homenet.repository.QuotesDefaultRepository;
+import io.cavia.homenet.repository.StocksDefaultRepository;
+import io.cavia.homenet.repository.TradesDefaultRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,15 +33,15 @@ class HomenetApplicationTests {
 	@Autowired
 	private RestWebClient restWebClient;
 	@Autowired
-	private StocksDefaltRepository stockDefaltRepository;
+	private StocksDefaultRepository stockDefaltRepository;
 	@Autowired
 	private KorStockRestRequestMapper korStockRestRequestMapper;
 	@Autowired
 	private ApiWebSocketClient apiWebSocketClient;
 	@Autowired
-	private QuotesDefaltRepository quotesRepository;
+	private QuotesDefaultRepository quotesRepository;
 	@Autowired
-	private TradesDefaltRepository tradesDefaltRepository;
+	private TradesDefaultRepository tradesDefaultRepository;
 
 	private HashMap<String, Integer> stockCodeMap = new HashMap<String, Integer>();
 
@@ -87,6 +87,6 @@ class HomenetApplicationTests {
 	public void singcronizedIdWithRowCount(){
 		stockDefaltRepository.resetAutoIncrement(stockDefaltRepository.findMaxId());
 		quotesRepository.resetAutoIncrement(quotesRepository.findMaxId());
-		tradesDefaltRepository.resetAutoIncrement(tradesDefaltRepository.findMaxId());
+		tradesDefaultRepository.resetAutoIncrement(tradesDefaultRepository.findMaxId());
 	}
 }

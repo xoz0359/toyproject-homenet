@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface QuotesDefaltRepository extends JpaRepository<Quotes, Long> {
+public interface QuotesDefaultRepository extends JpaRepository<Quotes, Long> {
 
     List<Quotes> findByStockId(int stockId);
     void deleteAllByStockId(Integer stockId);

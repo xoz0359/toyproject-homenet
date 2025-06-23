@@ -85,8 +85,6 @@ public class HomeNetApiController {
     public ResponseEntity<?> deleteStocks(@PathVariable int id) {
         try {
             summaryStocksDataService.deleteStocks(id);
-            summaryStocksDataService.deleteTrades(id);
-            summaryStocksDataService.deleteQuotes(id);
         }catch(Exception e){
               return ResponseEntity
                       .status(HttpStatus.INTERNAL_SERVER_ERROR)

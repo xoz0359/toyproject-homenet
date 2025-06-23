@@ -3,8 +3,8 @@ package io.cavia.homenet.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cavia.homenet.domain.Quotes;
 import io.cavia.homenet.domain.Trades;
-import io.cavia.homenet.repository.QuotesDefaltRepository;
-import io.cavia.homenet.repository.TradesDefaltRepository;
+import io.cavia.homenet.repository.QuotesDefaultRepository;
+import io.cavia.homenet.repository.TradesDefaultRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -20,9 +20,9 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @Component
 public class CaviaWebSocketHandler extends TextWebSocketHandler {
 
-    private final TradesDefaltRepository tradesDefaltRepository;
+    private final TradesDefaultRepository tradesDefaultRepository;
 
-    private final QuotesDefaltRepository quotesDefaltRepository;
+    private final QuotesDefaultRepository quotesDefaultRepository;
 
     private final ObjectMapper objectMapper;
 
@@ -34,9 +34,9 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
     // 이로 인해 CopyOnWriteArraySet은 Thread safe를 보장합니다
     private static final Set<WebSocketSession> sessions = new CopyOnWriteArraySet<>();
 
-    public CaviaWebSocketHandler(TradesDefaltRepository tradesDefaltRepository, QuotesDefaltRepository quotesDefaltRepository, ObjectMapper objectMapper) {
-        this.tradesDefaltRepository = tradesDefaltRepository;
-        this.quotesDefaltRepository = quotesDefaltRepository;
+    public CaviaWebSocketHandler(TradesDefaultRepository tradesDefaultRepository, QuotesDefaultRepository quotesDefaultRepository, ObjectMapper objectMapper) {
+        this.tradesDefaultRepository = tradesDefaultRepository;
+        this.quotesDefaultRepository = quotesDefaultRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -56,8 +56,8 @@ public class CaviaWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
         // 클라이언트 메시지 처리 (echo, broadcast, 기타 로직 등)
         String payload = message.getPayload();
-        List<Trades> SRTs = tradesDefaltRepository.findByStockId(Integer.parseInt(payload));
-        List<Quotes> ORTs = quotesDefaltRepository.findByStockId(Integer.parseInt(payload));
+        List<Trades> SRTs = tradesDefaultRepository.findByStockId(Integer.parseInt(payload));
+        List<Quotes> ORTs = quotesDefaultRepository.findByStockId(Integer.parseInt(payload));
         try {
             List<Long> stockBaseTime = new ArrayList<Long>();
                 stockBaseTime.add(SRTs
