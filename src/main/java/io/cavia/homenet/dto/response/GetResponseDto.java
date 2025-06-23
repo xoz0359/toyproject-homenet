@@ -11,6 +11,8 @@ public class GetResponseDto {
     }
 
     public GetResponseDto(String message, List<?> output) {
+        this.message = message;
+        this.output = output;
     }
 
     public String getMessage() {
