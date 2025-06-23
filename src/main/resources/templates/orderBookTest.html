@@ -149,11 +149,11 @@
                     for (let i = 1; i <= 10; i++) {
                     document.getElementById("buy" + i).innerText = data["askp" + i];
                     document.getElementById("buyPrice" + i).innerText = data["askp_rsqn" + i];
-                    document.getElementById("buyAll").innerText = data.totalAskpRsqnIcdc;
+                    document.getElementById("buyAll").innerText = data.total_askp_rsqn_icdc;
 
                     document.getElementById("sel" + i).innerText = data["bidp" + i];
                     document.getElementById("selPrice" + i).innerText = data["bidp_rsqn" + i];
-                    document.getElementById("selAll").innerText = data.totalBidpRsqnIcdc;
+                    document.getElementById("selAll").innerText = data.total_bidp_rsqn_icdc;
                 }
 
             }

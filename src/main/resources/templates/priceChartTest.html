@@ -325,7 +325,7 @@
                         selectDataMinPoint[i][0] = data.stck_prpr;
                     }
                 } else {
-                    let grapeTime = new Date(data.createdAt);
+                    let grapeTime = new Date(data.created_at);
                     if (grapeTime - relTime >= Min5) {
                         selectData[0] = shiftArrayRight(selectData[0]);
                         selectDataMaxPoint[0] = shiftArrayRight(selectDataMaxPoint[0]);
